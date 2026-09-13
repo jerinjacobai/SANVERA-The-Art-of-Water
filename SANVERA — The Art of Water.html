@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://demo.unlimitedqatar.com/sanvera/sample/ -->
+<html lang="en" class="dark"><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SANVERA — The Art of Water</title>
+<meta name="description" content="Sanvera is a contemporary sanitaryware brand focused on the relationship between form, function and the ritual of water.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./SANVERA — The Art of Water_files/css2" rel="stylesheet">
+
+<script src="./SANVERA — The Art of Water_files/saved_resource"></script><script bis_use="true" type="text/javascript" charset="utf-8" nonce="" data-dynamic-id="f1da51e8-7b7d-4371-986d-2680b6bce0c9" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/200.js"></script><script bis_use="true" type="text/javascript" charset="utf-8" nonce="" data-dynamic-id="f1da51e8-7b7d-4371-986d-2680b6bce0c9" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/101.js"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          void:  '#000000',
+          char:  '#0B0C0D',
+          ash:   '#141618',
+          smoke: '#6E7276',
+          mist:  '#A9ADB0',
+          ink:   '#F2F3F1',
+          hair:  'rgba(255,255,255,0.10)'
+        },
+        fontFamily: {
+          display: ['"Inter Tight"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+          sans:    ['Inter', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif']
+        },
+        letterSpacing: { widest2: '0.28em' },
+        transitionTimingFunction: { editorial: 'cubic-bezier(0.16,1,0.3,1)' }
+      }
+    }
+  };
+</script>
+
+<style>
+  /* Only what Tailwind cannot express: masks, keyframes, pseudo-elements, placeholder plates. */
+  :root { --hero-height: 100svh; }
+  @supports not (height: 100svh) { :root { --hero-height: 100vh; } }
+
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+
+  /* While the hero holds the viewport, the document itself does not scroll —
+     gestures step through stages instead. */
+  .is-pinned, .is-pinned body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+  body { overflow-x: hidden; }
+  @supports (overflow: clip) { body { overflow-x: clip; } }
+  ::selection { background: #F2F3F1; color: #050506; }
+
+  .hero-scroll { height: var(--hero-height); }
+
+  /* Faint architectural grid, faded toward the edges */
+  .tech-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.18) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.18) 1px, transparent 1px);
+    background-size: 116px 116px;
+    background-position: center center;
+    opacity: 0.2;
+    -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 0%, rgba(0,0,0,0.55) 55%, transparent 82%);
+            mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 0%, rgba(0,0,0,0.55) 55%, transparent 82%);
+  }
+
+  .vignette {
+    background: radial-gradient(ellipse 120% 90% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.92) 100%);
+  }
+
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.025;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Hero stage panels — cross-faded, never instantly swapped */
+  .stage {
+    opacity: 0; visibility: hidden;
+    transition: opacity 900ms cubic-bezier(0.16,1,0.3,1), visibility 0s linear 900ms;
+  }
+  .stage-inner {
+    filter: blur(6px);
+    transition: transform 1100ms cubic-bezier(0.16,1,0.3,1), filter 900ms cubic-bezier(0.16,1,0.3,1);
+  }
+  .stage[data-from="left"]  .stage-inner { transform: translate3d(-30px,0,0); }
+  .stage[data-from="right"] .stage-inner { transform: translate3d(30px,0,0); }
+  .stage[data-from="split"] .stage-inner { transform: translate3d(0,26px,0); }
+  .stage.is-active { opacity: 1; visibility: visible; transition-delay: 0s, 0s; }
+  .stage.is-active .stage-inner { filter: blur(0); transform: translate3d(0,0,0); }
+
+  /* Vertical navigation */
+  .vnav-item .vnav-tick { transform: scaleX(0.34); transform-origin: left center; opacity: 0.4; }
+  .vnav-item.is-active .vnav-tick { transform: scaleX(1); opacity: 1; }
+
+  /* Luxury photography plates */
+  .plate {
+    position: relative;
+    overflow: hidden;
+    background-color: #101214;
+    isolation: isolate;
+  }
+
+  .plate-fill {
+    position: absolute;
+    inset: 0;
+    transition: transform 1400ms cubic-bezier(0.16,1,0.3,1);
+    background-image:
+      linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.38) 100%),
+      url("https://images.pexels.com/photos/6920614/pexels-photo-6920614.jpeg?auto=compress&cs=tinysrgb&w=1800");
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.72) contrast(1.08) brightness(0.72);
+  }
+
+  .plate-b .plate-fill {
+    background-image:
+      linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.44) 100%),
+      url("https://images.pexels.com/photos/31525748/pexels-photo-31525748.jpeg?auto=compress&cs=tinysrgb&w=1800");
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.68) contrast(1.10) brightness(0.70);
+  }
+
+  .plate-c .plate-fill {
+    background-image:
+      linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.46) 100%),
+      url("https://images.pexels.com/photos/7722157/pexels-photo-7722157.jpeg?auto=compress&cs=tinysrgb&w=1800");
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.64) contrast(1.12) brightness(0.68);
+  }
+
+  /* Premium monochrome treatment over the photography */
+  .plate-fill::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 25% 100%;
+    mix-blend-mode: screen;
+  }
+
+  .plate-fill::after {
+    content: "";
+    position: absolute;
+    left: -30%;
+    top: -60%;
+    width: 60%;
+    height: 220%;
+    transform: rotate(18deg);
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.045) 50%,
+      rgba(255,255,255,0) 100%
+    );
+    mix-blend-mode: screen;
+  }
+  .plate-fill::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 25% 100%;
+  }
+  .plate-fill::after {
+    content: ""; position: absolute; left: -30%; top: -60%; width: 60%; height: 220%;
+    transform: rotate(18deg);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.055) 50%, rgba(255,255,255,0) 100%);
+  }
+  .group:hover .plate-fill, .group:focus-visible .plate-fill { transform: scale(1.05); }
+
+
+  /* ---- Water lines: slow drifting sine field used as a section transition --
+     Each path is drawn two tiles wide, so translating exactly one tile
+     (-1440 user units) loops with no visible seam. ------------------------- */
+  .wave-band {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  @media (min-width: 1024px) { .wave-band { height: 220px; } }
+
+  .wave-band svg { display: block; width: 100%; height: 100%; }
+
+  .wave-line path {
+    fill: none;
+    stroke: #F2F3F1;
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .wave-line {
+    animation: wave-drift 30s linear infinite;
+    will-change: transform;
+  }
+  .wave-line--1 { opacity: 0.30; animation-duration: 28s; }
+  .wave-line--2 { opacity: 0.22; animation-duration: 36s; }
+  .wave-line--3 { opacity: 0.16; animation-duration: 46s; }
+  .wave-line--4 { opacity: 0.12; animation-duration: 22s; }
+  .wave-line--5 { opacity: 0.09; animation-duration: 54s; }
+
+  /* Opposing drift reads as depth rather than one sliding sheet */
+  .wave-band--reverse .wave-line { animation-direction: reverse; }
+
+  @keyframes wave-drift {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-1440px); }
+  }
+
+  /* Fade the field out at both edges so it dissolves into the section */
+  .wave-band::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #000 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 82%, #000 100%);
+  }
+  .wave-band--char::after {
+    background: linear-gradient(90deg, #0B0C0D 0%, rgba(11,12,13,0) 18%, rgba(11,12,13,0) 82%, #0B0C0D 100%);
+  }
+
+  /* Section reveal — one quiet entrance per block */
+  .reveal { opacity: 0; transform: translate3d(0,26px,0); transition: opacity 1100ms cubic-bezier(0.16,1,0.3,1), transform 1100ms cubic-bezier(0.16,1,0.3,1); }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  /* Collection rows */
+  .row-line { transform: scaleX(0); transform-origin: left center; transition: transform 900ms cubic-bezier(0.16,1,0.3,1); }
+  .row:hover .row-line, .row:focus-visible .row-line { transform: scaleX(1); }
+  .row-title { transition: transform 900ms cubic-bezier(0.16,1,0.3,1), color 500ms ease; }
+  .row:hover .row-title, .row:focus-visible .row-title { transform: translate3d(22px,0,0); }
+  .row-arrow { transition: transform 800ms cubic-bezier(0.16,1,0.3,1), opacity 600ms ease; }
+  .row:hover .row-arrow, .row:focus-visible .row-arrow { transform: translate3d(0,0,0); opacity: 1; }
+
+  /* Runtime state classes (kept out of Tailwind so they never depend on JIT) */
+  .site-header.is-condensed {
+    background-color: rgba(5,5,6,0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: rgba(255,255,255,0.10);
+  }
+  .menu-panel.is-open { opacity: 1; pointer-events: auto; }
+  .overlay-off { opacity: 0; pointer-events: none; }
+
+  #row-preview { opacity: 0; transition: opacity 600ms cubic-bezier(0.16,1,0.3,1); will-change: transform; }
+  #row-preview.is-visible { opacity: 1; }
+
+  .field input, .field select, .field textarea { background: transparent; }
+  .field select option { background: #0B0C0D; color: #F2F3F1; }
+
+  .marquee-track { animation: drift 46s linear infinite; }
+  @keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+
+  :focus-visible { outline: 1px solid #F2F3F1; outline-offset: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0}.pointer-events-none{pointer-events:none}.pointer-events-auto{pointer-events:auto}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.inset-x-0{left:0px;right:0px}.inset-y-0{top:0px;bottom:0px}.bottom-0{bottom:0px}.bottom-5{bottom:1.25rem}.bottom-6{bottom:1.5rem}.bottom-\[14vh\]{bottom:14vh}.left-0{left:0px}.left-5{left:1.25rem}.right-5{right:1.25rem}.top-0{top:0px}.top-\[14vh\]{top:14vh}.top-\[18vh\]{top:18vh}.z-20{z-index:20}.z-30{z-index:30}.z-40{z-index:40}.z-50{z-index:50}.z-\[60\]{z-index:60}.col-span-1{grid-column:span 1 / span 1}.col-span-2{grid-column:span 2 / span 2}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:0.25rem}.mt-12{margin-top:3rem}.mt-14{margin-top:3.5rem}.mt-16{margin-top:4rem}.mt-20{margin-top:5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-6{margin-top:1.5rem}.mt-7{margin-top:1.75rem}.mt-8{margin-top:2rem}.mt-9{margin-top:2.25rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.aspect-\[16\/10\]{aspect-ratio:16/10}.aspect-\[3\/4\]{aspect-ratio:3/4}.aspect-\[4\/3\]{aspect-ratio:4/3}.aspect-\[4\/5\]{aspect-ratio:4/5}.aspect-square{aspect-ratio:1 / 1}.h-16{height:4rem}.h-2\.5{height:0.625rem}.h-3{height:0.75rem}.h-3\.5{height:0.875rem}.h-4{height:1rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-\[100svh\]{height:100svh}.h-\[14px\]{height:14px}.h-\[300px\]{height:300px}.h-\[64vh\]{height:64vh}.h-\[72px\]{height:72px}.h-auto{height:auto}.h-full{height:100%}.h-px{height:1px}.w-16{width:4rem}.w-3{width:0.75rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-8{width:2rem}.w-\[230px\]{width:230px}.w-auto{width:auto}.w-full{width:100%}.w-px{width:1px}.max-w-\[17rem\]{max-width:17rem}.max-w-\[1800px\]{max-width:1800px}.max-w-\[18rem\]{max-width:18rem}.max-w-\[22rem\]{max-width:22rem}.max-w-\[26rem\]{max-width:26rem}.max-w-\[28rem\]{max-width:28rem}.max-w-\[30rem\]{max-width:30rem}.max-w-\[36rem\]{max-width:36rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.origin-top{transform-origin:top}.-translate-x-3{--tw-translate-x:-0.75rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-x-\[5px\]{--tw-translate-x:-5px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-y-0{--tw-scale-y:0;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.select-none{-webkit-user-select:none;user-select:none}.resize-none{resize:none}.appearance-none{-webkit-appearance:none;appearance:none}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.items-baseline{align-items:baseline}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-10{gap:2.5rem}.gap-12{gap:3rem}.gap-14{gap:3.5rem}.gap-2{gap:0.5rem}.gap-24{gap:6rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.gap-x-8{column-gap:2rem}.gap-y-10{row-gap:2.5rem}.gap-y-12{row-gap:3rem}.gap-y-9{row-gap:2.25rem}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.whitespace-nowrap{white-space:nowrap}.rounded-full{border-radius:9999px}.border{border-width:1px}.border-y{border-top-width:1px;border-bottom-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-hair{border-color:rgba(255,255,255,0.10)}.border-ink\/50{border-color:rgb(242 243 241 / 0.5)}.border-transparent{border-color:transparent}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-char{--tw-bg-opacity:1;background-color:rgb(11 12 13 / var(--tw-bg-opacity, 1))}.bg-current{background-color:currentColor}.bg-hair{background-color:rgba(255,255,255,0.10)}.bg-ink{--tw-bg-opacity:1;background-color:rgb(242 243 241 / var(--tw-bg-opacity, 1))}.bg-ink\/70{background-color:rgb(242 243 241 / 0.7)}.bg-void{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-void\/25{background-color:rgb(0 0 0 / 0.25)}.bg-void\/95{background-color:rgb(0 0 0 / 0.95)}.bg-gradient-to-b{background-image:linear-gradient(to bottom, var(--tw-gradient-stops))}.from-smoke{--tw-gradient-from:#6E7276 var(--tw-gradient-from-position);--tw-gradient-to:rgb(110 114 118 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-contain{object-fit:contain}.object-cover{object-fit:cover}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-7{padding-top:1.75rem;padding-bottom:1.75rem}.pb-10{padding-bottom:2.5rem}.pb-12{padding-bottom:3rem}.pb-2{padding-bottom:0.5rem}.pb-3{padding-bottom:0.75rem}.pr-10{padding-right:2.5rem}.pt-10{padding-top:2.5rem}.pt-20{padding-top:5rem}.pt-6{padding-top:1.5rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.font-display{font-family:"Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif}.font-sans{font-family:Inter, "Helvetica Neue", Helvetica, Arial, sans-serif}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[13px\]{font-size:13px}.text-base{font-size:1rem;line-height:1.5rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-light{font-weight:300}.uppercase{text-transform:uppercase}.leading-\[0\.94\]{line-height:0.94}.leading-\[0\.96\]{line-height:0.96}.leading-\[1\.2\]{line-height:1.2}.leading-loose{line-height:2}.leading-none{line-height:1}.leading-relaxed{line-height:1.625}.tracking-tight{letter-spacing:-0.025em}.tracking-widest2{letter-spacing:0.28em}.text-ink{--tw-text-opacity:1;color:rgb(242 243 241 / var(--tw-text-opacity, 1))}.text-ink\/\[0\.07\]{color:rgb(242 243 241 / 0.07)}.text-mist{--tw-text-opacity:1;color:rgb(169 173 176 / var(--tw-text-opacity, 1))}.text-smoke{--tw-text-opacity:1;color:rgb(110 114 118 / var(--tw-text-opacity, 1))}.text-smoke\/70{color:rgb(110 114 118 / 0.7)}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-0{opacity:0}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-1000{transition-duration:1000ms}.duration-500{transition-duration:500ms}.duration-700{transition-duration:700ms}.ease-editorial{transition-timing-function:cubic-bezier(0.16,1,0.3,1)}.placeholder\:text-smoke\/60::placeholder{color:rgb(110 114 118 / 0.6)}.hover\:scale-110:hover{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-ink:hover{--tw-border-opacity:1;border-color:rgb(242 243 241 / var(--tw-border-opacity, 1))}.hover\:bg-ink:hover{--tw-bg-opacity:1;background-color:rgb(242 243 241 / var(--tw-bg-opacity, 1))}.hover\:text-ink:hover{--tw-text-opacity:1;color:rgb(242 243 241 / var(--tw-text-opacity, 1))}.hover\:text-void:hover{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.focus\:not-sr-only:focus{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal}.focus\:fixed:focus{position:fixed}.focus\:left-6:focus{left:1.5rem}.focus\:top-6:focus{top:1.5rem}.focus\:z-\[100\]:focus{z-index:100}.focus\:border-ink:focus{--tw-border-opacity:1;border-color:rgb(242 243 241 / var(--tw-border-opacity, 1))}.focus\:bg-ink:focus{--tw-bg-opacity:1;background-color:rgb(242 243 241 / var(--tw-bg-opacity, 1))}.focus\:px-4:focus{padding-left:1rem;padding-right:1rem}.focus\:py-2:focus{padding-top:0.5rem;padding-bottom:0.5rem}.focus\:text-xs:focus{font-size:0.75rem;line-height:1rem}.focus\:uppercase:focus{text-transform:uppercase}.focus\:tracking-widest:focus{letter-spacing:0.1em}.focus\:text-void:focus{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus-visible\:scale-110:focus-visible{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.focus-visible\:border-ink:focus-visible{--tw-border-opacity:1;border-color:rgb(242 243 241 / var(--tw-border-opacity, 1))}.focus-visible\:text-ink:focus-visible{--tw-text-opacity:1;color:rgb(242 243 241 / var(--tw-text-opacity, 1))}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:opacity-40:disabled{opacity:0.4}.group:hover .group-hover\:translate-x-1\.5{--tw-translate-x:0.375rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:text-ink{--tw-text-opacity:1;color:rgb(242 243 241 / var(--tw-text-opacity, 1))}.dark\:bg-void:is(.dark *){--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}@media (min-width: 640px){.sm\:left-8{left:2rem}.sm\:right-8{right:2rem}.sm\:col-span-2{grid-column:span 2 / span 2}.sm\:col-span-3{grid-column:span 3 / span 3}.sm\:col-span-4{grid-column:span 4 / span 4}.sm\:col-span-5{grid-column:span 5 / span 5}.sm\:col-span-6{grid-column:span 6 / span 6}.sm\:col-span-7{grid-column:span 7 / span 7}.sm\:col-start-4{grid-column-start:4}.sm\:col-start-9{grid-column-start:9}.sm\:mt-16{margin-top:4rem}.sm\:mt-24{margin-top:6rem}.sm\:inline{display:inline}.sm\:aspect-\[16\/9\]{aspect-ratio:16/9}.sm\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}.sm\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:justify-between{justify-content:space-between}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:pb-10{padding-bottom:2.5rem}.sm\:text-right{text-align:right}}@media (min-width: 1024px){.lg\:bottom-7{bottom:1.75rem}.lg\:left-12{left:3rem}.lg\:left-32{left:8rem}.lg\:left-7{left:1.75rem}.lg\:left-9{left:2.25rem}.lg\:left-auto{left:auto}.lg\:right-12{right:3rem}.lg\:right-auto{right:auto}.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:col-span-3{grid-column:span 3 / span 3}.lg\:col-span-4{grid-column:span 4 / span 4}.lg\:col-span-5{grid-column:span 5 / span 5}.lg\:col-span-6{grid-column:span 6 / span 6}.lg\:col-span-7{grid-column:span 7 / span 7}.lg\:col-start-1{grid-column-start:1}.lg\:col-start-10{grid-column-start:10}.lg\:col-start-4{grid-column-start:4}.lg\:col-start-6{grid-column-start:6}.lg\:col-start-7{grid-column-start:7}.lg\:col-start-9{grid-column-start:9}.lg\:mt-0{margin-top:0px}.lg\:mt-12{margin-top:3rem}.lg\:mt-20{margin-top:5rem}.lg\:mt-24{margin-top:6rem}.lg\:mt-28{margin-top:7rem}.lg\:mt-32{margin-top:8rem}.lg\:mt-8{margin-top:2rem}.lg\:mt-9{margin-top:2.25rem}.lg\:block{display:block}.lg\:flex{display:flex}.lg\:hidden{display:none}.lg\:aspect-\[16\/13\]{aspect-ratio:16/13}.lg\:h-24{height:6rem}.lg\:h-4{height:1rem}.lg\:h-9{height:2.25rem}.lg\:h-\[18px\]{height:18px}.lg\:h-\[88px\]{height:88px}.lg\:w-12{width:3rem}.lg\:w-24{width:6rem}.lg\:w-3\.5{width:0.875rem}.lg\:w-\[18px\]{width:18px}.lg\:w-\[27rem\]{width:27rem}.lg\:max-w-\[21rem\]{max-width:21rem}.lg\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}.lg\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.lg\:flex-row{flex-direction:row}.lg\:items-end{align-items:flex-end}.lg\:justify-between{justify-content:space-between}.lg\:gap-0{gap:0px}.lg\:gap-12{gap:3rem}.lg\:gap-16{gap:4rem}.lg\:gap-7{gap:1.75rem}.lg\:gap-8{gap:2rem}.lg\:px-12{padding-left:3rem;padding-right:3rem}.lg\:py-10{padding-top:2.5rem;padding-bottom:2.5rem}.lg\:py-32{padding-top:8rem;padding-bottom:8rem}.lg\:py-5{padding-top:1.25rem;padding-bottom:1.25rem}.lg\:pb-14{padding-bottom:3.5rem}.lg\:pr-16{padding-right:4rem}.lg\:pt-32{padding-top:8rem}.lg\:pt-4{padding-top:1rem}.lg\:text-2xl{font-size:1.5rem;line-height:2rem}.lg\:text-4xl{font-size:2.25rem;line-height:2.5rem}.lg\:text-5xl{font-size:3rem;line-height:1}.lg\:text-6xl{font-size:3.75rem;line-height:1}.lg\:text-\[110px\]{font-size:110px}.lg\:text-lg{font-size:1.125rem;line-height:1.75rem}}@media (min-width: 1280px){.xl\:left-40{left:10rem}.xl\:right-28{right:7rem}.xl\:ml-\[6rem\]{margin-left:6rem}.xl\:mr-\[6rem\]{margin-right:6rem}.xl\:block{display:block}.xl\:flex{display:flex}.xl\:text-3xl{font-size:1.875rem;line-height:2.25rem}.xl\:text-5xl{font-size:3rem;line-height:1}.xl\:text-\[44px\]{font-size:44px}.xl\:text-\[55px\]{font-size:55px}.xl\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1536px){.\32xl\:gap-11{gap:2.75rem}.\32xl\:py-40{padding-top:10rem;padding-bottom:10rem}.\32xl\:text-4xl{font-size:2.25rem;line-height:2.5rem}.\32xl\:text-\[56px\]{font-size:56px}.\32xl\:text-\[64px\]{font-size:64px}.\32xl\:text-\[72px\]{font-size:72px}}</style><script src="./SANVERA — The Art of Water_files/main.js.download"></script><style> /* devanagari */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 100;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiGyp8kv8JHgFVrLPTucXtAKPY.woff2) format('woff2');
+      unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 100;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiGyp8kv8JHgFVrLPTufntAKPY.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 100;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiGyp8kv8JHgFVrLPTucHtA.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* devanagari */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiByp8kv8JHgFVrLGT9Z11lFc-K.woff2) format('woff2');
+      unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins light */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Light.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+    /* poppins regular */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Regular.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins thin */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 100;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Thin.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins medium */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Medium.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins semi bold */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-SemiBold.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins bold */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Bold.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    </style><style type="text/css" id="mytempCss">._8mqQwQ { display: none; } ._1TWLMK.icF5zO { opacity: 0.01; }</style></head>
+
+<body class="bg-void font-sans text-ink antialiased dark:bg-void" __processed_0fb154ce-0e5d-41a9-8817-987e47f78362__="true" bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJlbmFibGVkIiwiRkFDRUJPT0siOiJlbmFibGVkIiwiVFdJVFRFUiI6ImVuYWJsZWQiLCJSRURESVQiOiJlbmFibGVkIiwiUElOVEVSRVNUIjoiZW5hYmxlZCIsIklOU1RBR1JBTSI6ImVuYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZW5hYmxlZCIsIkNPTkZJRyI6ImRpc2FibGVkIn0sInZlcnNpb24iOiIyLjMuMCIsInNjb3JlIjoyMDMwMDB9XQ==">
+
+<a href="https://demo.unlimitedqatar.com/sanvera/sample/#about" class="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:bg-ink focus:px-4 focus:py-2 focus:text-xs focus:uppercase focus:tracking-widest focus:text-void">Skip to content</a>
+
+<!-- ============================== HEADER ============================== -->
+<header id="site-header" class="site-header fixed inset-x-0 top-0 z-50 h-[72px] border-b border-transparent transition-all duration-700 ease-editorial lg:h-[88px] is-condensed">
+  <div class="mx-auto flex h-full max-w-[1800px] items-center justify-between px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <a href="https://demo.unlimitedqatar.com/sanvera/sample/#hero" class="flex items-center" aria-label="Sanvera — home">
+      <img id="brand-logo" alt="Sanvera" width="3188" height="483" class="h-[14px] w-auto lg:h-[18px]" src="./SANVERA — The Art of Water_files/Sanvera_Type_Edited-02.png">
+      <span id="brand-fallback" class="hidden font-display text-base font-light uppercase tracking-widest2 text-ink">Sanvera</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 xl:flex 2xl:gap-11" aria-label="Primary">
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-[11px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">Collections</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#about" class="text-[11px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">About</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-[11px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">Craft</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#editorial" class="text-[11px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">Journal</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="text-[11px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-5 lg:gap-7" bis_skin_checked="1">
+      <button type="button" id="search-toggle" class="text-mist transition-colors duration-500 hover:text-ink focus-visible:text-ink" aria-label="Search the site">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="h-4 w-4 lg:h-[18px] lg:w-[18px]" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
+      </button>
+      <button type="button" id="menu-toggle" class="flex items-center gap-3 text-mist transition-colors duration-500 hover:text-ink" aria-expanded="false" aria-controls="menu-panel">
+        <span class="hidden text-[11px] uppercase tracking-widest2 sm:inline">Menu</span>
+        <span class="flex h-3 w-5 flex-col justify-between" aria-hidden="true">
+          <span class="block h-px w-full bg-current"></span>
+          <span class="block h-px w-full bg-current"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Menu overlay -->
+<div id="menu-panel" class="menu-panel pointer-events-none fixed inset-0 z-[60] bg-void/95 opacity-0 backdrop-blur-sm transition-opacity duration-700 ease-editorial" role="dialog" aria-modal="true" aria-label="Site menu" hidden="" bis_skin_checked="1">
+  <div class="mx-auto flex h-full max-w-[1800px] flex-col px-5 pb-12 pt-6 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="flex justify-end" bis_skin_checked="1">
+      <button type="button" id="menu-close" class="text-[11px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">Close</button>
+    </div>
+    <nav class="mt-14 flex flex-1 flex-col justify-center gap-6 lg:mt-0 lg:gap-8" aria-label="Overlay">
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#about" class="menu-link font-display text-4xl font-light uppercase tracking-tight text-mist transition-colors duration-500 hover:text-ink lg:text-6xl">About</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="menu-link font-display text-4xl font-light uppercase tracking-tight text-mist transition-colors duration-500 hover:text-ink lg:text-6xl">Collection</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#experience" class="menu-link font-display text-4xl font-light uppercase tracking-tight text-mist transition-colors duration-500 hover:text-ink lg:text-6xl">Experience</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#editorial" class="menu-link font-display text-4xl font-light uppercase tracking-tight text-mist transition-colors duration-500 hover:text-ink lg:text-6xl">Journal</a>
+      <a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="menu-link font-display text-4xl font-light uppercase tracking-tight text-mist transition-colors duration-500 hover:text-ink lg:text-6xl">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+<!-- ============================== HERO ============================== -->
+<section id="hero" class="hero-scroll relative bg-black">
+  <div id="hero-sticky" class="sticky top-0 h-[100svh] w-full overflow-hidden grain" bis_skin_checked="1">
+
+    <div class="pointer-events-none absolute inset-0 bg-black" bis_skin_checked="1"></div>
+    <div class="tech-grid pointer-events-none absolute inset-0" bis_skin_checked="1"></div>
+    <div class="vignette pointer-events-none absolute inset-0" bis_skin_checked="1"></div>
+
+    <!-- Scroll-scrubbed product film -->
+    <video id="hero-video" muted="" playsinline="" preload="auto" disablepictureinpicture="" class="absolute inset-0 h-full w-full object-contain transition-opacity duration-1000" aria-hidden="true" src="video1.mp4"></video>
+
+    <!-- Wireframe stand-in, shown only if the film cannot load -->
+    <svg id="hero-fallback" class="absolute inset-0 hidden h-full w-full" viewBox="0 0 1200 700" fill="none" aria-hidden="true">
+      <g id="fallback-rig" stroke="rgba(242,243,241,0.55)" stroke-width="1">
+        <path d="M540 470 h120 v14 a10 10 0 0 1-10 10 h-100 a10 10 0 0 1-10-10 z"></path>
+        <path d="M556 470 v-150 a44 44 0 0 1 44-44 h96"></path>
+        <path d="M696 276 v52"></path>
+        <path d="M600 276 h96" stroke-dasharray="3 6"></path>
+        <circle cx="600" cy="470" r="86" stroke="rgba(242,243,241,0.16)"></circle>
+        <circle cx="600" cy="470" r="140" stroke="rgba(242,243,241,0.08)"></circle>
+        <path d="M696 330 v120" stroke="rgba(242,243,241,0.22)" stroke-dasharray="2 8"></path>
+      </g>
+    </svg>
+
+    <!-- ---------- Vertical navigation ---------- -->
+    <aside class="pointer-events-none absolute inset-y-0 left-5 z-30 hidden lg:left-9 lg:block" aria-hidden="true">
+      <div class="relative flex h-full flex-col items-start justify-center" bis_skin_checked="1">
+        <span class="absolute left-0 top-[14vh] -translate-x-[5px] text-[13px] font-light leading-none text-smoke">+</span>
+        <span class="absolute bottom-[14vh] left-0 -translate-x-[5px] text-[13px] font-light leading-none text-smoke">+</span>
+
+        <div class="absolute left-0 top-[18vh] h-[64vh] w-px bg-hair" bis_skin_checked="1"></div>
+        <div id="vnav-progress" class="absolute left-0 top-[18vh] h-[64vh] w-px origin-top scale-y-0 bg-ink/70" style="transform: scaleY(1);" bis_skin_checked="1"></div>
+
+        <ul class="relative flex flex-col gap-24">
+          <li class="vnav-item" data-vnav="0">
+            <span class="vnav-tick block h-px w-8 bg-ink transition-all duration-700 ease-editorial"></span>
+          </li>
+          <li class="vnav-item" data-vnav="1">
+            <span class="vnav-tick block h-px w-8 bg-ink transition-all duration-700 ease-editorial"></span>
+          </li>
+          <li class="vnav-item is-active" data-vnav="2">
+            <span class="vnav-tick block h-px w-8 bg-ink transition-all duration-700 ease-editorial"></span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Compact indicator for small screens -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-6 z-30 flex items-center justify-center gap-4 lg:hidden" aria-hidden="true" bis_skin_checked="1">
+      <span class="vnav-item flex items-center gap-2" data-vnav="0">
+        <span class="vnav-tick block h-px w-5 bg-ink transition-transform duration-700 ease-editorial"></span>
+        <span data-label="" class="text-[10px] uppercase tracking-widest2 transition-colors duration-700 text-mist">Philosophy</span>
+      </span>
+      <span class="vnav-item flex items-center gap-2" data-vnav="1">
+        <span class="vnav-tick block h-px w-5 bg-ink transition-transform duration-700 ease-editorial"></span>
+        <span data-label="" class="text-[10px] uppercase tracking-widest2 transition-colors duration-700 text-mist">Craft</span>
+      </span>
+      <span class="vnav-item flex items-center gap-2 is-active" data-vnav="2">
+        <span class="vnav-tick block h-px w-5 bg-ink transition-transform duration-700 ease-editorial"></span>
+        <span data-label="" class="text-[10px] uppercase tracking-widest2 transition-colors duration-700 text-ink">Innovation</span>
+      </span>
+    </div>
+
+    <!-- ---------- Hero content stages ---------- -->
+    <div class="pointer-events-none absolute inset-0 z-20" bis_skin_checked="1">
+      <div class="relative mx-auto h-full w-full max-w-[1800px]" bis_skin_checked="1">
+
+        <!-- Stage 1 — left -->
+        <article class="stage absolute inset-y-0 left-5 right-5 flex items-center sm:left-8 sm:right-8 lg:left-32 lg:right-auto lg:w-[27rem] xl:left-40" data-stage="0" data-from="left">
+          <div class="stage-inner pointer-events-auto" bis_skin_checked="1">
+          <p class="text-[10px] tracking-widest2 text-smoke">01</p>
+          <p class="mt-3 text-[11px] uppercase tracking-widest2 text-mist">Philosophy</p>
+          <h1 class="mt-7 font-display text-4xl font-light uppercase leading-[0.94] tracking-tight text-ink lg:mt-9 lg:text-5xl xl:text-[55px] 2xl:text-[72px]">The art<br>of water</h1>
+          <p class="mt-6 max-w-[28rem] text-base font-light leading-relaxed text-mist lg:text-lg xl:text-xl">Where precision engineering meets the quiet luxury of everyday ritual.</p>
+          <a href="https://demo.unlimitedqatar.com/sanvera/sample/#about" class="group mt-9 inline-flex items-center gap-4 border-b border-hair pb-2 text-[11px] uppercase tracking-widest2 text-ink transition-colors duration-500 hover:border-ink lg:mt-12">
+            Explore Sanvera
+            <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="h-2.5 w-6 transition-transform duration-700 ease-editorial group-hover:translate-x-1.5" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+          </a>
+          </div>
+        </article>
+
+        <!-- Stage 2 — right -->
+        <article class="stage absolute inset-y-0 left-5 right-5 flex items-center sm:left-8 sm:right-8 lg:left-auto lg:right-12 lg:w-[27rem] xl:right-28" data-stage="1" data-from="right">
+          <div class="stage-inner pointer-events-auto" bis_skin_checked="1">
+          <p class="text-[10px] tracking-widest2 text-smoke">02</p>
+          <p class="mt-3 text-[11px] uppercase tracking-widest2 text-mist">Craft</p>
+          <h2 class="mt-7 font-display text-4xl font-light uppercase leading-[0.94] tracking-tight text-ink lg:mt-9 lg:text-5xl xl:text-[55px] 2xl:text-[72px]">Formed by<br>precision</h2>
+          <p class="mt-6 max-w-[28rem] text-base font-light leading-relaxed text-mist lg:text-lg xl:text-xl">Every curve, radius and junction is refined to create a form that feels effortless.</p>
+          <a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="group mt-9 inline-flex items-center gap-4 border-b border-hair pb-2 text-[11px] uppercase tracking-widest2 text-ink transition-colors duration-500 hover:border-ink lg:mt-12">
+            Discover the craft
+            <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="h-2.5 w-6 transition-transform duration-700 ease-editorial group-hover:translate-x-1.5" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+          </a>
+          </div>
+        </article>
+
+        <!-- Stage 3 — split around the centred product -->
+        <div class="stage absolute inset-y-0 left-5 right-5 flex items-center sm:left-8 sm:right-8 lg:left-12 lg:right-12 is-active" data-stage="2" data-from="split" bis_skin_checked="1">
+          <div class="stage-inner pointer-events-auto flex w-full flex-col gap-10 sm:flex-row sm:items-center sm:justify-between lg:gap-0" bis_skin_checked="1">
+            <article class="max-w-[17rem] lg:max-w-[21rem] xl:ml-[6rem]">
+              <p class="text-[10px] tracking-widest2 text-smoke/70">01</p>
+              <h3 class="mt-5 font-display text-3xl font-light uppercase leading-[0.96] tracking-tight text-ink lg:text-4xl xl:text-[44px] 2xl:text-[56px]">Precision</h3>
+              <p class="mt-5 text-base font-light leading-relaxed text-mist lg:text-lg">Sculpted geometry engineered around the natural movement of water.</p>
+            </article>
+            <article class="max-w-[17rem] sm:text-right lg:max-w-[21rem] xl:mr-[6rem]">
+              <p class="text-[10px] tracking-widest2 text-smoke/70">02</p>
+              <h3 class="mt-5 font-display text-3xl font-light uppercase leading-[0.96] tracking-tight text-ink lg:text-4xl xl:text-[44px] 2xl:text-[56px]">Control</h3>
+              <p class="mt-5 text-base font-light leading-relaxed text-mist lg:text-lg">Intuitive control designed around effortless everyday interaction.</p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div id="scroll-cue" class="pointer-events-none absolute bottom-6 right-5 z-30 hidden items-center gap-3 transition-opacity duration-700 lg:right-12 lg:flex" style="opacity: 0;" bis_skin_checked="1">
+      <span class="text-[10px] uppercase tracking-widest2 text-smoke">Scroll</span>
+      <span class="block h-8 w-px bg-gradient-to-b from-smoke to-transparent"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- water lines: hero -> about ---------- -->
+<div class="wave-band" aria-hidden="true" bis_skin_checked="1">
+  <svg viewBox="0 0 1440 200" preserveAspectRatio="none" focusable="false">
+        <g class="wave-line wave-line--1"><path d="M 0 100.0 L 26 110.8 L 51 120.5 L 77 128.1 L 103 132.8 L 129 134.5 L 154 133.4 L 180 130.0 L 206 125.1 L 231 119.5 L 257 114.1 L 283 109.3 L 309 105.5 L 334 102.5 L 360 100.0 L 386 97.5 L 411 94.5 L 437 90.7 L 463 85.9 L 489 80.5 L 514 74.9 L 540 70.0 L 566 66.6 L 591 65.5 L 617 67.2 L 643 71.9 L 669 79.5 L 694 89.2 L 720 100.0 L 746 110.8 L 771 120.5 L 797 128.1 L 823 132.8 L 849 134.5 L 874 133.4 L 900 130.0 L 926 125.1 L 951 119.5 L 977 114.1 L 1003 109.3 L 1029 105.5 L 1054 102.5 L 1080 100.0 L 1106 97.5 L 1131 94.5 L 1157 90.7 L 1183 85.9 L 1209 80.5 L 1234 74.9 L 1260 70.0 L 1286 66.6 L 1311 65.5 L 1337 67.2 L 1363 71.9 L 1389 79.5 L 1414 89.2 L 1440 100.0 L 1466 110.8 L 1491 120.5 L 1517 128.1 L 1543 132.8 L 1569 134.5 L 1594 133.4 L 1620 130.0 L 1646 125.1 L 1671 119.5 L 1697 114.1 L 1723 109.3 L 1749 105.5 L 1774 102.5 L 1800 100.0 L 1826 97.5 L 1851 94.5 L 1877 90.7 L 1903 85.9 L 1929 80.5 L 1954 74.9 L 1980 70.0 L 2006 66.6 L 2031 65.5 L 2057 67.2 L 2083 71.9 L 2109 79.5 L 2134 89.2 L 2160 100.0 L 2186 110.8 L 2211 120.5 L 2237 128.1 L 2263 132.8 L 2289 134.5 L 2314 133.4 L 2340 130.0 L 2366 125.1 L 2391 119.5 L 2417 114.1 L 2443 109.3 L 2469 105.5 L 2494 102.5 L 2520 100.0 L 2546 97.5 L 2571 94.5 L 2597 90.7 L 2623 85.9 L 2649 80.5 L 2674 74.9 L 2700 70.0 L 2726 66.6 L 2751 65.5 L 2777 67.2 L 2803 71.9 L 2829 79.5 L 2854 89.2 L 2880 100.0"></path></g>
+        <g class="wave-line wave-line--2"><path d="M 0 131.6 L 26 129.8 L 51 124.5 L 77 117.8 L 103 111.8 L 129 107.4 L 154 104.2 L 180 101.1 L 206 96.9 L 231 91.0 L 257 84.4 L 283 78.7 L 309 76.4 L 334 79.0 L 360 86.9 L 386 98.8 L 411 111.8 L 437 123.1 L 463 130.0 L 489 131.5 L 514 128.3 L 540 122.3 L 566 115.7 L 591 110.2 L 617 106.2 L 643 103.2 L 669 99.9 L 694 95.1 L 720 88.8 L 746 82.3 L 771 77.5 L 797 76.6 L 823 81.1 L 849 90.5 L 874 103.1 L 900 115.9 L 926 126.0 L 951 131.1 L 977 130.9 L 1003 126.5 L 1029 120.1 L 1054 113.7 L 1080 108.7 L 1106 105.2 L 1131 102.2 L 1157 98.4 L 1183 93.1 L 1209 86.6 L 1234 80.3 L 1260 76.7 L 1286 77.5 L 1311 83.7 L 1337 94.5 L 1363 107.5 L 1389 119.7 L 1414 128.3 L 1440 131.6 L 1466 129.8 L 1491 124.5 L 1517 117.8 L 1543 111.8 L 1569 107.4 L 1594 104.2 L 1620 101.1 L 1646 96.9 L 1671 91.0 L 1697 84.4 L 1723 78.7 L 1749 76.4 L 1774 79.0 L 1800 86.9 L 1826 98.8 L 1851 111.8 L 1877 123.1 L 1903 130.0 L 1929 131.5 L 1954 128.3 L 1980 122.3 L 2006 115.7 L 2031 110.2 L 2057 106.2 L 2083 103.2 L 2109 99.9 L 2134 95.1 L 2160 88.8 L 2186 82.3 L 2211 77.5 L 2237 76.6 L 2263 81.1 L 2289 90.5 L 2314 103.1 L 2340 115.9 L 2366 126.0 L 2391 131.1 L 2417 130.9 L 2443 126.5 L 2469 120.1 L 2494 113.7 L 2520 108.7 L 2546 105.2 L 2571 102.2 L 2597 98.4 L 2623 93.1 L 2649 86.6 L 2674 80.3 L 2700 76.7 L 2726 77.5 L 2751 83.7 L 2777 94.5 L 2803 107.5 L 2829 119.7 L 2854 128.3 L 2880 131.6"></path></g>
+        <g class="wave-line wave-line--3"><path d="M 0 108.1 L 26 106.1 L 51 104.9 L 77 104.4 L 103 104.3 L 129 104.3 L 154 103.9 L 180 102.8 L 206 100.9 L 231 97.9 L 257 93.7 L 283 88.6 L 309 82.7 L 334 76.3 L 360 70.0 L 386 64.0 L 411 58.9 L 437 55.1 L 463 52.7 L 489 51.9 L 514 52.7 L 540 55.0 L 566 58.6 L 591 62.9 L 617 67.8 L 643 72.6 L 669 77.1 L 694 80.9 L 720 83.9 L 746 85.9 L 771 87.1 L 797 87.6 L 823 87.7 L 849 87.7 L 874 88.1 L 900 89.2 L 926 91.1 L 951 94.1 L 977 98.3 L 1003 103.4 L 1029 109.3 L 1054 115.7 L 1080 122.0 L 1106 128.0 L 1131 133.1 L 1157 136.9 L 1183 139.3 L 1209 140.1 L 1234 139.3 L 1260 137.0 L 1286 133.4 L 1311 129.1 L 1337 124.2 L 1363 119.4 L 1389 114.9 L 1414 111.1 L 1440 108.1 L 1466 106.1 L 1491 104.9 L 1517 104.4 L 1543 104.3 L 1569 104.3 L 1594 103.9 L 1620 102.8 L 1646 100.9 L 1671 97.9 L 1697 93.7 L 1723 88.6 L 1749 82.7 L 1774 76.3 L 1800 70.0 L 1826 64.0 L 1851 58.9 L 1877 55.1 L 1903 52.7 L 1929 51.9 L 1954 52.7 L 1980 55.0 L 2006 58.6 L 2031 62.9 L 2057 67.8 L 2083 72.6 L 2109 77.1 L 2134 80.9 L 2160 83.9 L 2186 85.9 L 2211 87.1 L 2237 87.6 L 2263 87.7 L 2289 87.7 L 2314 88.1 L 2340 89.2 L 2366 91.1 L 2391 94.1 L 2417 98.3 L 2443 103.4 L 2469 109.3 L 2494 115.7 L 2520 122.0 L 2546 128.0 L 2571 133.1 L 2597 136.9 L 2623 139.3 L 2649 140.1 L 2674 139.3 L 2700 137.0 L 2726 133.4 L 2751 129.1 L 2777 124.2 L 2803 119.4 L 2829 114.9 L 2854 111.1 L 2880 108.1"></path></g>
+        <g class="wave-line wave-line--4"><path d="M 0 104.6 L 26 99.4 L 51 92.8 L 77 87.9 L 103 88.4 L 129 95.9 L 154 108.3 L 180 120.5 L 206 127.8 L 231 128.0 L 257 122.9 L 283 116.3 L 309 111.2 L 334 107.9 L 360 104.6 L 386 99.4 L 411 92.8 L 437 87.9 L 463 88.4 L 489 95.9 L 514 108.3 L 540 120.5 L 566 127.8 L 591 128.0 L 617 122.9 L 643 116.3 L 669 111.2 L 694 107.9 L 720 104.6 L 746 99.4 L 771 92.8 L 797 87.9 L 823 88.4 L 849 95.9 L 874 108.3 L 900 120.5 L 926 127.8 L 951 128.0 L 977 122.9 L 1003 116.3 L 1029 111.2 L 1054 107.9 L 1080 104.6 L 1106 99.4 L 1131 92.8 L 1157 87.9 L 1183 88.4 L 1209 95.9 L 1234 108.3 L 1260 120.5 L 1286 127.8 L 1311 128.0 L 1337 122.9 L 1363 116.3 L 1389 111.2 L 1414 107.9 L 1440 104.6 L 1466 99.4 L 1491 92.8 L 1517 87.9 L 1543 88.4 L 1569 95.9 L 1594 108.3 L 1620 120.5 L 1646 127.8 L 1671 128.0 L 1697 122.9 L 1723 116.3 L 1749 111.2 L 1774 107.9 L 1800 104.6 L 1826 99.4 L 1851 92.8 L 1877 87.9 L 1903 88.4 L 1929 95.9 L 1954 108.3 L 1980 120.5 L 2006 127.8 L 2031 128.0 L 2057 122.9 L 2083 116.3 L 2109 111.2 L 2134 107.9 L 2160 104.6 L 2186 99.4 L 2211 92.8 L 2237 87.9 L 2263 88.4 L 2289 95.9 L 2314 108.3 L 2340 120.5 L 2366 127.8 L 2391 128.0 L 2417 122.9 L 2443 116.3 L 2469 111.2 L 2494 107.9 L 2520 104.6 L 2546 99.4 L 2571 92.8 L 2597 87.9 L 2623 88.4 L 2649 95.9 L 2674 108.3 L 2700 120.5 L 2726 127.8 L 2751 128.0 L 2777 122.9 L 2803 116.3 L 2829 111.2 L 2854 107.9 L 2880 104.6"></path></g>
+        <g class="wave-line wave-line--5"><path d="M 0 61.4 L 26 60.3 L 51 63.9 L 77 72.0 L 103 82.9 L 129 93.9 L 154 102.3 L 180 106.9 L 206 108.0 L 231 107.2 L 257 106.8 L 283 108.4 L 309 112.6 L 334 118.1 L 360 122.6 L 386 123.7 L 411 120.1 L 437 112.0 L 463 101.1 L 489 90.1 L 514 81.7 L 540 77.1 L 566 76.0 L 591 76.8 L 617 77.2 L 643 75.6 L 669 71.4 L 694 65.9 L 720 61.4 L 746 60.3 L 771 63.9 L 797 72.0 L 823 82.9 L 849 93.9 L 874 102.3 L 900 106.9 L 926 108.0 L 951 107.2 L 977 106.8 L 1003 108.4 L 1029 112.6 L 1054 118.1 L 1080 122.6 L 1106 123.7 L 1131 120.1 L 1157 112.0 L 1183 101.1 L 1209 90.1 L 1234 81.7 L 1260 77.1 L 1286 76.0 L 1311 76.8 L 1337 77.2 L 1363 75.6 L 1389 71.4 L 1414 65.9 L 1440 61.4 L 1466 60.3 L 1491 63.9 L 1517 72.0 L 1543 82.9 L 1569 93.9 L 1594 102.3 L 1620 106.9 L 1646 108.0 L 1671 107.2 L 1697 106.8 L 1723 108.4 L 1749 112.6 L 1774 118.1 L 1800 122.6 L 1826 123.7 L 1851 120.1 L 1877 112.0 L 1903 101.1 L 1929 90.1 L 1954 81.7 L 1980 77.1 L 2006 76.0 L 2031 76.8 L 2057 77.2 L 2083 75.6 L 2109 71.4 L 2134 65.9 L 2160 61.4 L 2186 60.3 L 2211 63.9 L 2237 72.0 L 2263 82.9 L 2289 93.9 L 2314 102.3 L 2340 106.9 L 2366 108.0 L 2391 107.2 L 2417 106.8 L 2443 108.4 L 2469 112.6 L 2494 118.1 L 2520 122.6 L 2546 123.7 L 2571 120.1 L 2597 112.0 L 2623 101.1 L 2649 90.1 L 2674 81.7 L 2700 77.1 L 2726 76.0 L 2751 76.8 L 2777 77.2 L 2803 75.6 L 2829 71.4 L 2854 65.9 L 2880 61.4"></path></g>
+  </svg>
+</div>
+
+<!-- ============================== ABOUT ============================== -->
+<section id="about" class="relative h-auto bg-void py-20 lg:py-32 2xl:py-40">
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="reveal flex items-baseline gap-6 border-t border-hair pt-6 is-in" bis_skin_checked="1">
+      <span class="text-[10px] tracking-widest2 text-smoke">04</span>
+      <span class="text-[11px] uppercase tracking-widest2 text-mist">About Sanvera</span>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-12 lg:mt-24 lg:grid-cols-12 lg:gap-8" bis_skin_checked="1">
+      <div class="reveal lg:col-span-7 lg:col-start-1 is-in" bis_skin_checked="1">
+        <h2 class="font-display text-4xl font-light uppercase leading-[0.94] tracking-tight text-ink lg:text-5xl xl:text-[55px] 2xl:text-[72px]">Designed<br>around water</h2>
+      </div>
+      <div class="reveal lg:col-span-4 lg:col-start-9 lg:pt-4 is-in" bis_skin_checked="1">
+        <p class="max-w-[36rem] text-base font-light leading-loose text-mist lg:text-lg xl:text-xl">Sanvera is a contemporary sanitaryware brand focused on the relationship between form, function and the ritual of water.</p>
+        <p class="mt-8 max-w-[36rem] text-base font-light leading-loose text-smoke lg:text-lg xl:text-xl">Each piece begins as a drawing of movement — the arc of a stream, the pause before a tap is turned — and is resolved in solid brass, stone and glass.</p>
+      </div>
+    </div>
+
+    <div class="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-12 lg:mt-28 lg:gap-8" bis_skin_checked="1">
+      <figure class="reveal group plate aspect-[4/5] sm:col-span-7 lg:aspect-[16/13] is-in">
+        <span class="plate-fill"></span>
+        <figcaption class="absolute bottom-5 left-5 text-[10px] uppercase tracking-widest2 text-smoke lg:bottom-7 lg:left-7">In the studio</figcaption>
+      </figure>
+      <figure class="reveal group plate plate-b aspect-square sm:col-span-4 sm:col-start-9 sm:mt-16 lg:mt-28 is-in">
+        <span class="plate-fill"></span>
+        <figcaption class="absolute bottom-5 left-5 text-[10px] uppercase tracking-widest2 text-smoke lg:bottom-7 lg:left-7">Brass, in process</figcaption>
+      </figure>
+    </div>
+
+    <dl class="reveal mt-20 grid grid-cols-2 gap-y-10 border-t border-hair pt-10 lg:mt-28 lg:grid-cols-4 is-in">
+      <div bis_skin_checked="1"><dt class="text-[10px] uppercase tracking-widest2 text-smoke">Founded</dt><dd class="mt-3 font-display text-xl font-light text-ink lg:text-2xl">2019</dd></div>
+      <div bis_skin_checked="1"><dt class="text-[10px] uppercase tracking-widest2 text-smoke">Components</dt><dd class="mt-3 font-display text-xl font-light text-ink lg:text-2xl">340+</dd></div>
+      <div bis_skin_checked="1"><dt class="text-[10px] uppercase tracking-widest2 text-smoke">Finishes</dt><dd class="mt-3 font-display text-xl font-light text-ink lg:text-2xl">11</dd></div>
+      <div bis_skin_checked="1"><dt class="text-[10px] uppercase tracking-widest2 text-smoke">Warranty</dt><dd class="mt-3 font-display text-xl font-light text-ink lg:text-2xl">15 years</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================== GALLERY ONE ============================== -->
+<section id="gallery-form" class="relative h-auto bg-char py-20 lg:py-32 2xl:py-40">
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-12 lg:gap-8" bis_skin_checked="1">
+      <figure class="reveal group plate col-span-1 aspect-[3/4] sm:col-span-5 is-in">
+        <span class="plate-fill"></span>
+      </figure>
+      <div class="reveal col-span-1 flex items-end sm:col-span-3 sm:pb-10 is-in" bis_skin_checked="1">
+        <p class="max-w-[22rem] text-base font-light leading-loose text-mist lg:text-lg">Water is the only material we do not manufacture. Everything else exists to give it a shape worth watching.</p>
+      </div>
+      <figure class="reveal group plate plate-c col-span-1 aspect-[4/3] sm:col-span-4 sm:mt-24 is-in">
+        <span class="plate-fill"></span>
+        <figcaption class="absolute bottom-5 left-5 text-[10px] uppercase tracking-widest2 text-smoke">Vessel 04</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== COLLECTION ============================== -->
+<section id="collection" class="relative h-auto bg-void py-20 lg:py-32 2xl:py-40">
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="reveal flex flex-col gap-8 border-t border-hair pt-6 lg:flex-row lg:items-end lg:justify-between is-in" bis_skin_checked="1">
+      <h2 class="font-display text-4xl font-light uppercase leading-[0.94] tracking-tight text-ink lg:text-5xl xl:text-[55px] 2xl:text-[72px]">The collection</h2>
+      <p class="max-w-[26rem] text-base font-light leading-loose text-smoke lg:text-lg">Six families, one geometry. Every series shares the same radii, so pieces sit together in a room without argument.</p>
+    </div>
+
+    <ul class="mt-14 lg:mt-20">
+      <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="row group relative flex items-center gap-6 border-t border-hair py-7 lg:gap-12 lg:py-10" data-preview="a">
+        <span class="w-8 shrink-0 text-[10px] tracking-widest2 text-smoke lg:w-12">01</span>
+        <span class="row-title flex-1 font-display text-xl font-light uppercase tracking-tight text-mist group-hover:text-ink lg:text-2xl xl:text-3xl 2xl:text-4xl">Concealed Shower</span>
+        <span class="hidden max-w-[18rem] text-sm font-light leading-relaxed text-smoke xl:block">Flush-set plates, thermostatic core</span>
+        <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="row-arrow h-2.5 w-6 -translate-x-3 text-ink opacity-0" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+        <span class="row-line absolute bottom-0 left-0 h-px w-full bg-ink"></span>
+      </a></li>
+      <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="row group relative flex items-center gap-6 border-t border-hair py-7 lg:gap-12 lg:py-10" data-preview="b">
+        <span class="w-8 shrink-0 text-[10px] tracking-widest2 text-smoke lg:w-12">02</span>
+        <span class="row-title flex-1 font-display text-xl font-light uppercase tracking-tight text-mist group-hover:text-ink lg:text-2xl xl:text-3xl 2xl:text-4xl">Series Mixer</span>
+        <span class="hidden max-w-[18rem] text-sm font-light leading-relaxed text-smoke xl:block">Single-lever, ceramic cartridge</span>
+        <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="row-arrow h-2.5 w-6 -translate-x-3 text-ink opacity-0" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+        <span class="row-line absolute bottom-0 left-0 h-px w-full bg-ink"></span>
+      </a></li>
+      <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="row group relative flex items-center gap-6 border-t border-hair py-7 lg:gap-12 lg:py-10" data-preview="c">
+        <span class="w-8 shrink-0 text-[10px] tracking-widest2 text-smoke lg:w-12">03</span>
+        <span class="row-title flex-1 font-display text-xl font-light uppercase tracking-tight text-mist group-hover:text-ink lg:text-2xl xl:text-3xl 2xl:text-4xl">Faucets</span>
+        <span class="hidden max-w-[18rem] text-sm font-light leading-relaxed text-smoke xl:block">Deck and wall mounted</span>
+        <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="row-arrow h-2.5 w-6 -translate-x-3 text-ink opacity-0" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+        <span class="row-line absolute bottom-0 left-0 h-px w-full bg-ink"></span>
+      </a></li>
+      <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="row group relative flex items-center gap-6 border-t border-hair py-7 lg:gap-12 lg:py-10" data-preview="a">
+        <span class="w-8 shrink-0 text-[10px] tracking-widest2 text-smoke lg:w-12">04</span>
+        <span class="row-title flex-1 font-display text-xl font-light uppercase tracking-tight text-mist group-hover:text-ink lg:text-2xl xl:text-3xl 2xl:text-4xl">Bathtub</span>
+        <span class="hidden max-w-[18rem] text-sm font-light leading-relaxed text-smoke xl:block">Cast composite, seamless rim</span>
+        <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="row-arrow h-2.5 w-6 -translate-x-3 text-ink opacity-0" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+        <span class="row-line absolute bottom-0 left-0 h-px w-full bg-ink"></span>
+      </a></li>
+      <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="row group relative flex items-center gap-6 border-t border-hair py-7 lg:gap-12 lg:py-10" data-preview="b">
+        <span class="w-8 shrink-0 text-[10px] tracking-widest2 text-smoke lg:w-12">05</span>
+        <span class="row-title flex-1 font-display text-xl font-light uppercase tracking-tight text-mist group-hover:text-ink lg:text-2xl xl:text-3xl 2xl:text-4xl">Pedestal Sink</span>
+        <span class="hidden max-w-[18rem] text-sm font-light leading-relaxed text-smoke xl:block">Stone and vitreous china</span>
+        <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="row-arrow h-2.5 w-6 -translate-x-3 text-ink opacity-0" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+        <span class="row-line absolute bottom-0 left-0 h-px w-full bg-ink"></span>
+      </a></li>
+      <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="row group relative flex items-center gap-6 border-y border-hair py-7 lg:gap-12 lg:py-10" data-preview="c">
+        <span class="w-8 shrink-0 text-[10px] tracking-widest2 text-smoke lg:w-12">06</span>
+        <span class="row-title flex-1 font-display text-xl font-light uppercase tracking-tight text-mist group-hover:text-ink lg:text-2xl xl:text-3xl 2xl:text-4xl">Accessories</span>
+        <span class="hidden max-w-[18rem] text-sm font-light leading-relaxed text-smoke xl:block">Rails, shelves, holders</span>
+        <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="row-arrow h-2.5 w-6 -translate-x-3 text-ink opacity-0" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+        <span class="row-line absolute bottom-0 left-0 h-px w-full bg-ink"></span>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- Cursor-tracked preview, desktop pointer only -->
+  <div id="row-preview" class="pointer-events-none fixed left-0 top-0 z-40 hidden h-[300px] w-[230px] lg:block" aria-hidden="true" bis_skin_checked="1" style="transform: translate3d(878.4px, 225.5px, 0px);">
+    <span class="plate block h-full w-full plate-c"><span class="plate-fill"></span></span>
+  </div>
+</section>
+
+<!-- ---------- water lines: collection -> enquiry ---------- -->
+<div class="wave-band wave-band--reverse" aria-hidden="true" bis_skin_checked="1">
+  <svg viewBox="0 0 1440 200" preserveAspectRatio="none" focusable="false">
+        <g class="wave-line wave-line--1"><path d="M 0 100.0 L 26 110.8 L 51 120.5 L 77 128.1 L 103 132.8 L 129 134.5 L 154 133.4 L 180 130.0 L 206 125.1 L 231 119.5 L 257 114.1 L 283 109.3 L 309 105.5 L 334 102.5 L 360 100.0 L 386 97.5 L 411 94.5 L 437 90.7 L 463 85.9 L 489 80.5 L 514 74.9 L 540 70.0 L 566 66.6 L 591 65.5 L 617 67.2 L 643 71.9 L 669 79.5 L 694 89.2 L 720 100.0 L 746 110.8 L 771 120.5 L 797 128.1 L 823 132.8 L 849 134.5 L 874 133.4 L 900 130.0 L 926 125.1 L 951 119.5 L 977 114.1 L 1003 109.3 L 1029 105.5 L 1054 102.5 L 1080 100.0 L 1106 97.5 L 1131 94.5 L 1157 90.7 L 1183 85.9 L 1209 80.5 L 1234 74.9 L 1260 70.0 L 1286 66.6 L 1311 65.5 L 1337 67.2 L 1363 71.9 L 1389 79.5 L 1414 89.2 L 1440 100.0 L 1466 110.8 L 1491 120.5 L 1517 128.1 L 1543 132.8 L 1569 134.5 L 1594 133.4 L 1620 130.0 L 1646 125.1 L 1671 119.5 L 1697 114.1 L 1723 109.3 L 1749 105.5 L 1774 102.5 L 1800 100.0 L 1826 97.5 L 1851 94.5 L 1877 90.7 L 1903 85.9 L 1929 80.5 L 1954 74.9 L 1980 70.0 L 2006 66.6 L 2031 65.5 L 2057 67.2 L 2083 71.9 L 2109 79.5 L 2134 89.2 L 2160 100.0 L 2186 110.8 L 2211 120.5 L 2237 128.1 L 2263 132.8 L 2289 134.5 L 2314 133.4 L 2340 130.0 L 2366 125.1 L 2391 119.5 L 2417 114.1 L 2443 109.3 L 2469 105.5 L 2494 102.5 L 2520 100.0 L 2546 97.5 L 2571 94.5 L 2597 90.7 L 2623 85.9 L 2649 80.5 L 2674 74.9 L 2700 70.0 L 2726 66.6 L 2751 65.5 L 2777 67.2 L 2803 71.9 L 2829 79.5 L 2854 89.2 L 2880 100.0"></path></g>
+        <g class="wave-line wave-line--2"><path d="M 0 131.6 L 26 129.8 L 51 124.5 L 77 117.8 L 103 111.8 L 129 107.4 L 154 104.2 L 180 101.1 L 206 96.9 L 231 91.0 L 257 84.4 L 283 78.7 L 309 76.4 L 334 79.0 L 360 86.9 L 386 98.8 L 411 111.8 L 437 123.1 L 463 130.0 L 489 131.5 L 514 128.3 L 540 122.3 L 566 115.7 L 591 110.2 L 617 106.2 L 643 103.2 L 669 99.9 L 694 95.1 L 720 88.8 L 746 82.3 L 771 77.5 L 797 76.6 L 823 81.1 L 849 90.5 L 874 103.1 L 900 115.9 L 926 126.0 L 951 131.1 L 977 130.9 L 1003 126.5 L 1029 120.1 L 1054 113.7 L 1080 108.7 L 1106 105.2 L 1131 102.2 L 1157 98.4 L 1183 93.1 L 1209 86.6 L 1234 80.3 L 1260 76.7 L 1286 77.5 L 1311 83.7 L 1337 94.5 L 1363 107.5 L 1389 119.7 L 1414 128.3 L 1440 131.6 L 1466 129.8 L 1491 124.5 L 1517 117.8 L 1543 111.8 L 1569 107.4 L 1594 104.2 L 1620 101.1 L 1646 96.9 L 1671 91.0 L 1697 84.4 L 1723 78.7 L 1749 76.4 L 1774 79.0 L 1800 86.9 L 1826 98.8 L 1851 111.8 L 1877 123.1 L 1903 130.0 L 1929 131.5 L 1954 128.3 L 1980 122.3 L 2006 115.7 L 2031 110.2 L 2057 106.2 L 2083 103.2 L 2109 99.9 L 2134 95.1 L 2160 88.8 L 2186 82.3 L 2211 77.5 L 2237 76.6 L 2263 81.1 L 2289 90.5 L 2314 103.1 L 2340 115.9 L 2366 126.0 L 2391 131.1 L 2417 130.9 L 2443 126.5 L 2469 120.1 L 2494 113.7 L 2520 108.7 L 2546 105.2 L 2571 102.2 L 2597 98.4 L 2623 93.1 L 2649 86.6 L 2674 80.3 L 2700 76.7 L 2726 77.5 L 2751 83.7 L 2777 94.5 L 2803 107.5 L 2829 119.7 L 2854 128.3 L 2880 131.6"></path></g>
+        <g class="wave-line wave-line--3"><path d="M 0 108.1 L 26 106.1 L 51 104.9 L 77 104.4 L 103 104.3 L 129 104.3 L 154 103.9 L 180 102.8 L 206 100.9 L 231 97.9 L 257 93.7 L 283 88.6 L 309 82.7 L 334 76.3 L 360 70.0 L 386 64.0 L 411 58.9 L 437 55.1 L 463 52.7 L 489 51.9 L 514 52.7 L 540 55.0 L 566 58.6 L 591 62.9 L 617 67.8 L 643 72.6 L 669 77.1 L 694 80.9 L 720 83.9 L 746 85.9 L 771 87.1 L 797 87.6 L 823 87.7 L 849 87.7 L 874 88.1 L 900 89.2 L 926 91.1 L 951 94.1 L 977 98.3 L 1003 103.4 L 1029 109.3 L 1054 115.7 L 1080 122.0 L 1106 128.0 L 1131 133.1 L 1157 136.9 L 1183 139.3 L 1209 140.1 L 1234 139.3 L 1260 137.0 L 1286 133.4 L 1311 129.1 L 1337 124.2 L 1363 119.4 L 1389 114.9 L 1414 111.1 L 1440 108.1 L 1466 106.1 L 1491 104.9 L 1517 104.4 L 1543 104.3 L 1569 104.3 L 1594 103.9 L 1620 102.8 L 1646 100.9 L 1671 97.9 L 1697 93.7 L 1723 88.6 L 1749 82.7 L 1774 76.3 L 1800 70.0 L 1826 64.0 L 1851 58.9 L 1877 55.1 L 1903 52.7 L 1929 51.9 L 1954 52.7 L 1980 55.0 L 2006 58.6 L 2031 62.9 L 2057 67.8 L 2083 72.6 L 2109 77.1 L 2134 80.9 L 2160 83.9 L 2186 85.9 L 2211 87.1 L 2237 87.6 L 2263 87.7 L 2289 87.7 L 2314 88.1 L 2340 89.2 L 2366 91.1 L 2391 94.1 L 2417 98.3 L 2443 103.4 L 2469 109.3 L 2494 115.7 L 2520 122.0 L 2546 128.0 L 2571 133.1 L 2597 136.9 L 2623 139.3 L 2649 140.1 L 2674 139.3 L 2700 137.0 L 2726 133.4 L 2751 129.1 L 2777 124.2 L 2803 119.4 L 2829 114.9 L 2854 111.1 L 2880 108.1"></path></g>
+        <g class="wave-line wave-line--4"><path d="M 0 104.6 L 26 99.4 L 51 92.8 L 77 87.9 L 103 88.4 L 129 95.9 L 154 108.3 L 180 120.5 L 206 127.8 L 231 128.0 L 257 122.9 L 283 116.3 L 309 111.2 L 334 107.9 L 360 104.6 L 386 99.4 L 411 92.8 L 437 87.9 L 463 88.4 L 489 95.9 L 514 108.3 L 540 120.5 L 566 127.8 L 591 128.0 L 617 122.9 L 643 116.3 L 669 111.2 L 694 107.9 L 720 104.6 L 746 99.4 L 771 92.8 L 797 87.9 L 823 88.4 L 849 95.9 L 874 108.3 L 900 120.5 L 926 127.8 L 951 128.0 L 977 122.9 L 1003 116.3 L 1029 111.2 L 1054 107.9 L 1080 104.6 L 1106 99.4 L 1131 92.8 L 1157 87.9 L 1183 88.4 L 1209 95.9 L 1234 108.3 L 1260 120.5 L 1286 127.8 L 1311 128.0 L 1337 122.9 L 1363 116.3 L 1389 111.2 L 1414 107.9 L 1440 104.6 L 1466 99.4 L 1491 92.8 L 1517 87.9 L 1543 88.4 L 1569 95.9 L 1594 108.3 L 1620 120.5 L 1646 127.8 L 1671 128.0 L 1697 122.9 L 1723 116.3 L 1749 111.2 L 1774 107.9 L 1800 104.6 L 1826 99.4 L 1851 92.8 L 1877 87.9 L 1903 88.4 L 1929 95.9 L 1954 108.3 L 1980 120.5 L 2006 127.8 L 2031 128.0 L 2057 122.9 L 2083 116.3 L 2109 111.2 L 2134 107.9 L 2160 104.6 L 2186 99.4 L 2211 92.8 L 2237 87.9 L 2263 88.4 L 2289 95.9 L 2314 108.3 L 2340 120.5 L 2366 127.8 L 2391 128.0 L 2417 122.9 L 2443 116.3 L 2469 111.2 L 2494 107.9 L 2520 104.6 L 2546 99.4 L 2571 92.8 L 2597 87.9 L 2623 88.4 L 2649 95.9 L 2674 108.3 L 2700 120.5 L 2726 127.8 L 2751 128.0 L 2777 122.9 L 2803 116.3 L 2829 111.2 L 2854 107.9 L 2880 104.6"></path></g>
+        <g class="wave-line wave-line--5"><path d="M 0 61.4 L 26 60.3 L 51 63.9 L 77 72.0 L 103 82.9 L 129 93.9 L 154 102.3 L 180 106.9 L 206 108.0 L 231 107.2 L 257 106.8 L 283 108.4 L 309 112.6 L 334 118.1 L 360 122.6 L 386 123.7 L 411 120.1 L 437 112.0 L 463 101.1 L 489 90.1 L 514 81.7 L 540 77.1 L 566 76.0 L 591 76.8 L 617 77.2 L 643 75.6 L 669 71.4 L 694 65.9 L 720 61.4 L 746 60.3 L 771 63.9 L 797 72.0 L 823 82.9 L 849 93.9 L 874 102.3 L 900 106.9 L 926 108.0 L 951 107.2 L 977 106.8 L 1003 108.4 L 1029 112.6 L 1054 118.1 L 1080 122.6 L 1106 123.7 L 1131 120.1 L 1157 112.0 L 1183 101.1 L 1209 90.1 L 1234 81.7 L 1260 77.1 L 1286 76.0 L 1311 76.8 L 1337 77.2 L 1363 75.6 L 1389 71.4 L 1414 65.9 L 1440 61.4 L 1466 60.3 L 1491 63.9 L 1517 72.0 L 1543 82.9 L 1569 93.9 L 1594 102.3 L 1620 106.9 L 1646 108.0 L 1671 107.2 L 1697 106.8 L 1723 108.4 L 1749 112.6 L 1774 118.1 L 1800 122.6 L 1826 123.7 L 1851 120.1 L 1877 112.0 L 1903 101.1 L 1929 90.1 L 1954 81.7 L 1980 77.1 L 2006 76.0 L 2031 76.8 L 2057 77.2 L 2083 75.6 L 2109 71.4 L 2134 65.9 L 2160 61.4 L 2186 60.3 L 2211 63.9 L 2237 72.0 L 2263 82.9 L 2289 93.9 L 2314 102.3 L 2340 106.9 L 2366 108.0 L 2391 107.2 L 2417 106.8 L 2443 108.4 L 2469 112.6 L 2494 118.1 L 2520 122.6 L 2546 123.7 L 2571 120.1 L 2597 112.0 L 2623 101.1 L 2649 90.1 L 2674 81.7 L 2700 77.1 L 2726 76.0 L 2751 76.8 L 2777 77.2 L 2803 75.6 L 2829 71.4 L 2854 65.9 L 2880 61.4"></path></g>
+  </svg>
+</div>
+
+<!-- ============================== ENQUIRY ============================== -->
+<section id="enquiry" class="relative h-auto bg-char py-20 lg:py-32 2xl:py-40">
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-8" bis_skin_checked="1">
+      <div class="reveal lg:col-span-5 is-in" bis_skin_checked="1">
+        <div class="flex items-baseline gap-6 border-t border-hair pt-6" bis_skin_checked="1">
+          <span class="text-[10px] tracking-widest2 text-smoke">05</span>
+          <span class="text-[11px] uppercase tracking-widest2 text-mist">Projects</span>
+        </div>
+        <h2 class="mt-12 font-display text-4xl font-light uppercase leading-[0.94] tracking-tight text-ink lg:text-5xl xl:text-[55px]">Let's create<br>something distinct</h2>
+        <p class="mt-8 max-w-[28rem] text-base font-light leading-loose text-mist lg:text-lg xl:text-xl">Tell us about your project and our team will get in touch.</p>
+        <p class="mt-12 text-[11px] uppercase tracking-widest2 text-smoke">projects@sanvera.com<br class="hidden lg:block"><span class="lg:hidden"> · </span>+91 484 000 0000</p>
+      </div>
+
+      <form id="enquiry-form" class="reveal lg:col-span-6 lg:col-start-7 is-in" novalidate="">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2" bis_skin_checked="1">
+          <p class="field">
+            <label for="f-name" class="block text-[10px] uppercase tracking-widest2 text-smoke">Name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required="" class="mt-3 w-full border-b border-hair pb-3 text-base font-light text-ink placeholder:text-smoke/60 focus:border-ink focus:outline-none">
+          </p>
+          <p class="field">
+            <label for="f-company" class="block text-[10px] uppercase tracking-widest2 text-smoke">Company</label>
+            <input id="f-company" name="company" type="text" autocomplete="organization" class="mt-3 w-full border-b border-hair pb-3 text-base font-light text-ink focus:border-ink focus:outline-none">
+          </p>
+          <p class="field">
+            <label for="f-email" class="block text-[10px] uppercase tracking-widest2 text-smoke">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required="" class="mt-3 w-full border-b border-hair pb-3 text-base font-light text-ink focus:border-ink focus:outline-none">
+          </p>
+          <p class="field">
+            <label for="f-phone" class="block text-[10px] uppercase tracking-widest2 text-smoke">Phone</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" class="mt-3 w-full border-b border-hair pb-3 text-base font-light text-ink focus:border-ink focus:outline-none">
+          </p>
+          <p class="field">
+            <label for="f-type" class="block text-[10px] uppercase tracking-widest2 text-smoke">Project type</label>
+            <select id="f-type" name="projectType" class="mt-3 w-full appearance-none border-b border-hair pb-3 text-base font-light text-ink focus:border-ink focus:outline-none">
+              <option>Residence</option>
+              <option>Hospitality</option>
+              <option>Commercial</option>
+              <option>Retail showroom</option>
+              <option>Other</option>
+            </select>
+          </p>
+          <p class="field">
+            <label for="f-location" class="block text-[10px] uppercase tracking-widest2 text-smoke">Location</label>
+            <input id="f-location" name="location" type="text" class="mt-3 w-full border-b border-hair pb-3 text-base font-light text-ink focus:border-ink focus:outline-none">
+          </p>
+          <p class="field sm:col-span-2">
+            <label for="f-quantity" class="block text-[10px] uppercase tracking-widest2 text-smoke">Estimated requirement</label>
+            <input id="f-quantity" name="requirement" type="text" placeholder="e.g. 24 bathrooms" class="mt-3 w-full border-b border-hair pb-3 text-base font-light text-ink placeholder:text-smoke/60 focus:border-ink focus:outline-none">
+          </p>
+          <p class="field sm:col-span-2">
+            <label for="f-message" class="block text-[10px] uppercase tracking-widest2 text-smoke">Message</label>
+            <textarea id="f-message" name="message" rows="3" class="mt-3 w-full resize-none border-b border-hair pb-3 text-base font-light leading-relaxed text-ink focus:border-ink focus:outline-none"></textarea>
+          </p>
+        </div>
+
+        <div class="mt-12 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between" bis_skin_checked="1">
+          <button type="submit" class="group inline-flex items-center gap-4 border border-hair px-8 py-4 text-[11px] uppercase tracking-widest2 text-ink transition-colors duration-700 ease-editorial hover:border-ink hover:bg-ink hover:text-void focus-visible:border-ink disabled:cursor-not-allowed disabled:opacity-40">
+            Start a project
+            <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1" class="h-2.5 w-6 transition-transform duration-700 ease-editorial group-hover:translate-x-1.5" aria-hidden="true"><path d="M0 6h22M17 1l5 5-5 5"></path></svg>
+          </button>
+          <p id="form-status" class="text-[11px] uppercase tracking-widest2 text-smoke" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EXPERIENCE FILM ============================== -->
+<section id="experience" class="relative h-auto bg-void py-20 lg:py-32 2xl:py-40">
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="reveal group plate relative aspect-[4/5] w-full sm:aspect-[16/9] is-in" bis_skin_checked="1">
+      <span class="plate-fill"></span>
+      <video id="experience-video" muted="" playsinline="" loop="" preload="none" class="absolute inset-0 hidden h-full w-full object-cover"></video>
+
+      <div id="experience-overlay" class="absolute inset-0 flex flex-col items-center justify-center gap-8 bg-void/25 px-6 text-center transition-opacity duration-700" bis_skin_checked="1">
+        <button type="button" id="play-experience" class="flex h-16 w-16 items-center justify-center rounded-full border border-ink/50 text-ink transition-all duration-700 ease-editorial hover:scale-110 hover:border-ink focus-visible:scale-110 lg:h-24 lg:w-24" aria-label="Play the Sanvera film">
+          <svg viewBox="0 0 12 14" fill="currentColor" class="ml-1 h-3.5 w-3 lg:h-4 lg:w-3.5" aria-hidden="true"><path d="M0 0l12 7-12 7z"></path></svg>
+        </button>
+        <div bis_skin_checked="1">
+          <h2 class="font-display text-xl font-light uppercase tracking-widest2 text-ink lg:text-2xl xl:text-3xl">The Sanvera experience</h2>
+          <p class="mt-4 text-base font-light text-mist lg:text-lg">A closer look at the philosophy behind every form.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EDITORIAL ============================== -->
+<section id="editorial" class="relative h-auto overflow-hidden bg-char py-20 lg:py-32 2xl:py-40">
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="reveal grid grid-cols-1 gap-6 sm:grid-cols-12 lg:gap-8 is-in" bis_skin_checked="1">
+      <figure class="group plate col-span-1 aspect-[4/5] sm:col-span-6 lg:col-span-5">
+        <span class="plate-fill"></span>
+        <figcaption class="absolute bottom-5 left-5 text-[10px] uppercase tracking-widest2 text-smoke">Form</figcaption>
+      </figure>
+      <div class="col-span-1 flex flex-col justify-center sm:col-span-6 lg:col-span-6 lg:col-start-7" bis_skin_checked="1">
+        <h2 class="font-display text-3xl font-light uppercase leading-[0.94] tracking-tight text-ink lg:text-4xl xl:text-5xl 2xl:text-[64px]">A room<br>reduced to<br>its surfaces</h2>
+        <p class="mt-8 max-w-[30rem] text-base font-light leading-loose text-mist lg:text-lg">Nothing is added for effect. Joints are hidden, edges are drawn once, and light is allowed to do the rest.</p>
+      </div>
+      <figure class="group plate plate-b col-span-1 aspect-[16/10] sm:col-span-7 sm:col-start-4 lg:col-span-6 lg:col-start-4 lg:mt-8">
+        <span class="plate-fill"></span>
+        <figcaption class="absolute bottom-5 left-5 text-[10px] uppercase tracking-widest2 text-smoke">Material</figcaption>
+      </figure>
+      <figure class="group plate plate-c col-span-1 aspect-square sm:col-span-4 sm:col-start-9 lg:col-span-3 lg:col-start-10 lg:mt-8">
+        <span class="plate-fill"></span>
+        <figcaption class="absolute bottom-5 left-5 text-[10px] uppercase tracking-widest2 text-smoke">Water</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="mt-20 flex w-full select-none overflow-hidden py-3 lg:mt-32 lg:py-5" aria-hidden="true" bis_skin_checked="1">
+    <div class="marquee-track flex shrink-0 items-center gap-10 whitespace-nowrap pr-10 font-display text-4xl font-light uppercase leading-[1.2] tracking-tight text-ink/[0.07] lg:gap-16 lg:pr-16 lg:text-[110px]" bis_skin_checked="1">
+      <span>Form</span><span>·</span><span>Material</span><span>·</span><span>Water</span><span>·</span>
+      <span>Form</span><span>·</span><span>Material</span><span>·</span><span>Water</span><span>·</span>
+    </div>
+    <div class="marquee-track flex shrink-0 items-center gap-10 whitespace-nowrap pr-10 font-display text-4xl font-light uppercase leading-[1.2] tracking-tight text-ink/[0.07] lg:gap-16 lg:pr-16 lg:text-[110px]" bis_skin_checked="1">
+      <span>Form</span><span>·</span><span>Material</span><span>·</span><span>Water</span><span>·</span>
+      <span>Form</span><span>·</span><span>Material</span><span>·</span><span>Water</span><span>·</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer id="site-footer" class="relative h-auto border-t border-hair bg-void pb-10 pt-20 lg:pb-14 lg:pt-32">
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-8 lg:px-12" bis_skin_checked="1">
+    <div class="grid grid-cols-2 gap-y-12 lg:grid-cols-12 lg:gap-8" bis_skin_checked="1">
+      <div class="col-span-2 lg:col-span-4" bis_skin_checked="1">
+        <img id="footer-logo" alt="Sanvera" width="3188" height="483" loading="lazy" class="h-6 w-auto lg:h-9" src="./SANVERA — The Art of Water_files/Sanvera_Type_Edited-02.png">
+        <p class="mt-8 max-w-[22rem] text-base font-light leading-loose text-smoke lg:text-lg">Sanitaryware for architecture that takes water seriously.</p>
+      </div>
+
+      <nav class="col-span-1 lg:col-span-2 lg:col-start-6" aria-labelledby="foot-collection">
+        <h2 id="foot-collection" class="text-[10px] uppercase tracking-widest2 text-smoke">Collection</h2>
+        <ul class="mt-6 space-y-3">
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Concealed Shower</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Series Mixer</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Faucets</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Bathtub</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Pedestal Sink</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Accessories</a></li>
+        </ul>
+      </nav>
+
+      <nav class="col-span-1 lg:col-span-2" aria-labelledby="foot-company">
+        <h2 id="foot-company" class="text-[10px] uppercase tracking-widest2 text-smoke">Company</h2>
+        <ul class="mt-6 space-y-3">
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#about" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">About</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#collection" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Craft</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#hero" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Innovation</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#editorial" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Journal</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Contact</a></li>
+        </ul>
+      </nav>
+
+      <nav class="col-span-1 lg:col-span-2" aria-labelledby="foot-support">
+        <h2 id="foot-support" class="text-[10px] uppercase tracking-widest2 text-smoke">Support</h2>
+        <ul class="mt-6 space-y-3">
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Dealers</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Service</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Warranty</a></li>
+          <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#enquiry" class="text-sm font-light text-mist transition-colors duration-500 hover:text-ink">Downloads</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-20 flex flex-col gap-6 border-t border-hair pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-28" bis_skin_checked="1">
+      <p class="text-[10px] uppercase tracking-widest2 text-smoke">© 2026 Sanvera</p>
+      <ul class="flex items-center gap-8">
+        <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#site-footer" class="text-[10px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">Instagram</a></li>
+        <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#site-footer" class="text-[10px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">Pinterest</a></li>
+        <li><a href="https://demo.unlimitedqatar.com/sanvera/sample/#site-footer" class="text-[10px] uppercase tracking-widest2 text-mist transition-colors duration-500 hover:text-ink">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================================
+   SANVERA — front-end prototype
+   ========================================================================= */
+
+/* ---------- 1. Replaceable assets & hero playback stops ----------------- */
+const VIDEO_SRC = "video1.mp4";
+const LOGO_SRC  = "Sanvera_Type_Edited-02.png";
+
+/* The hero film plays in segments. Each scroll step releases the next one
+   and it pauses on the stop below. Change these and everything follows. */
+const VIDEO_START  = 0.4; // film starts here on load, before any scroll
+const VIDEO_STOP_1 = 3;   // pauses here — product right
+const VIDEO_STOP_2 = 5;   // pauses here — product left
+const VIDEO_STOP_3 = 8;   // pauses here — product centre, film ends
+
+/* Three hero stages: the film on load, then one segment per gesture — a
+   wheel flick, a swipe or an arrow key. After the last one the pin lifts. */
+const ZONE_STOPS  = [VIDEO_STOP_1, VIDEO_STOP_2, VIDEO_STOP_3];
+
+const REVERSE_RATE = 1.0;   // reverse playback speed, 1 = real time
+const STOP_EPSILON = 0.04;  // pause this far ahead so we land on the frame
+
+/* ---------- 2. Environment --------------------------------------------- */
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const coarsePointer = window.matchMedia('(hover: none)').matches;
+
+/* ---------- 3. Asset wiring -------------------------------------------- */
+(function wireAssets() {
+  const marks = [document.getElementById('brand-logo'), document.getElementById('footer-logo')];
+  marks.forEach(img => {
+    if (!img) return;
+    img.src = LOGO_SRC;
+    img.addEventListener('error', () => {
+      img.remove();
+      const fallback = document.getElementById('brand-fallback');
+      if (fallback) { fallback.classList.remove('hidden'); fallback.style.display = 'inline'; }
+    }, { once: true });
+  });
+})();
+
+/* ---------- 4. Hero: scroll-triggered segment playback ------------------ */
+(function heroController() {
+  const hero     = document.getElementById('hero');
+  const video    = document.getElementById('hero-video');
+  const fallback = document.getElementById('hero-fallback');
+  const rig      = document.getElementById('fallback-rig');
+  const progress = document.getElementById('vnav-progress');
+  const cue      = document.getElementById('scroll-cue');
+  const stages   = Array.from(document.querySelectorAll('.stage'));
+  const navItems = Array.from(document.querySelectorAll('.vnav-item'));
+
+  if (!hero || !video) return;
+
+  let zone = -1;            // current hero zone
+  let stopAt = null;        // time the film is currently running toward
+  let ready = false;
+  let usingVideo = true;
+  let watching = false;     // is the pause-watcher loop running
+  let rewindRAF = null;     // handle for the reverse-playback loop
+
+  /* -- setup ------------------------------------------------------------ */
+  /* Set these as properties, not just attributes. Several engines read the
+     property when deciding whether unattended playback is allowed. */
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.autoplay = false;
+  video.src = VIDEO_SRC;
+
+  video.addEventListener('error', () => {
+    usingVideo = false;
+    video.classList.add('hidden');
+    if (fallback) fallback.classList.remove('hidden');
+    paintZone(Math.max(zone, 0));
+    poseFallback(ZONE_STOPS[Math.max(zone, 0)]);
+  }, { once: true });
+
+  /* Wait for real buffered data, not just metadata. Starting on
+     loadedmetadata means play() begins before a frame is decodable, which
+     reads as a frozen picture for the first moment. */
+  let armed = false;
+  function arm() {
+    if (armed || !usingVideo) return;
+    armed = true;
+    ready = true;
+
+    /* Playing to the very last frame fires `ended`, and browsers then show
+       the poster/first frame. Pull any stop that sits at or past the end
+       back inside the duration. Also covers a file shorter than expected. */
+    if (isFinite(video.duration) && video.duration > 0) {
+      const ceiling = video.duration - 0.08;
+      for (let i = 0; i < ZONE_STOPS.length; i++) {
+        if (ZONE_STOPS[i] > ceiling) ZONE_STOPS[i] = ceiling;
+      }
+    }
+    openingSegment();
+  }
+
+  video.addEventListener('canplaythrough', arm, { once: true });
+  video.addEventListener('canplay', arm, { once: true });
+  video.addEventListener('loadeddata', arm, { once: true });
+  if (video.readyState >= 2) arm();
+  setTimeout(arm, 1200);          // slow or seek-hostile source — go anyway
+
+  /* The film is held invisible until the playhead is genuinely parked on
+     VIDEO_START. play() called straight after setting currentTime shows
+     frame 0 for a beat, because the seek has not resolved yet. */
+  function openingSegment() {
+    let started = false;
+
+    const begin = () => {
+      if (started) return;
+      started = true;
+      video.classList.remove('opacity-0');
+
+      /* Start the segment directly rather than through applyZone, which
+         short-circuits on an unchanged zone and would swallow it. If a
+         gesture already advanced the hero while the film was loading,
+         honour where the viewer got to instead of snapping back. */
+      if (zone <= 0) {
+        paintZone(0);
+        zone = 0;
+        runTo(VIDEO_STOP_1);      // 0.4s -> 3s, no gesture involved
+      } else {
+        runTo(ZONE_STOPS[zone]);
+      }
+    };
+
+    video.addEventListener('seeked', begin, { once: true });
+    if (VIDEO_START > 0 && seekable(VIDEO_START)) {
+      try { video.currentTime = VIDEO_START; } catch (e) { begin(); }
+    } else {
+      begin();                  // unseekable source: start where we are
+    }
+
+    /* Seeking to a point the decoder already sits on fires no event. */
+    setTimeout(begin, 400);
+  }
+
+  /* If unattended playback really is refused, hold the opening frame rather
+     than skipping to 3s, and start properly on the first interaction. */
+  function autoplayBlocked() {
+    settle(VIDEO_START);
+    const events = ['pointerdown', 'keydown', 'touchstart', 'wheel'];
+    const unlock = () => {
+      events.forEach(e => document.removeEventListener(e, unlock));
+      runTo(ZONE_STOPS[Math.max(zone, 0)]);
+    };
+    events.forEach(e => document.addEventListener(e, unlock, { once: true, passive: true }));
+  }
+
+  /* -- playback primitives ----------------------------------------------
+     Every seek is a risk: if the source cannot satisfy a range request the
+     element rewinds to frame 0. So we only ever seek when the playhead is
+     genuinely somewhere else, and only into a range the browser reports as
+     seekable. Arriving at a stop by playing needs no seek at all. -------- */
+
+  const SEEK_SLOP = 0.15;   // treat anything inside this as "already there"
+
+  function seekable(t) {
+    const r = video.seekable;
+    if (!r || !r.length) return false;
+    for (let i = 0; i < r.length; i++) {
+      if (t >= r.start(i) - 0.01 && t <= r.end(i) + 0.01) return true;
+    }
+    return false;
+  }
+
+  function safeSeek(t) {
+    if (!ready) return;
+    if (Math.abs(video.currentTime - t) <= SEEK_SLOP) return;  // no-op seek
+    if (!seekable(t)) return;                                  // would rewind
+    try { video.currentTime = t; } catch (e) { /* ignore */ }
+  }
+
+  /* Hold on `time`. Pauses first, then only corrects the playhead if it
+     actually drifted — the common case after a segment is no seek. */
+  function settle(time) {
+    stopAt = null;
+    cancelRewind();
+    video.pause();
+    safeSeek(time);
+  }
+
+  /* -- reverse playback --------------------------------------------------
+     No browser supports a negative playbackRate, so running the film
+     backwards means walking currentTime down by hand, one frame at a time,
+     paced against the real clock so it reads at the same speed forwards
+     and back. -------------------------------------------------------- */
+  function cancelRewind() {
+    if (rewindRAF !== null) { cancelAnimationFrame(rewindRAF); rewindRAF = null; }
+  }
+
+  function rewindTo(target) {
+    cancelRewind();
+    if (!usingVideo || !ready) return;
+
+    /* Already there, motion is off, or the source will not seek — just cut. */
+    if (reducedMotion || !seekable(target) || video.currentTime <= target + STOP_EPSILON) {
+      settle(target);
+      return;
+    }
+
+    stopAt = null;
+    video.pause();
+
+    let last = performance.now();
+
+    rewindRAF = requestAnimationFrame(function stepBack(now) {
+      /* Clamp the delta so a background tab or a stall cannot jump the
+         playhead a long way in a single frame. */
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+
+      const next = video.currentTime - dt * REVERSE_RATE;
+
+      if (next <= target) {
+        rewindRAF = null;
+        try { video.currentTime = target; } catch (e) { /* ignore */ }
+        video.pause();
+        return;
+      }
+
+      /* Skip the write while a seek is still resolving — queueing seeks on
+         top of each other is what makes hand-rolled rewind stutter. */
+      if (!video.seeking) {
+        try { video.currentTime = next; } catch (e) { /* ignore */ }
+      }
+
+      rewindRAF = requestAnimationFrame(stepBack);
+    });
+  }
+
+  /* Play forward until `time`, then hold on it. */
+  function runTo(time) {
+    cancelRewind();
+    if (!usingVideo || !ready) { stopAt = null; return; }
+
+    if (reducedMotion || video.currentTime > time + SEEK_SLOP) {
+      settle(time);             // never play backwards — cut straight there
+      return;
+    }
+    if (Math.abs(video.currentTime - time) <= SEEK_SLOP) { settle(time); return; }
+
+    stopAt = time;
+    const attempt = video.play();
+    if (attempt && attempt.catch) attempt.catch(autoplayBlocked);
+    startWatcher();
+  }
+
+  /* rAF watcher pauses on the exact frame — `timeupdate` fires too coarsely
+     (roughly 4x a second) to stop a segment cleanly. It pauses and leaves
+     the playhead exactly where playback left it. */
+  function startWatcher() {
+    if (watching) return;
+    watching = true;
+    (function watch() {
+      if (stopAt === null) { watching = false; return; }
+      if (video.currentTime >= stopAt - STOP_EPSILON) {
+        stopAt = null;
+        video.pause();          // no seek — playback already arrived
+        watching = false;
+        return;
+      }
+      requestAnimationFrame(watch);
+    })();
+  }
+
+  /* Running off the end fires `ended`, and browsers reset the poster frame.
+     Stop just short of the final frame instead. */
+  video.addEventListener('ended', () => {
+    stopAt = null;
+    video.pause();
+  });
+
+  /* -- content stages: one DOM write per zone change -------------------- */
+  function paintZone(next) {
+    stages.forEach(el => el.classList.toggle('is-active', Number(el.dataset.stage) === next));
+
+    navItems.forEach(item => {
+      const on = Number(item.dataset.vnav) === next;
+      item.classList.toggle('is-active', on);
+      const label = item.querySelector('[data-label]');
+      if (label) {
+        label.classList.toggle('text-ink', on);
+        label.classList.toggle('text-mist', !on);
+      }
+    });
+
+    if (cue) cue.style.opacity = next === 0 ? '1' : '0';
+    if (progress) progress.style.transform = `scaleY(${((next + 1) / ZONE_STOPS.length).toFixed(3)})`;
+  }
+
+  function applyZone(next) {
+    if (next === zone) return;
+    const previous = zone;
+    zone = next;
+
+    paintZone(next);
+
+    const target = ZONE_STOPS[next];
+    if (!usingVideo) { poseFallback(target); return; }
+
+    /* Forward plays the segment; backward runs it in reverse. */
+    if (next < previous) rewindTo(target);
+    else runTo(target);
+  }
+
+  /* -- wireframe stand-in mirrors the same choreography ----------------- */
+  function poseFallback(time) {
+    if (!rig) return;
+    const x = time <= VIDEO_STOP_1 ? 150 : time <= VIDEO_STOP_2 ? -150 : 0;
+    rig.setAttribute('transform', `translate(${x},0)`);
+  }
+
+  /* -- pinned stepping ---------------------------------------------------
+     The hero holds the viewport and advances one stage per gesture: a wheel
+     flick, a swipe, or an arrow key. It is not driven by scroll position,
+     so a stage never lands halfway. Once the last stage is done the pin
+     lifts and the page scrolls normally. --------------------------------- */
+  const LAST_ZONE = ZONE_STOPS.length - 1;
+  const COOLDOWN  = 640;    // one gesture per stage, momentum ignored
+  const WHEEL_MIN = 18;     // deltaY needed to count as intent
+  const SWIPE_MIN = 42;     // px of travel needed on touch
+
+  let pinned = false;
+  let cooling = false;
+  let accum = 0, lastWheel = 0, touchY = null, repinAfter = 0;
+
+  function pin() {
+    if (pinned) return;
+    pinned = true;
+    document.documentElement.classList.add('is-pinned');
+    window.scrollTo(0, 0);
+  }
+
+  function unpin(targetId) {
+    if (!pinned) return;
+    pinned = false;
+    document.documentElement.classList.remove('is-pinned');
+    repinAfter = performance.now() + 1400;   // let the smooth scroll finish
+    const target = document.getElementById(targetId || 'about');
+    if (target) target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+  }
+
+  function step(dir) {
+    if (!pinned || cooling) return;
+    const next = zone + dir;
+    if (next > LAST_ZONE) { unpin(); return; }
+    if (next < 0) return;
+
+    cooling = true;
+    setTimeout(() => { cooling = false; }, COOLDOWN);
+    applyZone(next);
+  }
+
+  /* Wheel: one flick emits dozens of events, so intent is accumulated and
+     the accumulator resets whenever the stream pauses. */
+  window.addEventListener('wheel', (e) => {
+    if (!pinned) return;
+    e.preventDefault();
+
+    const now = performance.now();
+    if (now - lastWheel > 220) accum = 0;
+    lastWheel = now;
+    if (cooling) return;
+
+    accum += e.deltaY;
+    if (Math.abs(accum) < WHEEL_MIN) return;
+    const dir = accum > 0 ? 1 : -1;
+    accum = 0;
+    step(dir);
+  }, { passive: false });
+
+  /* Keyboard: one press, one stage. */
+  const KEYS_FWD  = ['ArrowDown', 'PageDown', ' ', 'Spacebar'];
+  const KEYS_BACK = ['ArrowUp', 'PageUp'];
+
+  document.addEventListener('keydown', (e) => {
+    if (!pinned || e.metaKey || e.ctrlKey || e.altKey) return;
+    const el = e.target;
+    if (el && el.closest && el.closest('input, textarea, select, [contenteditable]')) return;
+
+    if (KEYS_FWD.includes(e.key))       { e.preventDefault(); step(1); }
+    else if (KEYS_BACK.includes(e.key)) { e.preventDefault(); step(-1); }
+    else if (e.key === 'End')           { e.preventDefault(); unpin(); }
+    else if (e.key === 'Tab')           { unpin(); }   // never trap keyboard users
+  });
+
+  /* Touch: one swipe, one stage. */
+  window.addEventListener('touchstart', (e) => {
+    if (pinned) touchY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!pinned) return;
+    e.preventDefault();
+    if (touchY === null || cooling) return;
+    const travel = touchY - e.touches[0].clientY;
+    if (Math.abs(travel) < SWIPE_MIN) return;
+    touchY = null;
+    step(travel > 0 ? 1 : -1);
+  }, { passive: false });
+
+  window.addEventListener('touchend', () => { touchY = null; }, { passive: true });
+
+  /* Returning to the very top re-pins the hero so it can be replayed. */
+  window.addEventListener('scroll', () => {
+    if (pinned || window.scrollY > 2 || performance.now() < repinAfter) return;
+    pin();
+  }, { passive: true });
+
+  /* In-page links must escape the pin rather than fight it. */
+  document.addEventListener('click', (e) => {
+    if (!pinned || !e.target.closest) return;
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    const id = link.getAttribute('href').slice(1);
+    if (!id || id === 'hero') return;
+    e.preventDefault();
+    unpin(id);
+  });
+
+  paintZone(0);
+  pin();
+
+})();
+
+/* ---------- 5. Header state -------------------------------------------- */
+(function headerState() {
+  const header = document.getElementById('site-header');
+  if (!header) return;
+  const threshold = window.innerHeight * 0.6;
+  let condensed = false;
+
+  window.addEventListener('scroll', () => {
+    const past = window.scrollY > threshold;
+    if (past === condensed) return;
+    condensed = past;
+    header.classList.toggle('is-condensed', past);
+  }, { passive: true });
+})();
+
+/* ---------- 6. Section reveals ----------------------------------------- */
+(function reveals() {
+  const items = document.querySelectorAll('.reveal');
+  if (reducedMotion || !('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('is-in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-in');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  items.forEach(el => io.observe(el));
+})();
+
+/* ---------- 7. Collection row preview ---------------------------------- */
+(function rowPreview() {
+  const preview = document.getElementById('row-preview');
+  const rows = document.querySelectorAll('.row');
+  if (!preview || coarsePointer || reducedMotion) return;
+
+  const plate = preview.querySelector('.plate');
+  let mx = 0, my = 0, px = 0, py = 0, active = false;
+
+  rows.forEach(row => {
+    row.addEventListener('mouseenter', () => {
+      plate.classList.remove('plate-b', 'plate-c');
+      if (row.dataset.preview === 'b') plate.classList.add('plate-b');
+      if (row.dataset.preview === 'c') plate.classList.add('plate-c');
+      active = true;
+      preview.classList.add('is-visible');
+    });
+    row.addEventListener('mouseleave', () => {
+      active = false;
+      preview.classList.remove('is-visible');
+    });
+  });
+
+  window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+  (function track() {
+    if (active) {
+      px += (mx - px) * 0.12;
+      py += (my - py) * 0.12;
+      preview.style.transform = `translate3d(${(px + 40).toFixed(1)}px, ${(py - 150).toFixed(1)}px, 0)`;
+    }
+    requestAnimationFrame(track);
+  })();
+})();
+
+/* ---------- 8. Menu overlay -------------------------------------------- */
+(function menu() {
+  const toggle = document.getElementById('menu-toggle');
+  const close  = document.getElementById('menu-close');
+  const panel  = document.getElementById('menu-panel');
+  if (!toggle || !panel) return;
+
+  function open() {
+    panel.hidden = false;
+    requestAnimationFrame(() => panel.classList.add('is-open'));
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    if (close) close.focus();
+  }
+  function shut() {
+    panel.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    setTimeout(() => { panel.hidden = true; }, 600);
+  }
+
+  toggle.addEventListener('click', open);
+  if (close) close.addEventListener('click', shut);
+  panel.querySelectorAll('.menu-link').forEach(link => link.addEventListener('click', shut));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) shut(); });
+})();
+
+/* ---------- 9. Search control ------------------------------------------ */
+(function search() {
+  const btn = document.getElementById('search-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    document.getElementById('collection')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+  });
+})();
+
+/* ---------- 10. Experience film ---------------------------------------- */
+(function experience() {
+  const btn     = document.getElementById('play-experience');
+  const film    = document.getElementById('experience-video');
+  const overlay = document.getElementById('experience-overlay');
+  if (!btn || !film) return;
+
+  btn.addEventListener('click', () => {
+    if (!film.src) film.src = VIDEO_SRC;
+    film.classList.remove('hidden');
+    film.play().catch(() => {});
+    if (overlay) overlay.classList.add('overlay-off');
+  });
+})();
+
+/* ---------- 11. Enquiry form ------------------------------------------- */
+(function enquiry() {
+  const form   = document.getElementById('enquiry-form');
+  const status = document.getElementById('form-status');
+  if (!form || !status) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name  = form.elements.name.value.trim();
+    const email = form.elements.email.value.trim();
+
+    if (!name || !email.includes('@')) {
+      status.textContent = 'Add your name and a valid email to continue.';
+      status.classList.replace('text-smoke', 'text-ink');
+      (!name ? form.elements.name : form.elements.email).focus();
+      return;
+    }
+
+    status.textContent = 'Enquiry sent. Our team replies within two working days.';
+    status.classList.replace('text-smoke', 'text-ink');
+    form.querySelector('button[type="submit"]').disabled = true;
+  });
+})();
+</script>
+<script type="module" src="./SANVERA — The Art of Water_files/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;6ab629b8e7ff417f84f32125bd90d851&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+<script>window.__CF$cv$params={r:'a3a790b799c0a5c7',t:'MTc4OTMwNjg0Mg==',u:'01a09affad4e7810be7c8a9c9ea9d740',ut:'kllMnp_L2bhsgQ3RLjFreuzQjOSJeg7k4xmmbRP2TkI-1789306843-1.2.1.1-aYYy6PDrBWIxEFIg.JeZ9xkI.0Hj_cMY87GEuihC_Aoec7ZMr2XCk_kETnb3LZJRAVIUbEe95ZG72K0sI93FNi5mQ6MK4ovCdIAnvfVfnAE',i:60};(function(){if(!document.body)return;var s=document.createElement('script');s.src='/cdn-cgi/challenge-platform/scripts/precursor/main.js';document.head.appendChild(s);})();</script>
+<div id="fs_div_all" style="all:initial;" bis_skin_checked="1"><template shadowrootmode="open">
+        <div class="mainExtCont" style="position:fixed; top:20px;right:20px; z-index:2147483647;box-shadow: 1px -1px 17px #888888;border-radius:10px;">
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet">
+            <div class="mainExtSubCont"></div>
+        </div>
+        <div class="extOtherPopups"></div>
+        <style>
+         /* devanagari */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 100;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiGyp8kv8JHgFVrLPTucXtAKPY.woff2) format('woff2');
+      unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 100;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiGyp8kv8JHgFVrLPTufntAKPY.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 100;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiGyp8kv8JHgFVrLPTucHtA.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* devanagari */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiByp8kv8JHgFVrLGT9Z11lFc-K.woff2) format('woff2');
+      unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins light */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Light.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+    /* poppins regular */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Regular.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins thin */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 100;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Thin.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins medium */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Medium.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins semi bold */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-SemiBold.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* poppins bold */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        src: url(chrome-extension://adikhbfjdbjkhelbdnffogkobkekkkej/assets/poppins/Poppins-Bold.ttf) format('truetype');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    
+        .extOtherPopups{
+          margin: 0;
+          padding: 0;
+          position: fixed;
+          top: 240px;
+          right: 0;
+          z-index: 2147483647;
+        }
+        [event_type="click"]{
+          cursor:pointer;
+        }
+        </style>
+        </template></div><container id="my-app-container"></container></body></html>

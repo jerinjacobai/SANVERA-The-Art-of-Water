@@ -1,0 +1,66 @@
+import { JournalArticle } from '../types';
+
+export const JOURNAL_ARTICLES: JournalArticle[] = [
+  {
+    id: 'ritual-of-water',
+    number: '01',
+    title: 'The Ritual of Water',
+    subtitle: 'Why the daily pause before a faucet is turned shapes our consciousness.',
+    category: 'Philosophy',
+    date: 'Autumn 2026',
+    readTime: '6 min read',
+    excerpt: 'In contemporary architecture, the bathroom is no longer a utility closet. It is the last refuge of unbroken solitude and tactile presence.',
+    image: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1000&q=80',
+    content: [
+      'Water arrives with ancient memory. It falls as rain upon high limestone ridges, percolates through subterranean fissures over decades, and emerges into modern dwellings through narrow conduits of metal.',
+      'When our hand reaches forward to turn a mixer lever, we are initiating one of the oldest ceremonies of human shelter. The weight of the metal handle, the smooth resistance of the internal ceramic discs, and the quiet acceleration of the stream create a transition between the speed of the outer world and the silence of interior life.',
+      'Sanvera was founded on this single premise: that sanitary fittings are not decorative hardware, but the tactile threshold of a domestic ritual.',
+    ],
+  },
+  {
+    id: 'forming-brass',
+    number: '02',
+    title: 'Forming Brass',
+    subtitle: 'From molten alloy to hand-honed geometric symmetry.',
+    category: 'Craftsmanship',
+    date: 'Summer 2026',
+    readTime: '8 min read',
+    excerpt: 'Examining the metallurgical journey inside our northern Italian foundry, where raw billets are transformed through thermal compression.',
+    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=80',
+    content: [
+      'Unlike stamped sheet metal or injected zinc die-casts, solid dezincification-resistant brass possesses a unique crystalline density. When cast at 1,020°C, the alloy flows into heated ceramic molds, solidifying into structural forms that will outlast the building envelope.',
+      'Every Sanvera spout then undergoes 5-axis CNC machining with diamond tooling to calibrate interior wall thicknesses down to 0.05 millimeters. This eliminates internal resonant hums when water passes under high velocity.',
+      'The final tactile surface is created not by automated drums, but by master polishers who guide each curved piece across specialized cotton and sisal wheels.',
+    ],
+  },
+  {
+    id: 'architecture-of-touch',
+    number: '03',
+    title: 'The Architecture of Touch',
+    subtitle: 'Designing interfaces where precision meets human skin.',
+    category: 'Design Systems',
+    date: 'Spring 2026',
+    readTime: '5 min read',
+    excerpt: 'How micro-radii, knurling depths, and progressive thermal dampening create subconscious trust in architectural fixtures.',
+    image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=80',
+    content: [
+      'Visual architecture is experienced at a distance of meters. Sanitaryware is experienced at a distance of zero millimeters. It is touched with wet hands, in darkness, in private moments of waking and rest.',
+      'We specify a continuous 3.2mm corner radius across all Sanvera tapware bodies. This precise curve feels neither razor-sharp nor softly rounded; it creates a crisp shadow edge for the eye while offering a resting plane for the fingers.',
+    ],
+  },
+  {
+    id: 'material-light-water',
+    number: '04',
+    title: 'Material / Light / Water',
+    subtitle: 'Harmonizing monolithic stone, brushed alloys, and refractive flow.',
+    category: 'Spatial Study',
+    date: 'Winter 2026',
+    readTime: '7 min read',
+    excerpt: 'Collaborative case studies with international architects on integrating sanitaryware into raw concrete and stone residences.',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80',
+    content: [
+      'Light does not simply illuminate a bathroom; it collaborates with water to create kinetic reflections on ceiling vaults and stone walls.',
+      'By pairing non-reflective honed stone with directional brushed brass, light is absorbed by the background surfaces and concentrated along the metallic curve of the spout.',
+    ],
+  },
+];

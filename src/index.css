@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-void: #050505;
+  --bg-char: #0B0C0D;
+  --bg-graphite: #151719;
+  --color-brass: #A8875A;
+  --color-stone: #B8AEA0;
+  --color-ink: #F2F0EA;
+  --color-mist: #A9ADB0;
+  --color-smoke: #6E7276;
+  --hair: rgba(255, 255, 255, 0.08);
+  --hair-light: rgba(255, 255, 255, 0.16);
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: var(--bg-void);
+  color: var(--color-ink);
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--bg-void);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 300;
+}
+
+::selection {
+  background-color: var(--color-ink);
+  color: var(--bg-void);
+}
+
+/* Faint architectural grid overlay */
+.tech-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 96px 96px;
+  background-position: center center;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 10%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 10%, transparent 80%);
+}
+
+/* Subtle luxury grain */
+.grain-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Vignette gradient */
+.vignette-radial {
+  background: radial-gradient(ellipse 110% 90% at 50% 50%, rgba(5,5,5,0) 30%, rgba(5,5,5,0.85) 100%);
+}
+
+/* Editorial typography utilities */
+.editorial-title {
+  font-family: 'Inter Tight', 'Inter', -apple-system, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+.label-mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(242, 240, 234, 0.15);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 240, 234, 0.35);
+}
+
+/* Luxury Plate styling */
+.plate {
+  position: relative;
+  overflow: hidden;
+  background-color: #0E1012;
+  isolation: isolate;
+}
+
+.plate-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.01) 40%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
