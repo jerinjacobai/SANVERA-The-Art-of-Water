@@ -3,7 +3,8 @@ import { ShowroomCanvas, SHOWROOM_ZONES, ShowroomZone } from './ShowroomCanvas';
 import { ShowroomTelemetry } from './ShowroomTelemetry';
 import { ShowroomBlueprints } from './ShowroomBlueprints';
 import { ProductViewerModal } from '../three/ProductViewerModal';
-import { COLLECTIONS } from '../../data/collections';
+import { SANVERA_CATALOG } from '../../data/sanveraCatalog';
+import { sanveraProductToCollectionItem } from '../sections/CollectionSection';
 import { CollectionItem, ProductFinish } from '../../types';
 import { ArrowRight, Compass } from 'lucide-react';
 
@@ -81,13 +82,15 @@ export const ExperienceSpatialShowroom: React.FC<ExperienceSpatialShowroomProps>
     }
   };
 
-  // Pedestal click handler (matches with Collection item)
+  // Pedestal click handler (matches with real catalogue item)
   const handlePedestalClick = (pedestalName: string) => {
-    const found = COLLECTIONS.find((c) =>
-      c.title.toLowerCase().includes(pedestalName.toLowerCase()) ||
-      pedestalName.toLowerCase().includes(c.title.toLowerCase())
-    ) || COLLECTIONS[1];
-    setInspectedProduct(found);
+    const found = SANVERA_CATALOG.find((c) =>
+      c.name.toLowerCase().includes(pedestalName.toLowerCase()) ||
+      c.family.toLowerCase().includes(pedestalName.toLowerCase()) ||
+      pedestalName.toLowerCase().includes(c.name.toLowerCase()) ||
+      pedestalName.toLowerCase().includes(c.family.toLowerCase())
+    ) || SANVERA_CATALOG[3]; // Default to 664 series
+    setInspectedProduct(sanveraProductToCollectionItem(found));
   };
 
   return (

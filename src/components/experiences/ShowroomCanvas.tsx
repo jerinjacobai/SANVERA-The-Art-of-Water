@@ -38,26 +38,26 @@ export const SHOWROOM_ZONES: ShowroomZone[] = [
   {
     id: 'mixer-gallery',
     number: '02',
-    name: 'Faucet & Mixer Plinth',
-    tagline: 'Series 02 single-lever deck mixer on honed stone',
-    description: 'Central monolithic exhibition block featuring the Sanvera Series Mixer with active laminar water flow and diamond-knurled grip.',
+    name: '664 Series Mixer Plinth',
+    tagline: 'Flagship diamond-knurled deck mixer on honed stone',
+    description: 'Central monolithic exhibition block featuring the Sanvera 664 Series Mixer with active Swiss laminar water flow and knurled control.',
     t: 0.54,
     focusTarget: [-0.2, 1.4, -6],
   },
   {
     id: 'shower-suite',
     number: '03',
-    name: 'Concealed Shower Suite',
-    tagline: 'Flush-mounted thermostatic architecture',
-    description: 'Private stone niche demonstrating zero-reveal flush wall plates, acoustic water dampening, and dual volume controls.',
+    name: 'Concealed Shower 5061 Suite',
+    tagline: 'Recessed thermostatic architecture with 300mm rain canopy',
+    description: 'Private stone niche demonstrating zero-reveal flush wall plates, acoustic water dampening, and dual volume controls from the 5061 series.',
     t: 0.76,
     focusTarget: [3.8, 2.5, -22],
   },
   {
     id: 'bath-vault',
     number: '04',
-    name: 'Monolith Bath Vault',
-    tagline: 'Freestanding Solidstone™ bath facing the horizon',
+    name: 'Freestanding Bath Sanctuary',
+    tagline: 'Mineral composite soaking tub with floor-mounted mixer',
     description: 'The journey resolves at the northern glass curtain wall. Monolithic cast stone bath shaped for thermal immersion and visual silence.',
     t: 0.96,
     focusTarget: [0, 1.2, -36],
@@ -283,7 +283,7 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
         position={[-3.8, 0, 10]}
         onClick={(e) => {
           e.stopPropagation();
-          onPedestalClick('Atrium Stone Plinth');
+          onPedestalClick('Public Area Touchless Sensor Faucet');
         }}
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
@@ -304,7 +304,7 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
         position={[0, 0, -4]}
         onClick={(e) => {
           e.stopPropagation();
-          onPedestalClick('Series Mixer');
+          onPedestalClick('664 Series Signature Precision Mixer');
         }}
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
@@ -333,7 +333,7 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
         position={[4.8, 0, -22]}
         onClick={(e) => {
           e.stopPropagation();
-          onPedestalClick('Concealed Shower');
+          onPedestalClick('Concealed Shower System 5061');
         }}
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
@@ -366,7 +366,7 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
         position={[0, 0, -38]}
         onClick={(e) => {
           e.stopPropagation();
-          onPedestalClick('Freestanding Bathtub');
+          onPedestalClick('Sanvera Freestanding Oval Bathtub');
         }}
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}

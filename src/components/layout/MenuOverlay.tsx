@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react';
 import { X, ArrowRight } from 'lucide-react';
+import { ExperienceId, EXPERIENCES } from './ExperienceSwitcher';
 
 interface MenuOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  activeExp?: ExperienceId;
+  onSelectExperience?: (id: ExperienceId) => void;
 }
 
 const MENU_ITEMS = [
   { title: 'Philosophy', href: '#about', number: '01', note: 'Form, function & ritual' },
   { title: 'The Evolution', href: '#evolution', number: '02', note: 'Sketch to brass object' },
   { title: 'Materials', href: '#materials', number: '03', note: 'Brass, stone, glass, water' },
-  { title: 'Collection', href: '#collection', number: '04', note: 'Six architectural families' },
+  { title: 'Catalogue', href: '#collection', number: '04', note: 'Thirty-four architectural fittings' },
   { title: 'Sanctuary Film', href: '#film', number: '05', note: 'Cinematic sensory experience' },
   { title: 'Journal', href: '#journal', number: '06', note: 'Essays on ritual and space' },
   { title: 'Project Enquiry', href: '#enquiry', number: '07', note: 'Architectural studio consultation' },
 ];
 
-export const MenuOverlay: React.FC<MenuOverlayProps> = ({ isOpen, onClose }) => {
+export const MenuOverlay: React.FC<MenuOverlayProps> = ({
+  isOpen,
+  onClose,
+  activeExp = 1,
+  onSelectExperience,
+}) => {
   // Prevent body scroll when menu is open & listen to Escape
   useEffect(() => {
     if (isOpen) {
@@ -51,6 +59,49 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({ isOpen, onClose }) => 
           <span className="label-mono">Close</span>
           <X size={16} className="group-hover:rotate-90 transition-transform duration-300" />
         </button>
+      </div>
+
+      {/* Brand Experiences Selector Block */}
+      <div className="pt-8 pb-8 border-b border-hair/60">
+        <span className="label-mono text-smoke text-[10px] uppercase block mb-4">
+          Select Experience Platform
+        </span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {EXPERIENCES.map((exp) => {
+            const isActive = activeExp === exp.id;
+            const Icon = exp.icon;
+            return (
+              <button
+                key={exp.id}
+                onClick={() => {
+                  onSelectExperience?.(exp.id);
+                  onClose();
+                }}
+                className={`p-5 rounded-xl border text-left transition-all duration-300 ${
+                  isActive
+                    ? 'border-brass bg-brass/10 text-ink shadow-lg'
+                    : 'border-hair/60 bg-void/40 text-mist hover:border-mist hover:text-ink'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <Icon size={14} className={isActive ? 'text-brass' : 'text-smoke'} />
+                    <span className="label-mono text-brass text-[10px] tracking-wider">
+                      {exp.number}
+                    </span>
+                  </div>
+                  {isActive && (
+                    <span className="label-mono text-[9px] text-brass uppercase border border-brass/40 px-2 py-0.5 rounded-full">
+                      Active
+                    </span>
+                  )}
+                </div>
+                <h4 className="editorial-title text-xl text-ink font-light">{exp.fullName}</h4>
+                <p className="text-xs text-smoke font-light mt-1 leading-relaxed">{exp.tagline}</p>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Main Nav Links (Massive Editorial Typography) */}

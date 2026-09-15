@@ -6,14 +6,20 @@ import { SearchModal } from './components/layout/SearchModal';
 import { Footer } from './components/layout/Footer';
 import { ExperienceMonograph } from './components/experiences/ExperienceMonograph';
 import { ExperienceSpatialShowroom } from './components/experiences/ExperienceSpatialShowroom';
-import { ExperienceHydroLab } from './components/experiences/ExperienceHydroLab';
+import { ExperienceMotion } from './components/experiences/ExperienceMotion';
 import { ExperienceSwitcher, ExperienceId } from './components/layout/ExperienceSwitcher';
+import { ExperienceTransitionOverlay } from './components/layout/ExperienceTransitionOverlay';
 import { ProductViewerModal } from './components/three/ProductViewerModal';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { CollectionItem } from './types';
 
 const parseInitialExperience = (): ExperienceId => {
   if (typeof window === 'undefined') return 1;
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes('showroom')) return 2;
+  if (path.includes('motion')) return 3;
+  if (path.includes('art-of-water')) return 1;
+
   const params = new URLSearchParams(window.location.search);
   const expParam = params.get('exp');
   if (expParam === '1' || expParam === '2' || expParam === '3') {
@@ -21,12 +27,14 @@ const parseInitialExperience = (): ExperienceId => {
   }
   const hash = window.location.hash.toLowerCase();
   if (hash === '#showroom' || hash === '#pavilion') return 2;
-  if (hash === '#hydrolab' || hash === '#lab') return 3;
+  if (hash === '#motion' || hash === '#hydrolab' || hash === '#lab') return 3;
   return 1;
 };
 
 export const App: React.FC = () => {
   const [activeExp, setActiveExp] = useState<ExperienceId>(parseInitialExperience);
+  const [pendingExp, setPendingExp] = useState<ExperienceId>(parseInitialExperience);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<CollectionItem | null>(null);
@@ -64,7 +72,10 @@ export const App: React.FC = () => {
   useEffect(() => {
     const handleUrlSync = () => {
       const parsed = parseInitialExperience();
-      setActiveExp(parsed);
+      if (parsed !== activeExp) {
+        setActiveExp(parsed);
+        setPendingExp(parsed);
+      }
     };
 
     window.addEventListener('popstate', handleUrlSync);
@@ -74,25 +85,46 @@ export const App: React.FC = () => {
       window.removeEventListener('popstate', handleUrlSync);
       window.removeEventListener('hashchange', handleUrlSync);
     };
-  }, []);
+  }, [activeExp]);
 
-  // Switch experience with URL search param and smooth reset
+  // Switch experience with transition overlay, URL synchronization, and scroll reset
   const handleSwitchExperience = useCallback((id: ExperienceId) => {
-    setActiveExp(id);
-    const url = new URL(window.location.href);
-    url.searchParams.set('exp', id.toString());
+    if (id === activeExp && !isTransitioning) {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { duration: 0.8 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
 
-    if (id === 1) url.hash = '#monograph';
-    else if (id === 2) url.hash = '#showroom';
-    else if (id === 3) url.hash = '#hydrolab';
+    setPendingExp(id);
+    setIsTransitioning(true);
+  }, [activeExp, isTransitioning]);
+
+  // Callback triggered halfway through transition veil (screen fully covered)
+  const handleTransitionMiddle = useCallback(() => {
+    setActiveExp(pendingExp);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('exp', pendingExp.toString());
+
+    if (pendingExp === 1) url.hash = '#art-of-water';
+    else if (pendingExp === 2) url.hash = '#showroom';
+    else if (pendingExp === 3) url.hash = '#motion';
 
     window.history.pushState(null, '', url.toString());
 
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
+  }, [pendingExp]);
+
+  // Callback when transition veil has completely faded out
+  const handleTransitionEnd = useCallback(() => {
+    setIsTransitioning(false);
   }, []);
 
   // Handle Enquiry triggering across experiences
@@ -105,7 +137,7 @@ export const App: React.FC = () => {
         if (enquiryEl) {
           enquiryEl.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 150);
+      }, 650);
     } else {
       const enquiryEl = document.getElementById('enquiry');
       if (enquiryEl) {
@@ -119,8 +151,17 @@ export const App: React.FC = () => {
       {/* Luxury Custom Cursor */}
       <CustomCursor />
 
+      {/* Cinematic Experience Switcher Transition Overlay */}
+      <ExperienceTransitionOverlay
+        isTransitioning={isTransitioning}
+        targetExp={pendingExp}
+        onTransitionMiddle={handleTransitionMiddle}
+        onTransitionEnd={handleTransitionEnd}
+      />
+
       {/* Fixed Header & Navigation */}
       <Header
+        activeExp={activeExp}
         onOpenMenu={() => setIsMenuOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
       />
@@ -128,7 +169,9 @@ export const App: React.FC = () => {
       {/* Fullscreen Overlay Menu */}
       <MenuOverlay
         isOpen={isMenuOpen}
+        activeExp={activeExp}
         onClose={() => setIsMenuOpen(false)}
+        onSelectExperience={handleSwitchExperience}
       />
 
       {/* Global Search Modal */}
@@ -145,7 +188,7 @@ export const App: React.FC = () => {
         onOpenEnquiry={handleOpenEnquiryForProduct}
       />
 
-      {/* Dynamic Multi-Experience Container (Strict 3D scene lifecycle isolation) */}
+      {/* Dynamic Multi-Experience Container (Strict 3D WebGL scene lifecycle isolation) */}
       <main className="relative w-full">
         {activeExp === 1 && (
           <ExperienceMonograph
@@ -161,7 +204,7 @@ export const App: React.FC = () => {
         )}
 
         {activeExp === 3 && (
-          <ExperienceHydroLab
+          <ExperienceMotion
             onOpenEnquiry={handleOpenEnquiryForProduct}
           />
         )}

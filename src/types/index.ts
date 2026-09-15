@@ -27,6 +27,39 @@ export interface CollectionItem {
   features: string[];
 }
 
+export type ProductCategory =
+  | 'faucets_mixers'
+  | 'showers'
+  | 'basins'
+  | 'bathtubs'
+  | 'toilets'
+  | 'mirrors'
+  | 'accessories'
+  | 'drainage'
+  | 'public_area';
+
+export interface SanveraProduct {
+  id: string;
+  number: string;
+  name: string;
+  category: ProductCategory;
+  categoryName: string;
+  family: string;
+  series: string;
+  sku: string;
+  description: string;
+  dimensions: string;
+  flowRate?: string;
+  materials: string;
+  cartridge?: string;
+  finishes: ProductFinish[];
+  spatialZone: number; // 0: Arrival, 1: Faucets, 2: Showers, 3: Basins, 4: Bath, 5: Mirrors & Hardware
+  tags: string[];
+  featured: boolean;
+  image?: string;
+  technicalDrawing?: string;
+}
+
 export interface JournalArticle {
   id: string;
   number: string;

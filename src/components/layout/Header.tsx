@@ -4,9 +4,10 @@ import { Search } from 'lucide-react';
 interface HeaderProps {
   onOpenMenu: () => void;
   onOpenSearch: () => void;
+  activeExp?: number;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch, activeExp = 1 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -17,6 +18,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const expLabel = activeExp === 1 ? '01 / Art of Water' : activeExp === 2 ? '02 / Showroom' : '03 / Motion';
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 h-[72px] lg:h-[88px] transition-all duration-700 ease-editorial border-b ${
@@ -26,30 +29,35 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
       }`}
     >
       <div className="mx-auto flex h-full max-w-[1800px] items-center justify-between px-6 sm:px-10 lg:px-16">
-        {/* Brand Logo */}
-        <a
-          href="#hero"
-          className="group flex items-center gap-3 transition-opacity duration-300 hover:opacity-80"
-          aria-label="Sanvera — Return to top"
-        >
-          <img
-            src="/images/logo.png"
-            alt="Sanvera"
-            className="h-3.5 sm:h-4 lg:h-[18px] w-auto object-contain"
-            onError={(e) => {
-              // Graceful text fallback if image path is unavailable
-              e.currentTarget.style.display = 'none';
-              const textFallback = document.getElementById('brand-text-fallback');
-              if (textFallback) textFallback.style.display = 'block';
-            }}
-          />
-          <span
-            id="brand-text-fallback"
-            className="hidden font-display text-lg tracking-widest3 font-light text-ink uppercase"
+        {/* Brand Logo & Active Experience Badge */}
+        <div className="flex items-center gap-4">
+          <a
+            href="#hero"
+            className="group flex items-center gap-3 transition-opacity duration-300 hover:opacity-80"
+            aria-label="Sanvera — Return to top"
           >
-            Sanvera
+            <img
+              src="/images/logo.png"
+              alt="Sanvera"
+              className="h-3.5 sm:h-4 lg:h-[18px] w-auto object-contain"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                const textFallback = document.getElementById('brand-text-fallback');
+                if (textFallback) textFallback.style.display = 'block';
+              }}
+            />
+            <span
+              id="brand-text-fallback"
+              className="hidden font-display text-lg tracking-widest3 font-light text-ink uppercase"
+            >
+              Sanvera
+            </span>
+          </a>
+
+          <span className="hidden xl:inline-block label-mono text-[9px] text-brass/80 border border-hair/60 px-2 py-0.5 rounded-full">
+            {expLabel}
           </span>
-        </a>
+        </div>
 
         {/* Desktop Primary Navigation */}
         <nav className="hidden lg:flex items-center gap-8 xl:gap-12" aria-label="Primary Navigation">
@@ -75,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
             href="#collection"
             className="label-mono text-mist hover:text-ink transition-colors duration-500"
           >
-            Collection
+            Catalogue
           </a>
           <a
             href="#journal"
