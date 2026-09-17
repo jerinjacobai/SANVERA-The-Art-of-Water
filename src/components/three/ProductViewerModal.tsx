@@ -78,6 +78,8 @@ export const ProductViewerModal: React.FC<ProductViewerModalProps> = ({
 
           <group position={[0, -0.2, 0]}>
             <ProductModel
+              category={item.category}
+              productId={item.id}
               finish={activeFinish}
               waterActive={isWaterFlowing}
               waterIntensity={1}

@@ -13,6 +13,7 @@ export const sanveraProductToCollectionItem = (p: SanveraProduct): CollectionIte
   title: p.name,
   series: `${p.family} · ${p.series}`,
   description: p.description,
+  category: p.category,
   previewImage: p.image || '/images/plate-architecture.jpg',
   specs: {
     materials: p.materials,

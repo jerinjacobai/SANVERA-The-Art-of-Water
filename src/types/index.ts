@@ -15,6 +15,7 @@ export interface CollectionItem {
   title: string;
   series: string;
   description: string;
+  category?: ProductCategory;
   previewImage: string;
   specs: {
     materials: string;

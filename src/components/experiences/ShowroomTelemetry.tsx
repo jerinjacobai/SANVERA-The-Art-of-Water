@@ -42,7 +42,7 @@ export const ShowroomTelemetry: React.FC<ShowroomTelemetryProps> = ({
         <div className="flex items-center gap-4 min-w-[240px]">
           <div className="flex flex-col">
             <span className="label-mono text-brass text-[9px]">
-              Zone {currentZone.number} / 04
+              Zone {currentZone.number} / 06
             </span>
             <span className="font-display font-medium text-sm sm:text-base text-ink tracking-tight truncate max-w-xs">
               {currentZone.name}

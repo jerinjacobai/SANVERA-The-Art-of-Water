@@ -14,11 +14,11 @@ import { CustomCursor } from './components/ui/CustomCursor';
 import { CollectionItem } from './types';
 
 const parseInitialExperience = (): ExperienceId => {
-  if (typeof window === 'undefined') return 1;
+  if (typeof window === 'undefined') return 2;
   const path = window.location.pathname.toLowerCase();
-  if (path.includes('showroom')) return 2;
+  if (path.includes('art-of-water') || path.includes('monograph')) return 1;
   if (path.includes('motion')) return 3;
-  if (path.includes('art-of-water')) return 1;
+  if (path.includes('showroom') || path.includes('pavilion')) return 2;
 
   const params = new URLSearchParams(window.location.search);
   const expParam = params.get('exp');
@@ -26,9 +26,12 @@ const parseInitialExperience = (): ExperienceId => {
     return parseInt(expParam, 10) as ExperienceId;
   }
   const hash = window.location.hash.toLowerCase();
-  if (hash === '#showroom' || hash === '#pavilion') return 2;
+  if (hash === '#art-of-water' || hash === '#monograph') return 1;
   if (hash === '#motion' || hash === '#hydrolab' || hash === '#lab') return 3;
-  return 1;
+  if (hash === '#showroom' || hash === '#pavilion') return 2;
+
+  // The Showroom is the premier flagship experience of Sanvera
+  return 2;
 };
 
 export const App: React.FC = () => {
