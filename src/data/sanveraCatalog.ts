@@ -34,6 +34,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Single Lever', 'Deck Mounted', 'Laminar Flow', '661 Series'],
     featured: true,
+    image: '/catalog/mixer-661.jpg',
   },
   {
     id: 'mixer-662',
@@ -53,6 +54,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['High Arc', 'Vessel Basin', 'Knurled Handle', '662 Series'],
     featured: false,
+    image: '/catalog/mixer-662.jpg',
   },
   {
     id: 'mixer-663',
@@ -72,6 +74,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Architectural', 'Deck Mounted', 'Monolithic', '663 Series'],
     featured: false,
+    image: '/catalog/mixer-663.jpg',
   },
   {
     id: 'mixer-664',
@@ -91,6 +94,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Flagship', 'Diamond Knurled', 'Joystick', 'Swiss Aerator', '664 Series'],
     featured: true,
+    image: '/catalog/mixer-664.jpg',
   },
   {
     id: 'mixer-665',
@@ -110,6 +114,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Dual Handle', 'Deck Mounted', 'Symmetrical', '665 Series'],
     featured: false,
+    image: '/catalog/mixer-665.jpg',
   },
   {
     id: 'mixer-666',
@@ -129,6 +134,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Linear', 'Progressive Cartridge', '666 Series'],
     featured: false,
+    image: '/catalog/mixer-666.png',
   },
   {
     id: 'faucet-basin',
@@ -148,6 +154,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Basin Faucet', 'Single Hole', 'Eco-Brass'],
     featured: true,
+    image: '/catalog/faucet-basin-single.png',
   },
   {
     id: 'faucet-2-3-hole',
@@ -167,6 +174,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Three Hole', 'Counter Mounted', 'Classic Suite'],
     featured: false,
+    image: '/catalog/faucet-deck-2hole.png',
   },
   {
     id: 'faucet-concealed-wall',
@@ -186,6 +194,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Wall Mounted', 'Concealed Box', 'Minimal Counter'],
     featured: true,
+    image: '/catalog/faucet-concealed-wall.png',
   },
   {
     id: 'faucet-bathtub',
@@ -205,6 +214,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 4,
     tags: ['Floor Mounted', 'Bath Filler', 'Hand Shower', 'High Flow'],
     featured: true,
+    image: '/catalog/faucet-bathtub-handshower.jpg',
   },
   {
     id: 'faucet-kitchen',
@@ -224,6 +234,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Kitchen Faucet', 'Pull-Out Spray', '360 Swivel'],
     featured: false,
+    image: '/catalog/faucet-kitchen-pullout.jpg',
   },
 
   // ==========================================
@@ -247,6 +258,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['Concealed Shower', 'Thermostatic', 'Rain Head', '5061 Series'],
     featured: true,
+    image: '/catalog/shower-5061.png',
   },
   {
     id: 'shower-5148',
@@ -266,6 +278,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['3-Way Control', 'Thermostatic', 'Concealed Box', '5148 Series'],
     featured: false,
+    image: '/catalog/shower-5148.png',
   },
   {
     id: 'shower-square-set',
@@ -285,6 +298,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['Square Profile', 'Ceiling Mount', 'Minimalist'],
     featured: false,
+    image: '/catalog/shower-square-set.png',
   },
   {
     id: 'shower-5-function',
@@ -304,6 +318,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['5-Function', 'Mist Jets', 'Waterfall', 'Hydro-Therapy'],
     featured: true,
+    image: '/catalog/shower-5function-panel.png',
   },
   {
     id: 'shower-exposed',
@@ -323,6 +338,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['Exposed Column', 'Surface Mounted', 'Visible Pipe'],
     featured: false,
+    image: '/catalog/shower-exposed-column.jpg',
   },
   {
     id: 'shower-rain-head',
@@ -341,6 +357,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['Overhead', 'Air Injection', 'Anti-Scale', '400mm'],
     featured: false,
+    image: '/catalog/shower-rain-head.png',
   },
   {
     id: 'shower-set-1',
@@ -360,6 +377,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['Essential', 'Two Way', 'Core Specification'],
     featured: false,
+    image: '/catalog/shower-concealed-set1.png',
   },
 
   // ==========================================
@@ -381,6 +399,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 3,
     tags: ['Fine Rim', 'Ceramic', 'Countertop Vessel', 'Hydro-Glaze'],
     featured: true,
+    image: '/catalog/basin-ceramic-countertop.png',
   },
   {
     id: 'basin-pedestal',
@@ -398,6 +417,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 3,
     tags: ['Freestanding', 'Monolithic', 'Floor Mounted', 'Honed Stone'],
     featured: true,
+    image: '/catalog/basin-monolithic-pedestal.png',
   },
 
   // ==========================================
@@ -419,6 +439,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 4,
     tags: ['Freestanding Bath', 'Solid Surface', 'Deep Soak', 'Mineral Composite'],
     featured: true,
+    image: '/catalog/bathtub-freestanding-oval.jpg',
   },
 
   // ==========================================
@@ -441,6 +462,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 0,
     tags: ['Wall Hung', 'Rimless Flush', 'Soft Close', 'Concealed Bolts'],
     featured: false,
+    image: '/catalog/toilet-wall-hung-rimless.png',
   },
 
   // ==========================================
@@ -462,6 +484,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Smart Mirror', 'Anti-Fog', 'Circadian LED', 'Touch Sensor'],
     featured: true,
+    image: '/catalog/mirror-smart-ambient.jpg',
   },
   {
     id: 'mirror-makeup',
@@ -479,6 +502,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Cosmetic Mirror', 'Magnifying', 'Articulated Arm', 'LED Ring'],
     featured: false,
+    image: '/catalog/mirror-makeup-articulated.png',
   },
 
   // ==========================================
@@ -500,6 +524,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Towel Rail', 'Concealed Mount', 'Series 73'],
     featured: false,
+    image: '/catalog/accessory-series73.jpg',
   },
   {
     id: 'acc-87',
@@ -517,6 +542,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Robe Hook', 'Lathe Turned', 'Series 87'],
     featured: false,
+    image: '/catalog/accessory-series87.jpg',
   },
   {
     id: 'acc-88',
@@ -534,6 +560,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Glass Shelf', 'Smoked Glass', 'Series 88'],
     featured: false,
+    image: '/catalog/accessory-series88.jpg',
   },
   {
     id: 'acc-89',
@@ -551,6 +578,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Paper Holder', 'Cantilever', 'Series 89'],
     featured: false,
+    image: '/catalog/accessory-series89.jpg',
   },
   {
     id: 'acc-893',
@@ -568,6 +596,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Towel Rack', 'Hotel Specification', 'Series 893'],
     featured: true,
+    image: '/catalog/accessory-series893.jpg',
   },
   {
     id: 'acc-98',
@@ -585,6 +614,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Soap Dispenser', 'Wall Mounted', 'Series 98'],
     featured: false,
+    image: '/catalog/accessory-series98.jpg',
   },
   {
     id: 'acc-storage-rack',
@@ -602,6 +632,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 5,
     tags: ['Storage Rack', 'Dual Purpose', 'Stone Tray'],
     featured: false,
+    image: '/catalog/accessory-storage-rack.jpg',
   },
 
   // ==========================================
@@ -624,6 +655,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 2,
     tags: ['Linear Drain', 'Tile Insert', 'Invisible Threshold', 'High Capacity'],
     featured: true,
+    image: '/catalog/drain-linear-floor.jpg',
   },
   {
     id: 'drain-assembly',
@@ -641,6 +673,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 3,
     tags: ['Pop-Up Waste', 'Click Clack', 'Universal Thread'],
     featured: false,
+    image: '/catalog/drain-popup-clickclack.png',
   },
 
   // ==========================================
@@ -664,6 +697,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['Touchless', 'Infrared Sensor', 'Public Area', 'Water Saving'],
     featured: true,
+    image: '/catalog/public-sensor-faucet.jpg',
   },
 ];
 

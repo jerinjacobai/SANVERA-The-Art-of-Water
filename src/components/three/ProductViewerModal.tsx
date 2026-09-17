@@ -21,6 +21,7 @@ export const ProductViewerModal: React.FC<ProductViewerModalProps> = ({
   const [activeFinish, setActiveFinish] = useState<ProductFinish>('brushed_brass');
   const [activeTab, setActiveTab] = useState<'specs' | 'dimensions' | 'install' | 'downloads'>('specs');
   const [isWaterFlowing, setIsWaterFlowing] = useState(true);
+  const [viewMode, setViewMode] = useState<'3d' | 'photo'>('3d');
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   // Close on Escape key
@@ -65,6 +66,7 @@ export const ProductViewerModal: React.FC<ProductViewerModalProps> = ({
         </div>
 
         {/* 3D Canvas Scene */}
+        {viewMode === '3d' ? (
         <Canvas
           camera={{ position: [0, 1.2, 5.8], fov: 36 }}
           className="w-full h-full cursor-grab active:cursor-grabbing"
@@ -101,6 +103,20 @@ export const ProductViewerModal: React.FC<ProductViewerModalProps> = ({
             dampingFactor={0.05}
           />
         </Canvas>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center p-8 sm:p-14 relative bg-radial-gradient">
+          <div className="relative max-w-2xl max-h-[70vh] flex items-center justify-center p-6 border border-hair/60 bg-char/40 backdrop-blur-md rounded-lg shadow-2xl">
+            <img
+              src={item.previewImage || '/catalog/mixer-664.jpg'}
+              alt={item.title}
+              className="max-h-[58vh] w-auto object-contain transition-transform duration-700 hover:scale-105"
+            />
+            <div className="absolute bottom-4 left-4 bg-void/85 backdrop-blur-md px-3 py-1 text-[9px] label-mono text-brass border border-hair/50 rounded-sm">
+              Authentic Sanvera Studio Capture
+            </div>
+          </div>
+        </div>
+      )}
 
         {/* Bottom Interactive Controls */}
         <div className="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10 z-20 flex flex-wrap items-center justify-between gap-4 pointer-events-none">
@@ -108,6 +124,26 @@ export const ProductViewerModal: React.FC<ProductViewerModalProps> = ({
           <div className="flex items-center gap-3 text-smoke text-[10px] uppercase tracking-widest2">
             <RotateCcw size={12} />
             <span>Drag to rotate · Scroll to zoom</span>
+          </div>
+
+          {/* Mode Switcher: 3D vs Official Studio Photo */}
+          <div className="pointer-events-auto flex items-center bg-void/80 backdrop-blur-md border border-hair p-1 rounded-full text-xs">
+            <button
+              onClick={() => setViewMode('3d')}
+              className={`px-3 py-1 rounded-full text-[10px] uppercase tracking-widest2 transition-colors ${
+                viewMode === '3d' ? 'bg-ink text-void font-medium' : 'text-smoke hover:text-ink'
+              }`}
+            >
+              3D Interactive
+            </button>
+            <button
+              onClick={() => setViewMode('photo')}
+              className={`px-3 py-1 rounded-full text-[10px] uppercase tracking-widest2 transition-colors ${
+                viewMode === 'photo' ? 'bg-ink text-void font-medium' : 'text-smoke hover:text-ink'
+              }`}
+            >
+              Studio Archive
+            </button>
           </div>
 
           {/* Water flow toggle */}
