@@ -6,7 +6,7 @@ import { ProductViewerModal } from '../three/ProductViewerModal';
 import { SANVERA_CATALOG } from '../../data/sanveraCatalog';
 import { sanveraProductToCollectionItem } from '../sections/CollectionSection';
 import { CollectionItem, ProductFinish, SanveraProduct } from '../../types';
-import { ArrowRight, Compass, Layers, Box } from 'lucide-react';
+import { ArrowRight, Compass, Box } from 'lucide-react';
 
 interface ExperienceSpatialShowroomProps {
   onOpenEnquiry: (productName: string) => void;
@@ -156,43 +156,55 @@ export const ExperienceSpatialShowroom: React.FC<ExperienceSpatialShowroomProps>
             </button>
           </div>
 
-          {/* Floating Zone Product Drawer (Quick Access to authentic items in this wing) */}
-          <div className="absolute bottom-20 left-6 sm:left-12 z-20 max-w-xl pointer-events-auto">
-            <div className="bg-void/85 backdrop-blur-xl border border-hair p-3 sm:p-4 rounded-xl shadow-2xl">
-              <div className="flex items-center justify-between gap-4 mb-2.5">
+          {/* Luxury Exhibition Wing Showcase Tray (Prominent, large product cards) */}
+          <div className="absolute bottom-20 left-4 sm:left-10 right-4 sm:right-auto z-20 max-w-2xl pointer-events-auto">
+            <div className="bg-void/90 backdrop-blur-2xl border border-hair/90 p-4 sm:p-5 rounded-2xl shadow-2xl">
+              <div className="flex items-center justify-between gap-4 mb-3">
                 <div className="flex items-center gap-2">
-                  <Layers size={13} className="text-brass" />
-                  <span className="label-mono text-[9px] text-smoke uppercase">
-                    Fittings Exhibited in this Wing ({zoneProducts.length})
+                  <span className="w-2 h-2 rounded-full bg-brass animate-pulse" />
+                  <span className="label-mono text-[10px] text-mist uppercase tracking-wider">
+                    Exhibited in {currentZone.name} ({zoneProducts.length})
                   </span>
                 </div>
-                <span className="label-mono text-[9px] text-brass">
-                  Click to inspect 3D & photo
+                <span className="label-mono text-[9px] text-brass font-medium">
+                  Click card to inspect 3D model & photo
                 </span>
               </div>
 
-              {/* Product Card Row */}
-              <div className="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-none">
+              {/* Large Product Showcase Cards */}
+              <div className="flex items-center gap-3.5 overflow-x-auto pb-2 scrollbar-none">
                 {zoneProducts.map((prod) => (
                   <button
                     key={prod.id}
                     onClick={() => handlePedestalClick(prod.id)}
-                    className="group flex items-center gap-3 bg-char/50 hover:bg-char/90 border border-hair/70 hover:border-brass/80 p-2 rounded-lg text-left transition-all shrink-0 hover:scale-[1.02]"
+                    className="group flex flex-col justify-between w-48 sm:w-56 p-3.5 rounded-xl bg-char/60 hover:bg-char/95 border border-hair hover:border-brass/90 text-left transition-all shrink-0 hover:-translate-y-1 shadow-lg"
                   >
-                    <img
-                      src={prod.image || '/catalog/mixer-664.jpg'}
-                      alt={prod.name}
-                      className="w-11 h-11 rounded object-contain bg-void/50 p-1 border border-hair/50 group-hover:border-brass/60 transition-colors"
-                    />
-                    <div className="flex flex-col pr-2">
-                      <div className="flex items-center gap-1.5">
-                        <span className="label-mono text-[8px] text-brass">{prod.number}</span>
-                        <span className="text-hair text-[8px]">·</span>
-                        <span className="label-mono text-[8px] text-smoke">{prod.sku}</span>
-                      </div>
-                      <span className="font-display text-xs text-ink group-hover:text-brass transition-colors truncate max-w-[150px]">
+                    {/* Header */}
+                    <div className="flex items-center justify-between text-[9px] mb-2">
+                      <span className="label-mono text-brass font-medium">{prod.number}</span>
+                      <span className="label-mono text-smoke">{prod.sku}</span>
+                    </div>
+
+                    {/* LARGE PRODUCT PHOTO (h-32 sm:h-36) */}
+                    <div className="w-full h-32 sm:h-36 rounded-lg overflow-hidden bg-void/50 p-2 flex items-center justify-center border border-hair/50 group-hover:border-brass/50 transition-colors my-1">
+                      <img
+                        src={prod.image || '/catalog/mixer-664.jpg'}
+                        alt={prod.name}
+                        className="w-full h-full object-contain group-hover:scale-108 transition-transform duration-500"
+                        onError={(e) => {
+                          e.currentTarget.src = '/catalog/mixer-664.jpg';
+                        }}
+                      />
+                    </div>
+
+                    {/* Title & Action */}
+                    <div className="mt-2">
+                      <h4 className="font-display text-xs sm:text-sm text-ink group-hover:text-brass transition-colors truncate">
                         {prod.name}
-                      </span>
+                      </h4>
+                      <p className="text-[10px] text-smoke font-light mt-0.5 truncate">
+                        {prod.dimensions}
+                      </p>
                     </div>
                   </button>
                 ))}
