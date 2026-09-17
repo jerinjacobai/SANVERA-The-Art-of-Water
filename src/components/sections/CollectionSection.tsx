@@ -136,12 +136,23 @@ export const CollectionSection: React.FC<CollectionSectionProps> = ({ onSelectPr
                 onMouseLeave={() => setHoveredProduct(null)}
                 className="group relative flex flex-col md:flex-row md:items-center justify-between py-6 sm:py-9 cursor-pointer transition-all duration-500 hover:bg-void/40 px-2 sm:px-4"
               >
-                {/* Left: Product Title, Series & Family */}
-                <div className="flex items-baseline gap-6 sm:gap-10 flex-1">
-                  <span className="label-mono text-brass text-xs sm:text-sm w-7">
+                {/* Left: Product Thumbnail, Title, Series & Family */}
+                <div className="flex items-center gap-4 sm:gap-8 flex-1">
+                  <span className="label-mono text-brass text-xs sm:text-sm w-6 shrink-0">
                     {product.number}
                   </span>
-                  <div className="transition-transform duration-500 ease-editorial group-hover:translate-x-3">
+                  {/* Visible Product Studio Photo Thumbnail */}
+                  <div className="w-14 h-14 sm:w-20 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-char/60 border border-hair/70 p-1.5 flex items-center justify-center group-hover:border-brass/70 transition-all duration-300">
+                    <img
+                      src={product.image || '/catalog/mixer-664.jpg'}
+                      alt={product.name}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.src = '/catalog/mixer-664.jpg';
+                      }}
+                    />
+                  </div>
+                  <div className="transition-transform duration-500 ease-editorial group-hover:translate-x-2">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="label-mono text-smoke text-[9px] uppercase">
                         {product.family}

@@ -173,6 +173,27 @@ export const ProductViewerModal: React.FC<ProductViewerModalProps> = ({
             <span className="label-mono text-brass">{item.number} / 06</span>
           </div>
 
+          {/* Authentic Studio Photograph Card */}
+          <div className="mt-6 w-full h-44 rounded-lg overflow-hidden bg-void/60 border border-hair flex items-center justify-center p-3 relative group">
+            <img
+              src={item.previewImage || '/catalog/mixer-664.jpg'}
+              alt={item.title}
+              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+              onError={(e) => {
+                e.currentTarget.src = '/catalog/mixer-664.jpg';
+              }}
+            />
+            <div className="absolute top-2 left-2 bg-void/80 px-2 py-0.5 rounded text-[8px] label-mono text-smoke border border-hair/50">
+              Catalog Photo
+            </div>
+            <button
+              onClick={() => setViewMode(viewMode === '3d' ? 'photo' : '3d')}
+              className="absolute bottom-2 right-2 bg-void/80 hover:bg-void backdrop-blur-md px-2.5 py-1 text-[8px] label-mono text-brass border border-hair rounded transition-colors"
+            >
+              {viewMode === '3d' ? 'Full Photo View' : 'View 3D Model'}
+            </button>
+          </div>
+
           {/* Description */}
           <p className="mt-8 text-mist font-light leading-relaxed text-sm lg:text-base">
             {item.description}

@@ -54,7 +54,7 @@ export const SANVERA_CATALOG: SanveraProduct[] = [
     spatialZone: 1,
     tags: ['High Arc', 'Vessel Basin', 'Knurled Handle', '662 Series'],
     featured: false,
-    image: '/catalog/mixer-662.jpg',
+    image: '/catalog/mixer-662.png',
   },
   {
     id: 'mixer-663',

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Search, X, ArrowRight } from 'lucide-react';
-import { COLLECTIONS } from '../../data/collections';
+import { SANVERA_CATALOG } from '../../data/sanveraCatalog';
 import { JOURNAL_ARTICLES } from '../../data/journal';
+import { sanveraProductToCollectionItem } from '../sections/CollectionSection';
 import { CollectionItem } from '../../types';
 
 interface SearchModalProps {
@@ -29,12 +30,14 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 
   if (!isOpen) return null;
 
-  const filteredProducts = COLLECTIONS.filter(
+  const filteredProducts = SANVERA_CATALOG.filter(
     (item) =>
-      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.name.toLowerCase().includes(query.toLowerCase()) ||
       item.description.toLowerCase().includes(query.toLowerCase()) ||
       item.series.toLowerCase().includes(query.toLowerCase()) ||
-      item.specs.materials.toLowerCase().includes(query.toLowerCase())
+      item.family.toLowerCase().includes(query.toLowerCase()) ||
+      item.sku.toLowerCase().includes(query.toLowerCase()) ||
+      item.materials.toLowerCase().includes(query.toLowerCase())
   );
 
   const filteredArticles = JOURNAL_ARTICLES.filter(
@@ -53,7 +56,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             <Search size={22} className="text-brass shrink-0" />
             <input
               type="text"
-              placeholder="SEARCH COLLECTION, MATERIALS, SPECIFICATIONS..."
+              placeholder="SEARCH BY SERIES, NAME, MATERIAL, OR SKU..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoFocus
@@ -71,9 +74,11 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 
         {/* Search Results */}
         <div className="mt-12 space-y-12">
-          {/* Products Result Group */}
+          {/* Products Result Group with Authentic Photographs */}
           <div>
-            <span className="label-mono text-smoke block mb-4">Products & Collections</span>
+            <span className="label-mono text-smoke block mb-4">
+              Sanvera Catalogue Results ({filteredProducts.length})
+            </span>
             {filteredProducts.length > 0 ? (
               <div className="divide-y divide-hair">
                 {filteredProducts.map((p) => (
@@ -81,20 +86,32 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                     key={p.id}
                     onClick={() => {
                       onClose();
-                      onSelectProduct(p);
+                      onSelectProduct(sanveraProductToCollectionItem(p));
                     }}
-                    className="w-full py-4 text-left group flex items-center justify-between hover:bg-ink/[0.02] px-2 transition-colors"
+                    className="w-full py-4 text-left group flex items-center justify-between hover:bg-ink/[0.03] px-3 rounded-lg transition-colors gap-4"
                   >
-                    <div>
-                      <span className="label-mono text-brass text-[9px]">{p.number} / {p.series}</span>
-                      <h4 className="text-xl text-mist group-hover:text-ink transition-colors font-light mt-1">
-                        {p.title}
-                      </h4>
-                      <p className="text-xs text-smoke font-light mt-1 max-w-xl truncate">
-                        {p.description}
-                      </p>
+                    <div className="flex items-center gap-4 sm:gap-6">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 rounded-lg overflow-hidden bg-char/50 border border-hair/70 p-1 flex items-center justify-center group-hover:border-brass/70 transition-colors">
+                        <img
+                          src={p.image || '/catalog/mixer-664.jpg'}
+                          alt={p.name}
+                          className="w-full h-full object-contain"
+                          onError={(e) => {
+                            e.currentTarget.src = '/catalog/mixer-664.jpg';
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <span className="label-mono text-brass text-[9px]">{p.number} · {p.family} · {p.sku}</span>
+                        <h4 className="text-lg sm:text-xl text-mist group-hover:text-ink transition-colors font-light mt-0.5">
+                          {p.name}
+                        </h4>
+                        <p className="text-xs text-smoke font-light mt-0.5 max-w-xl truncate">
+                          {p.dimensions} · {p.materials}
+                        </p>
+                      </div>
                     </div>
-                    <ArrowRight size={16} className="text-smoke group-hover:text-ink group-hover:translate-x-1 transition-all" />
+                    <ArrowRight size={16} className="text-smoke group-hover:text-ink group-hover:translate-x-1 transition-all shrink-0" />
                   </button>
                 ))}
               </div>
@@ -119,14 +136,11 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                     <h4 className="text-lg text-mist group-hover:text-ink transition-colors font-light mt-1">
                       {a.title}
                     </h4>
-                    <p className="text-xs text-smoke font-light mt-1 max-w-xl truncate">
-                      {a.excerpt}
-                    </p>
                   </a>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-smoke font-light">No articles matching query.</p>
+              <p className="text-sm text-smoke font-light">No editorial articles matching query.</p>
             )}
           </div>
         </div>

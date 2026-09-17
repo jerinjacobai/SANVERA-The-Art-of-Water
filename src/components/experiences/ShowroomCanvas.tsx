@@ -303,10 +303,11 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
             }}
             className="group flex items-center gap-2 bg-void/90 backdrop-blur-md border border-hair hover:border-brass px-3 py-1.5 rounded-full text-xs transition-all shadow-xl hover:scale-105 pointer-events-auto"
           >
-            <span className="w-2 h-2 rounded-full bg-brass animate-ping" />
-            <span className="label-mono text-[9px] text-ink uppercase tracking-wider">
-              34 · Public Sensor Faucet
-            </span>
+            <img src="/catalog/public-sensor-faucet.jpg" alt="Sensor Faucet" className="w-8 h-8 rounded object-contain bg-char/60 p-0.5 border border-hair" />
+            <div className="flex flex-col text-left">
+              <span className="label-mono text-[8px] text-brass">34 · Public Area</span>
+              <span className="label-mono text-[9px] text-ink uppercase tracking-wider font-medium">Sensor Faucet</span>
+            </div>
           </button>
         </Html>
       </group>
@@ -339,10 +340,11 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
             }}
             className="group flex items-center gap-2 bg-void/95 backdrop-blur-md border border-brass px-3.5 py-1.5 rounded-full text-xs transition-all shadow-xl hover:scale-105 pointer-events-auto"
           >
-            <span className="w-2 h-2 rounded-full bg-brass animate-pulse" />
-            <span className="label-mono text-[9px] text-brass uppercase tracking-wider font-medium">
-              04 · 664 Signature Mixer
-            </span>
+            <img src="/catalog/mixer-664.jpg" alt="664 Mixer" className="w-9 h-9 rounded object-contain bg-char/60 p-0.5 border border-brass/60" />
+            <div className="flex flex-col text-left">
+              <span className="label-mono text-[8px] text-brass">04 · Flagship</span>
+              <span className="label-mono text-[9px] text-ink uppercase tracking-wider font-medium">664 Signature Mixer</span>
+            </div>
           </button>
         </Html>
       </group>
@@ -364,10 +366,11 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
             }}
             className="group flex items-center gap-2 bg-void/90 backdrop-blur-md border border-hair hover:border-brass px-3 py-1.5 rounded-full text-xs transition-all shadow-xl hover:scale-105 pointer-events-auto"
           >
-            <span className="w-2 h-2 rounded-full bg-brass animate-pulse" />
-            <span className="label-mono text-[9px] text-ink uppercase tracking-wider">
-              20 · Monolithic Pedestal Sink
-            </span>
+            <img src="/catalog/basin-monolithic-pedestal.png" alt="Pedestal Sink" className="w-8 h-8 rounded object-contain bg-char/60 p-0.5 border border-hair" />
+            <div className="flex flex-col text-left">
+              <span className="label-mono text-[8px] text-brass">20 · Basins</span>
+              <span className="label-mono text-[9px] text-ink uppercase tracking-wider font-medium">Pedestal Sink</span>
+            </div>
           </button>
         </Html>
       </group>
@@ -389,10 +392,11 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
             }}
             className="group flex items-center gap-2 bg-void/95 backdrop-blur-md border border-brass px-3.5 py-1.5 rounded-full text-xs transition-all shadow-xl hover:scale-105 pointer-events-auto"
           >
-            <span className="w-2 h-2 rounded-full bg-brass animate-pulse" />
-            <span className="label-mono text-[9px] text-brass uppercase tracking-wider font-medium">
-              12 · Shower System 5061
-            </span>
+            <img src="/catalog/shower-5061.png" alt="Shower 5061" className="w-9 h-9 rounded object-contain bg-char/60 p-0.5 border border-brass/60" />
+            <div className="flex flex-col text-left">
+              <span className="label-mono text-[8px] text-brass">12 · Wellness</span>
+              <span className="label-mono text-[9px] text-ink uppercase tracking-wider font-medium">Shower System 5061</span>
+            </div>
           </button>
         </Html>
       </group>
@@ -412,10 +416,11 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
             }}
             className="group flex items-center gap-2 bg-void/90 backdrop-blur-md border border-hair hover:border-brass px-3 py-1.5 rounded-full text-xs transition-all shadow-xl hover:scale-105 pointer-events-auto"
           >
-            <span className="w-2 h-2 rounded-full bg-brass animate-pulse" />
-            <span className="label-mono text-[9px] text-ink uppercase tracking-wider">
-              22 · Wall-Hung Rimless Toilet
-            </span>
+            <img src="/catalog/toilet-wall-hung-rimless.png" alt="Toilet" className="w-8 h-8 rounded object-contain bg-char/60 p-0.5 border border-hair" />
+            <div className="flex flex-col text-left">
+              <span className="label-mono text-[8px] text-brass">22 · Ceramics</span>
+              <span className="label-mono text-[9px] text-ink uppercase tracking-wider font-medium">Rimless Toilet</span>
+            </div>
           </button>
         </Html>
       </group>
@@ -435,10 +440,11 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
             }}
             className="group flex items-center gap-2 bg-void/90 backdrop-blur-md border border-hair hover:border-brass px-3 py-1.5 rounded-full text-xs transition-all shadow-xl hover:scale-105 pointer-events-auto"
           >
-            <span className="w-2 h-2 rounded-full bg-brass animate-pulse" />
-            <span className="label-mono text-[9px] text-ink uppercase tracking-wider">
-              23 · Ambient Smart Mirror
-            </span>
+            <img src="/catalog/mirror-smart-ambient.jpg" alt="Smart Mirror" className="w-8 h-8 rounded object-contain bg-char/60 p-0.5 border border-hair" />
+            <div className="flex flex-col text-left">
+              <span className="label-mono text-[8px] text-brass">23 · Optics</span>
+              <span className="label-mono text-[9px] text-ink uppercase tracking-wider font-medium">Smart Mirror</span>
+            </div>
           </button>
         </Html>
       </group>
@@ -460,10 +466,11 @@ const ShowroomRig: React.FC<ShowroomRigProps> = ({
             }}
             className="group flex items-center gap-2 bg-void/95 backdrop-blur-md border border-brass px-4 py-1.5 rounded-full text-xs transition-all shadow-2xl hover:scale-105 pointer-events-auto"
           >
-            <span className="w-2 h-2 rounded-full bg-brass animate-pulse" />
-            <span className="label-mono text-[9px] text-brass uppercase tracking-wider font-medium">
-              21 · Freestanding Oval Bathtub
-            </span>
+            <img src="/catalog/bathtub-freestanding-oval.jpg" alt="Oval Bathtub" className="w-9 h-9 rounded object-contain bg-char/60 p-0.5 border border-brass/60" />
+            <div className="flex flex-col text-left">
+              <span className="label-mono text-[8px] text-brass">21 · Sanctuary</span>
+              <span className="label-mono text-[9px] text-ink uppercase tracking-wider font-medium">Oval Bathtub</span>
+            </div>
           </button>
         </Html>
       </group>
