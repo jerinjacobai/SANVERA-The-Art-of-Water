@@ -1,135 +1,73 @@
-# Walkthrough — SANVERA: The Art of Water
-## Complete 3-Experience Brand Platform & 38-Product Catalogue Integration
+# Walkthrough — The Sanvera Flagship Showroom & Category 3D Models
 
-The official digital brand platform for **SANVERA** has been successfully upgraded, extended, and productionized. The existing Experience 01 has been fully preserved and elevated, while Experience 02 and Experience 03 have been brought into alignment with the real Sanvera product catalogue, featuring seamless transitions and isolated 3D WebGL scenes.
-
----
-
-## 1. Executive Summary & Live Status
-
-- **Remote Git Repository**: [GitHub Repository](https://github.com/jerinjacobai/SANVERA-The-Art-of-Water.git) (Synced and pushed on branch `main` at commit `0d60cbd`).
-- **Production Build**: Verified clean with TypeScript (`tsc`) and Vite (`vite build`) with **0 errors**.
-- **Live Development Server**: Active and running at `http://localhost:5173/` (Network: `http://192.168.29.116:5173/`).
-- **WebGL Lifecycle Isolation**: Only the active experience's `<Canvas>` is mounted. When switching experiences, the departing scene unmounts and disposes Three.js geometries, materials, and textures cleanly during an 1150ms luxury transition veil.
+The **Sanvera Showroom** has been completely reimagined as the primary flagship destination of the brand platform. The previous issue where every product defaulted to a generic faucet pipe has been eliminated by creating dedicated, high-fidelity 3D procedural models for each product category, and populating the 68-meter architectural pavilion with 7 interactive 3D product exhibition stations.
 
 ---
 
-## 2. The Three Brand Experiences
+## 1. Flagship Transformation & Default Experience
 
-```
-                               ┌──────────────────────────────────────────────┐
-                               │       SANVERA SHARED INFRASTRUCTURE          │
-                               │  - 38-PRODUCT CATALOGUE (9 FAMILIES)         │
-                               │  - PBR MATERIAL DEFINITIONS                  │
-                               │  - LENIS SMOOTH SCROLL                       │
-                               │  - GLOBAL LUXURY CURSOR & LIVE SEARCH        │
-                               └──────────────────────┬───────────────────────┘
-                                                      │
-         ┌────────────────────────────────────────────┼────────────────────────────────────────────┐
-         │                                            │                                            │
-         ▼                                            ▼                                            ▼
-┌─────────────────────────────────┐   ┌─────────────────────────────────┐   ┌─────────────────────────────────┐
-│         EXPERIENCE 01           │   │         EXPERIENCE 02           │   │         EXPERIENCE 03           │
-│       THE ART OF WATER          │   │      THE SANVERA SHOWROOM       │   │        SANVERA / MOTION         │
-│   (Editorial Brand Monograph)   │   │  (Interactive 3D Pavilion)      │   │  (9-Chapter Digital Film)       │
-│ ─────────────────────────────── │   │ ─────────────────────────────── │   │ ─────────────────────────────── │
-│ • 4-Stage Hero Scroll Canvas    │   │ • 3D Architectural Pavilion     │   │ • 9-Chapter Narrative Arc       │
-│ • Drawing-to-Brass Morphing     │   │ • CatmullRom Spline Tour (6-Stops)│ • Spline Vector to Resolved Mesh│
-│ • Water Ribbon Particle Flow    │   │ • Real-Time Telemetry HUD       │   │ • Auto-Play Film & Scrub Bar    │
-│ • Real 34-Item Filtered Grid    │   │ • Clickable Product Pedestals   │   │ • Interactive Finish Switcher   │
-│ • Cursor Hover Floating Preview │   │ • Blueprint CAD Elevation Panel │   │ • Climax 3D Product Inspector   │
-└─────────────────────────────────┘   └─────────────────────────────────┘   └─────────────────────────────────┘
-```
+- **Primary Destination**: Visitors landing on `http://localhost:5173/` or [`https://sanvera.vercel.app`](https://sanvera.vercel.app) now land directly inside **The Sanvera Showroom** (`Experience 02`).
+- **Smooth Navigation**: Experiences 01 (The Art of Water) and 03 (Motion) remain accessible via the luxury switcher dock, URL query parameters, and keyboard shortcuts (`1`, `2`, `3`).
 
 ---
 
-## 3. Key Upgrades Delivered
+## 2. Dedicated 3D Category Models (No More Single Pipe Model)
 
-### A. Authentic Sanvera Product Catalogue (`src/data/sanveraCatalog.ts`)
-Normalized 34 authentic products across all 9 official Sanvera families:
-1. **Faucets & Mixers**:
-   - `661 Series Basin Mixer`
-   - `662 Series Basin Mixer`
-   - `663 Series Basin Mixer`
-   - `664 Series Signature Precision Mixer`
-   - `665 Series Tall Basin Mixer`
-   - `666 Series Waterfall Mixer`
-   - `Basin Faucet (Single-Hole)`
-   - `2/3-Hole Deck-Mounted Basin Mixer`
-   - `Concealed Wall-Mounted Basin Mixer`
-   - `Bathtub Faucet & Hand Shower Set`
-   - `Concealed Kitchen Mixer with Pull-Out Spray`
-2. **Showers**:
-   - `Concealed Shower System 5061 (Dual-Dial Thermostatic)`
-   - `Concealed Shower System 5148 (Push-Button Diverter)`
-   - `Concealed Square Shower Set`
-   - `5-Function Hydro-Massage Shower Panel`
-   - `Exposed Architectural Shower Column`
-   - `Ultra-Slim Stainless Steel Rain Shower Head`
-   - `Concealed Shower Set 1`
-3. **Basins & Sanitary Ceramic**:
-   - `Ceramic Countertop Vessel Basin`
-   - `Monolithic Freestanding Pedestal Sink`
-4. **Bathtubs**:
-   - `Freestanding Acrylic & Stone Oval Bathtub`
-5. **Toilets & Bidets**:
-   - `Wall-Hung Rimless Architectural Toilet`
-6. **Smart Mirrors**:
-   - `Ambient LED Backlit Smart Mirror`
-   - `Articulated Dual-Arm Cosmetic Makeup Mirror`
-7. **Accessories & Hardware**:
-   - `Series 73 Brass Towel Bar & Ring`
-   - `Series 87 Minimal Robe Hook`
-   - `Series 88 Heavy Brass Glass Shelf`
-   - `Series 89 Corner Shower Basket`
-   - `Series 893 Liquid Soap Dispenser`
-   - `Series 98 Modern Toilet Brush Holder`
-   - `Wall-Mounted Storage Rack & Paper Holder`
-8. **Drainage & Plumbing**:
-   - `Architectural Linear Tile-In Floor Drain`
-   - `Pop-Up Click-Clack Basin Drain Assembly`
-9. **Commercial & Public Area**:
-   - `Touchless Infrared Public Sensor Faucet`
+In [`src/components/three/ProductModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/ProductModel.tsx), a category-aware dispatcher now routes each product to its dedicated 3D component:
 
-### B. Experience 01: The Art of Water
-- Preserved the full 4-stage hero scroll choreography, procedural fluid simulation, and drawing-to-brass morphing.
-- Replaced placeholder items in [CollectionSection.tsx](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/sections/CollectionSection.tsx) with genuine Sanvera items.
-- Added 9 category filter pills, real-time query search, live counts, smooth pagination, and cursor-following floating preview card.
-
-### C. Experience 02: The Sanvera Showroom
-- Updated [ShowroomCanvas.tsx](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/experiences/ShowroomCanvas.tsx) and [ExperienceSpatialShowroom.tsx](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/experiences/ExperienceSpatialShowroom.tsx) with authentic Sanvera products assigned to their respective spatial zones.
-- Interactive pedestals for the `664 Series Signature Precision Mixer`, `Concealed Shower System 5061`, `Freestanding Oval Bathtub`, and `Touchless Infrared Sensor Faucet`.
-- Integrated CatmullRom spline tour, real-time spatial telemetry HUD ($X/Y/Z$), free 360° orbit control, and architectural blueprint elevations.
-
-### D. Experience 03: Sanvera / Motion
-- Built [ExperienceMotion.tsx](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/experiences/ExperienceMotion.tsx) and [MotionCanvas.tsx](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/experiences/MotionCanvas.tsx).
-- 450vh scroll-pinned timeline unfolding across 9 distinct chapters:
-  - **01 / LINE**: The gestural ink stroke recording water's parabolic arc.
-  - **02 / CURVE**: Mathematical fluid streamlines and internal bore tangents.
-  - **03 / FORM**: Polygonal CAD wireframe topology and structural balance.
-  - **04 / MATERIAL**: Cold-forged brass billets and tactile knurled finishes.
-  - **05 / WATER**: Swiss laminar flow release without micro-turbulence.
-  - **06 / PRODUCT**: The physical 664 Series mixer resolved in space.
-  - **07 / SPACE**: Installed within brutalist honed limestone architecture.
-  - **08 / RITUAL**: The physical turn, acoustic silence, and tactile interaction.
-  - **09 / SANVERA**: Monograph climax uniting all thirty-four catalogue pieces.
-- Features film auto-play toggle, interactive timeline scrubber, chapter navigation buttons, finish preview switcher, and one-click 3D product inspection.
-
-### E. Transition Choreography & Experience Switcher
-- Built [ExperienceTransitionOverlay.tsx](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/layout/ExperienceTransitionOverlay.tsx): 1150ms choreographed veil with an animated water-line horizon beam, deep backdrop blur, and Sanvera logo reveal.
-- Updated [ExperienceSwitcher.tsx](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/layout/ExperienceSwitcher.tsx): floating dock, mobile touch-friendly drawer, and keyboard shortcuts (`1`, `2`, `3`).
-- Bidirectional URL routing with browser history support (`?exp=1|2|3` and `#art-of-water`, `#showroom`, `#motion`).
+| Product Category | Component | 3D Interactive Features |
+| :--- | :--- | :--- |
+| **Bathtubs** | [`BathtubModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/BathtubModel.tsx) | Sculptural double-ended oval soaking tub in honed mineral composite stone, water level, pop-up floor drain, and floor-mounted curved brass spout with handheld stick shower and active water stream. |
+| **Showers** | [`ShowerModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/ShowerModel.tsx) | Concealed 5061 wall system with recessed dual-dial thermostatic plate (diamond-knurled knobs), 300mm ultra-slim overhead rain shower canopy, and multi-drop falling rainfall water curtain. |
+| **Basins & Sinks** | [`BasinModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/BasinModel.tsx) | Honed ceramic vessel countertop basin with water pool, monolithic stone vanity column, and tall architectural basin mixer in matching alloy finish. |
+| **Sanitaryware & Toilets** | [`ToiletModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/ToiletModel.tsx) | Cantilevered wall-hung rimless architectural toilet with slim soft-close ergonomic seat and rear concealed wall module with dual-flush brass plate. |
+| **Smart Mirrors** | [`MirrorModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/MirrorModel.tsx) | Floating ambient LED backlit smart mirror with warm radial glow halo, touch sensor indicator, and polished brass perimeter trim. |
+| **Accessories & Hardware** | [`AccessoryModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/AccessoryModel.tsx) | Series 73 architectural brass towel bar, Series 87 minimalist robe hook duo, and stone mounting plate. |
+| **Drainage Systems** | [`DrainageModel.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/DrainageModel.tsx) | Precision linear tile-in floor drain with brushed grate insert and perimeter drainage slot. |
+| **Faucets & Series Mixers** | [`ProceduralFaucet.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/three/ProceduralFaucet.tsx) | Flagship 664 series precision mixer with joystick control, diamond-knurling band, and Swiss laminar flow stream. |
 
 ---
 
-## 4. How to View & Test
+## 3. The 7 Exhibition Stations in the 3D Showroom Pavilion
 
-1. Open your browser and navigate to:
-   - **Experience 01**: [`http://localhost:5173/?exp=1#art-of-water`](http://localhost:5173/?exp=1#art-of-water)
-   - **Experience 02**: [`http://localhost:5173/?exp=2#showroom`](http://localhost:5173/?exp=2#showroom)
-   - **Experience 03**: [`http://localhost:5173/?exp=3#motion`](http://localhost:5173/?exp=3#motion)
-2. Use the floating switcher at the bottom center to trigger the luxury transition veil.
-3. Press keys `1`, `2`, or `3` on your keyboard for instant switching.
-4. On Experience 01, test the category filter pills (`All`, `Faucets & Mixers`, `Showers`, `Basins`, `Bathtubs`, etc.) and the search bar.
-5. On Experience 02, click **Start Guided Spline Tour** or click individual pedestals to inspect items.
-6. On Experience 03, click **Play Film** to watch the automated 9-chapter cinematic scrub, or drag the scrub bar.
+The 68-meter architectural pavilion in [`ShowroomCanvas.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/experiences/ShowroomCanvas.tsx) now features 7 interactive stations:
+
+1. **Station 00 — Approach & Forecourt (`z = 18`, `x = -4.5`)**:
+   - Monolithic basalt plinth in front of the reflecting pool showcasing the `Public Area Touchless Sensor Faucet` (`#34`).
+   - Clickable 3D Hotspot: `34 · Public Sensor Faucet`.
+2. **Station 01 — Central Signature Faucet Altar (`z = 4`, `x = 0`)**:
+   - Central cylindrical plinth featuring the flagship `664 Series Signature Precision Mixer` (`#04`) with active laminar water flow.
+   - Clickable 3D Hotspot: `04 · 664 Signature Mixer`.
+3. **Station 02 — Basins & Pedestals Gallery (`z = -8`, `x = -5.0`)**:
+   - Architectural vanity featuring the `Monolithic Pedestal Sink` (`#20`) and `Ceramic Countertop Basin` (`#19`).
+   - Clickable 3D Hotspot: `20 · Monolithic Pedestal Sink`.
+4. **Station 03 — Concealed Shower Wellness Suite (`z = -18`, `x = 5.0`)**:
+   - Private stone alcove with the `Concealed Shower System 5061` (`#12`), overhead 300mm rain disk, and falling rainfall.
+   - Clickable 3D Hotspot: `12 · Shower System 5061`.
+5. **Station 04 — Ceramic & Sanitary Wing (`z = -28`, `x = -5.0`)**:
+   - Cantilevered wall module showcasing the `Wall-Hung Rimless Architectural Toilet` (`#22`) with dual flush plate.
+   - Clickable 3D Hotspot: `22 · Wall-Hung Rimless Toilet`.
+6. **Station 05 — Optics & Hardware Suite (`z = -28`, `x = 5.0`)**:
+   - Floating `Ambient LED Backlit Smart Mirror` (`#23`) with radiant light halo and brass towel hardware.
+   - Clickable 3D Hotspot: `23 · Ambient Smart Mirror`.
+7. **Station 06 — Freestanding Bath Sanctuary (`z = -38`, `x = 0`)**:
+   - The grand climax at the northern panoramic glass curtain wall: `Freestanding Oval Bathtub` (`#21`) with floor mixer spout and linear drain.
+   - Clickable 3D Hotspot: `21 · Freestanding Oval Bathtub`.
+
+---
+
+## 4. In-Showroom Interactive Product Tray
+
+[`ExperienceSpatialShowroom.tsx`](file:///c:/Users/jacob/OneDrive/Documents/Sanvera/src/components/experiences/ExperienceSpatialShowroom.tsx) now includes a floating **Fittings Exhibited in this Wing** drawer:
+- Displays thumbnails of the authentic products present in the active zone.
+- Clicking any card or clicking any 3D pin in the scene immediately launches the `ProductViewerModal` preloaded with that product's dedicated 3D model.
+- Switching to the **Studio Archive** tab in the modal shows the high-resolution authentic photograph directly from the `SANVERA CATALOGUE`.
+
+---
+
+## 5. Live Status & Verification
+
+- **GitHub Repository**: [`https://github.com/jerinjacobai/SANVERA-The-Art-of-Water.git`](https://github.com/jerinjacobai/SANVERA-The-Art-of-Water.git)
+- **Latest Commit**: [`441fa88`](https://github.com/jerinjacobai/SANVERA-The-Art-of-Water/commit/441fa88) (`feat(showroom): elevate Showroom to flagship experience with 7 interactive 3D product stations, category-specific 3D procedural models, and zone product tray`)
+- **TypeScript & Vite Build**: Passed with **0 errors** in 25.61s.
+- **Local Dev Server**: Live at [http://localhost:5173/](http://localhost:5173/)
