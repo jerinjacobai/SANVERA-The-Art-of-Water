@@ -3,17 +3,17 @@ import { SanveraLogo } from '../common/SanveraLogo';
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="site-footer" className="relative bg-void border-t border-hair pt-20 lg:pt-32 pb-12 lg:pb-16 text-ink">
+    <footer id="site-footer" className="relative bg-[#13100d] border-t border-[#c5a059]/20 pt-20 lg:pt-32 pb-12 lg:pb-16 text-[#f7f3ec]">
       <div className="mx-auto max-w-[1800px] px-6 sm:px-10 lg:px-16">
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 pb-16 lg:pb-24 border-b border-hair">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 pb-16 lg:pb-24 border-b border-[#c5a059]/15">
           {/* Col 1: Brand & Tagline */}
           <div className="md:col-span-5 flex flex-col justify-between">
             <div>
               <a href="#hero" className="inline-block group" aria-label="Sanvera — Return to top">
-                <SanveraLogo className="h-8 lg:h-10 w-auto text-ink group-hover:text-brass transition-colors" />
+                <SanveraLogo className="h-12 lg:h-16 w-auto drop-shadow-[0_2px_16px_rgba(212,175,55,0.4)] transition-transform duration-300 group-hover:scale-105" variant="gold" showSubtitle />
               </a>
-              <p className="mt-8 text-base lg:text-lg text-smoke font-light leading-relaxed max-w-[22rem]">
+              <p className="mt-8 text-base lg:text-lg text-[#d8cfc4] font-light leading-relaxed max-w-[22rem]">
                 Sanitaryware for architecture that takes water seriously.
               </p>
             </div>

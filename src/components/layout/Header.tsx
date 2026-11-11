@@ -23,24 +23,27 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch, active
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 h-[72px] lg:h-[88px] transition-all duration-700 ease-editorial border-b ${
+      className={`fixed inset-x-0 top-0 z-50 h-[80px] lg:h-[96px] transition-all duration-700 ease-editorial border-b ${
         isScrolled
-          ? 'bg-void/85 backdrop-blur-md border-hair'
-          : 'bg-gradient-to-b from-void/60 to-transparent border-transparent'
+          ? 'bg-[#15120e]/90 backdrop-blur-xl border-[#c5a059]/25 shadow-lg shadow-black/50'
+          : 'bg-gradient-to-b from-[#15120e]/80 via-[#15120e]/30 to-transparent border-transparent'
       }`}
     >
       <div className="mx-auto flex h-full max-w-[1800px] items-center justify-between px-6 sm:px-10 lg:px-16">
         {/* Brand Logo & Active Experience Badge */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <a
             href="#hero"
-            className="group flex items-center gap-3 transition-opacity duration-300 hover:opacity-80"
+            className="group flex items-center gap-3 transition-all duration-300 hover:scale-105"
             aria-label="Sanvera — Return to top"
           >
-            <SanveraLogo className="h-6 sm:h-7 lg:h-8 w-auto text-ink group-hover:text-brass transition-colors" />
+            <SanveraLogo
+              className="h-9 sm:h-11 lg:h-[48px] w-auto drop-shadow-[0_2px_12px_rgba(212,175,55,0.35)]"
+              variant="gold"
+            />
           </a>
 
-          <span className="hidden xl:inline-block label-mono text-[9px] text-brass/80 border border-hair/60 px-2 py-0.5 rounded-full">
+          <span className="hidden xl:inline-block label-mono text-[9px] text-[#d4af37] border border-[#c5a059]/40 bg-[#d4af37]/10 px-2.5 py-0.5 rounded-full">
             {expLabel}
           </span>
         </div>
