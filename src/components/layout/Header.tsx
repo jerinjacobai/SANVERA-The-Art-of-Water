@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
+import { SanveraLogo } from '../common/SanveraLogo';
 
 interface HeaderProps {
   onOpenMenu: () => void;
@@ -36,22 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch, active
             className="group flex items-center gap-3 transition-opacity duration-300 hover:opacity-80"
             aria-label="Sanvera — Return to top"
           >
-            <img
-              src="/images/logo.png"
-              alt="Sanvera"
-              className="h-3.5 sm:h-4 lg:h-[18px] w-auto object-contain"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                const textFallback = document.getElementById('brand-text-fallback');
-                if (textFallback) textFallback.style.display = 'block';
-              }}
-            />
-            <span
-              id="brand-text-fallback"
-              className="hidden font-display text-lg tracking-widest3 font-light text-ink uppercase"
-            >
-              Sanvera
-            </span>
+            <SanveraLogo className="h-6 sm:h-7 lg:h-8 w-auto text-ink group-hover:text-brass transition-colors" />
           </a>
 
           <span className="hidden xl:inline-block label-mono text-[9px] text-brass/80 border border-hair/60 px-2 py-0.5 rounded-full">

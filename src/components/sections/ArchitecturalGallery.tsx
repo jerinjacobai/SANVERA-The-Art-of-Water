@@ -2,13 +2,14 @@ import React from 'react';
 
 const SPATIAL_PROJECTS = [
   {
-    id: 'residence-engadin',
-    title: 'Engadin Alpine Sanctuary',
-    location: 'St. Moritz, Switzerland',
-    materials: 'Valser quartzite, brushed brass series mixer',
-    image: '/images/renderings/1.jpg',
+    id: 'golden-spa-sanctuary',
+    title: 'Golden Marble Spa Sanctuary',
+    location: 'Lake Como, Italy',
+    materials: 'Calacatta gold marble, composite stone bath, brushed brass shower suite',
+    image: '/images/golden-spa-sanctuary.jpg',
     aspect: 'aspect-[16/10]',
     span: 'lg:col-span-8',
+    isInteractive: true,
   },
   {
     id: 'hotel-kyoto',
@@ -18,6 +19,7 @@ const SPATIAL_PROJECTS = [
     image: '/images/renderings/2-1.jpg',
     aspect: 'aspect-[4/5]',
     span: 'lg:col-span-4',
+    isInteractive: false,
   },
   {
     id: 'villa-capri',
@@ -27,6 +29,7 @@ const SPATIAL_PROJECTS = [
     image: '/images/renderings/3-1.jpg',
     aspect: 'aspect-square',
     span: 'lg:col-span-5',
+    isInteractive: false,
   },
   {
     id: 'residence-copenhagen',
@@ -36,6 +39,7 @@ const SPATIAL_PROJECTS = [
     image: '/images/renderings/4.jpg',
     aspect: 'aspect-[16/10]',
     span: 'lg:col-span-7',
+    isInteractive: false,
   },
 ];
 
@@ -60,26 +64,53 @@ export const ArchitecturalGallery: React.FC = () => {
 
         {/* Asymmetrical Grid of Architectural Compositions */}
         <div className="mt-16 sm:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {SPATIAL_PROJECTS.map((project) => (
-            <figure
-              key={project.id}
-              className={`plate group relative overflow-hidden rounded-sm ${project.aspect} ${project.span}`}
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover grayscale contrast-115 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 ease-editorial opacity-75 group-hover:opacity-90"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-void/90 via-void/20 to-transparent" />
-              <figcaption className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                <div>
-                  <span className="label-mono text-brass block text-[9px]">{project.location}</span>
-                  <h4 className="text-xl sm:text-2xl text-ink font-light mt-1">{project.title}</h4>
-                </div>
-                <span className="label-mono text-smoke text-[9px]">{project.materials}</span>
-              </figcaption>
-            </figure>
-          ))}
+          {SPATIAL_PROJECTS.map((project) => {
+            const Wrapper = project.isInteractive ? 'a' : 'figure';
+            const wrapperProps = project.isInteractive
+              ? { href: '#showroom', 'aria-label': `Enter ${project.title} interactive showroom` }
+              : {};
+
+            return (
+              <Wrapper
+                key={project.id}
+                {...wrapperProps}
+                className={`plate group relative overflow-hidden rounded-sm block ${project.aspect} ${project.span} ${
+                  project.isInteractive ? 'cursor-pointer ring-1 ring-brass/30 hover:ring-brass/80 transition-all' : ''
+                }`}
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-editorial ${
+                    project.isInteractive
+                      ? 'filter contrast-105 brightness-100 group-hover:brightness-110'
+                      : 'grayscale contrast-115 group-hover:grayscale-0 opacity-75 group-hover:opacity-90'
+                  }`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-void/90 via-void/20 to-transparent" />
+
+                {project.isInteractive && (
+                  <div className="absolute top-6 left-6 z-10">
+                    <span className="px-3 py-1 rounded-full bg-brass/90 text-void font-medium label-mono text-[9px] uppercase tracking-wider flex items-center gap-1.5 shadow-lg">
+                      <span className="w-1.5 h-1.5 rounded-full bg-void animate-ping" />
+                      Interactive Spa Showroom
+                    </span>
+                  </div>
+                )}
+
+                <figcaption className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                  <div>
+                    <span className="label-mono text-brass block text-[9px]">{project.location}</span>
+                    <h4 className="text-xl sm:text-2xl text-ink font-light mt-1 flex items-center gap-2">
+                      {project.title}
+                      {project.isInteractive && <span className="text-brass text-sm">→</span>}
+                    </h4>
+                  </div>
+                  <span className="label-mono text-smoke text-[9px]">{project.materials}</span>
+                </figcaption>
+              </Wrapper>
+            );
+          })}
         </div>
       </div>
     </section>

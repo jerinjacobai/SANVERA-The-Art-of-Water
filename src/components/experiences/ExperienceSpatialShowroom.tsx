@@ -1,12 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ShowroomCanvas, SHOWROOM_ZONES, ShowroomZone } from './ShowroomCanvas';
-import { ShowroomTelemetry } from './ShowroomTelemetry';
+import React from 'react';
+import { GoldenSpaShowroom } from './GoldenSpaShowroom';
 import { ShowroomBlueprints } from './ShowroomBlueprints';
-import { ProductViewerModal } from '../three/ProductViewerModal';
-import { SANVERA_CATALOG } from '../../data/sanveraCatalog';
-import { sanveraProductToCollectionItem } from '../sections/CollectionSection';
-import { CollectionItem, ProductFinish } from '../../types';
-import { ArrowRight, Compass, Box } from 'lucide-react';
 
 interface ExperienceSpatialShowroomProps {
   onOpenEnquiry: (productName: string) => void;
@@ -15,161 +9,12 @@ interface ExperienceSpatialShowroomProps {
 export const ExperienceSpatialShowroom: React.FC<ExperienceSpatialShowroomProps> = ({
   onOpenEnquiry,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0.05);
-  const [currentZone, setCurrentZone] = useState<ShowroomZone>(SHOWROOM_ZONES[0]);
-  const [coords, setCoords] = useState({ x: 0, y: 3.4, z: 38 });
-  const [isFreeExploration, setIsFreeExploration] = useState(false);
-  const [activeFinish, setActiveFinish] = useState<ProductFinish>('brushed_brass');
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
-  const [inspectedProduct, setInspectedProduct] = useState<CollectionItem | null>(null);
-
-  // Auto-play animation timer
-  useEffect(() => {
-    let animId: number;
-    if (isAutoPlaying && !isFreeExploration) {
-      const step = () => {
-        setProgress((prev) => {
-          const next = (prev + 0.001) % 1;
-          return next;
-        });
-        animId = requestAnimationFrame(step);
-      };
-      animId = requestAnimationFrame(step);
-    }
-    return () => cancelAnimationFrame(animId);
-  }, [isAutoPlaying, isFreeExploration]);
-
-  // Scroll tracking for guided camera path
-  const handleScroll = useCallback(() => {
-    if (isFreeExploration || !containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const total = rect.height - window.innerHeight;
-    if (total <= 0) return;
-
-    const p = Math.max(0.001, Math.min(0.999, -rect.top / total));
-    setProgress(p);
-
-    // Determine active zone based on scroll progression
-    let closest = SHOWROOM_ZONES[0];
-    let minDiff = Infinity;
-    SHOWROOM_ZONES.forEach((z) => {
-      const diff = Math.abs(z.t - p);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closest = z;
-      }
-    });
-    setCurrentZone(closest);
-  }, [isFreeExploration]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  // Jump smoothly to a specific architectural zone
-  const handleSelectZone = (zone: ShowroomZone) => {
-    if (isFreeExploration) setIsFreeExploration(false);
-    setProgress(zone.t);
-    setCurrentZone(zone);
-
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const targetScrollY = window.scrollY + rect.top + zone.t * total;
-      window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-    }
-  };
-
-  // Pedestal / hotspot click handler
-  const handlePedestalClick = (idOrName: string) => {
-    const found = SANVERA_CATALOG.find((c) =>
-      c.id === idOrName ||
-      c.name.toLowerCase().includes(idOrName.toLowerCase()) ||
-      c.family.toLowerCase().includes(idOrName.toLowerCase()) ||
-      idOrName.toLowerCase().includes(c.id) ||
-      idOrName.toLowerCase().includes(c.name.toLowerCase())
-    ) || SANVERA_CATALOG[3];
-    setInspectedProduct(sanveraProductToCollectionItem(found));
-  };
-
-
-
   return (
     <div className="relative w-full bg-void text-ink">
-      {/* 3D Product Inspector Modal with 3D & Studio Photo Archive */}
-      <ProductViewerModal
-        item={inspectedProduct}
-        onClose={() => setInspectedProduct(null)}
-        onOpenEnquiry={onOpenEnquiry}
-      />
+      {/* Flagship Interactive Golden Marble Spa Bathroom Sanctuary */}
+      <GoldenSpaShowroom onOpenEnquiry={onOpenEnquiry} />
 
-      {/* Main Pinned 3D Architectural Showroom Pavilion */}
-      <section
-        ref={containerRef}
-        id="showroom"
-        className="relative w-full h-[450vh] bg-void"
-      >
-        <div className="sticky top-0 h-[100svh] w-full overflow-hidden select-none">
-          {/* 3D Three.js Spatial Pavilion Scene with 7 Stations */}
-          <ShowroomCanvas
-            progress={progress}
-            isFreeExploration={isFreeExploration}
-            activeFinish={activeFinish}
-            onUpdateCoords={setCoords}
-            onPedestalClick={handlePedestalClick}
-          />
-
-          {/* Top Left: Pavilion Brand & Zone Status Overlay */}
-          <div className="absolute top-20 sm:top-24 left-6 sm:left-12 z-20 pointer-events-none max-w-sm">
-            <div className="flex items-center gap-2.5">
-              <Compass size={14} className="text-brass" />
-              <span className="label-mono text-mist">Sanvera Flagship Pavilion · Architectural 3D Space</span>
-            </div>
-            <h1 className="editorial-title text-3xl sm:text-4xl lg:text-5xl text-ink mt-2">
-              {currentZone.name}
-            </h1>
-            <p className="text-xs sm:text-sm text-mist font-light mt-2 leading-relaxed">
-              {currentZone.tagline}
-            </p>
-          </div>
-
-          {/* Top Right: Architectural Context & Quick Action */}
-          <div className="absolute top-20 sm:top-24 right-6 sm:right-12 z-20 max-w-xs text-right hidden md:block pointer-events-auto">
-            <span className="label-mono text-brass block mb-1">Wing Specifications</span>
-            <p className="text-xs text-smoke font-light leading-relaxed">
-              {currentZone.description}
-            </p>
-            <button
-              onClick={() => handlePedestalClick(currentZone.productIds[0] || 'mixer-664')}
-              className="mt-3 inline-flex items-center gap-2 label-mono text-ink border-b border-hair hover:border-ink transition-colors pb-1 text-[10px]"
-            >
-              <Box size={12} className="text-brass" />
-              <span>Inspect Wing Centerpiece (3D)</span>
-              <ArrowRight size={12} />
-            </button>
-          </div>
-
-          
-
-          {/* Bottom Telemetry HUD Bar (Coordinates, Zones, Controls) */}
-          <ShowroomTelemetry
-            currentZone={currentZone}
-            coords={coords}
-            progress={progress}
-            isFreeExploration={isFreeExploration}
-            onToggleMode={() => setIsFreeExploration(!isFreeExploration)}
-            onSelectZone={handleSelectZone}
-            activeFinish={activeFinish}
-            onSelectFinish={setActiveFinish}
-            isAutoPlaying={isAutoPlaying}
-            onToggleAutoPlay={() => setIsAutoPlaying(!isAutoPlaying)}
-          />
-        </div>
-      </section>
-
-      {/* Architectural CAD Blueprint Drawings & Framework */}
+      {/* Architectural Engineering Blueprints & Technical Details */}
       <ShowroomBlueprints />
     </div>
   );

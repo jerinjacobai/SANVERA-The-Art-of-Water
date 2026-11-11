@@ -1,4 +1,5 @@
 import React from 'react';
+import { SanveraLogo } from '../common/SanveraLogo';
 
 export const Footer: React.FC = () => {
   return (
@@ -9,23 +10,8 @@ export const Footer: React.FC = () => {
           {/* Col 1: Brand & Tagline */}
           <div className="md:col-span-5 flex flex-col justify-between">
             <div>
-              <a href="#hero" className="inline-block">
-                <img
-                  src="/images/logo.png"
-                  alt="Sanvera"
-                  className="h-5 lg:h-7 w-auto object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const textFallback = document.getElementById('footer-text-fallback');
-                    if (textFallback) textFallback.style.display = 'block';
-                  }}
-                />
-                <span
-                  id="footer-text-fallback"
-                  className="hidden font-display text-2xl tracking-widest3 font-light text-ink uppercase"
-                >
-                  Sanvera
-                </span>
+              <a href="#hero" className="inline-block group" aria-label="Sanvera — Return to top">
+                <SanveraLogo className="h-8 lg:h-10 w-auto text-ink group-hover:text-brass transition-colors" />
               </a>
               <p className="mt-8 text-base lg:text-lg text-smoke font-light leading-relaxed max-w-[22rem]">
                 Sanitaryware for architecture that takes water seriously.
