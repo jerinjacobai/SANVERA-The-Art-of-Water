@@ -38,12 +38,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch, active
             aria-label="Sanvera — Return to top"
           >
             <SanveraLogo
-              className="h-9 sm:h-11 lg:h-[48px] w-auto drop-shadow-[0_2px_12px_rgba(212,175,55,0.35)]"
-              variant="gold"
+              className="h-10 sm:h-12 lg:h-[50px] w-auto drop-shadow-[0_2px_14px_rgba(0,128,140,0.45)]"
+              variant="teal"
             />
           </a>
 
-          <span className="hidden xl:inline-block label-mono text-[9px] text-[#d4af37] border border-[#c5a059]/40 bg-[#d4af37]/10 px-2.5 py-0.5 rounded-full">
+          <span className="hidden xl:inline-block label-mono text-[9px] text-[#00c2d3] border border-[#00808c]/40 bg-[#00808c]/15 px-2.5 py-0.5 rounded-full font-medium">
             {expLabel}
           </span>
         </div>

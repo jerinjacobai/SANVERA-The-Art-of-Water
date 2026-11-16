@@ -2,13 +2,13 @@ import React from 'react';
 
 interface SanveraLogoProps {
   className?: string;
-  variant?: 'gold' | 'light' | 'dark' | 'brass';
+  variant?: 'teal' | 'gold' | 'light' | 'dark' | 'brass';
   showSubtitle?: boolean;
 }
 
 export const SanveraLogo: React.FC<SanveraLogoProps> = ({
   className = 'h-10 w-auto',
-  variant = 'gold',
+  variant = 'teal',
   showSubtitle = false,
 }) => {
   const gradientId = React.useId();
@@ -20,10 +20,25 @@ export const SanveraLogo: React.FC<SanveraLogoProps> = ({
         viewBox="358 425 364 229"
         fill="none"
         className={`${className} transition-all duration-300`}
-        aria-label="SANVERA"
+        aria-label="SANVERA — The Art of Water"
       >
         <defs>
-          {/* Luminous Warm Metallic Gold Gradient inspired by official brand identity */}
+          {/* Official Sanvera Brand Signature Teal (PANTONE 321 U · #00808C) */}
+          <linearGradient id={`${gradientId}-teal`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#00c2d3" />
+            <stop offset="30%" stopColor="#0096a4" />
+            <stop offset="70%" stopColor="#00808c" />
+            <stop offset="100%" stopColor="#005a63" />
+          </linearGradient>
+
+          {/* Fluid Water Ripple Cyan-Teal for Waves */}
+          <linearGradient id={`${gradientId}-teal-wave`} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#2ae0ef" />
+            <stop offset="50%" stopColor="#0096a4" />
+            <stop offset="100%" stopColor="#007580" />
+          </linearGradient>
+
+          {/* Warm Metallic Gold Gradient */}
           <linearGradient id={`${gradientId}-gold`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#fae5b3" />
             <stop offset="35%" stopColor="#d4af37" />
@@ -37,19 +52,14 @@ export const SanveraLogo: React.FC<SanveraLogoProps> = ({
             <stop offset="50%" stopColor="#e0ba72" />
             <stop offset="100%" stopColor="#aa8337" />
           </linearGradient>
-
-          {/* Water Ripple Cyan / Aegean Teal hint from Pantone 321 U */}
-          <linearGradient id={`${gradientId}-wave`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#fae5b3" />
-            <stop offset="50%" stopColor="#d4af37" />
-            <stop offset="100%" stopColor="#e8cf90" />
-          </linearGradient>
         </defs>
 
         {/* Dynamic fill mapping */}
         {(() => {
           const fillUrl =
-            variant === 'gold'
+            variant === 'teal'
+              ? `url(#${gradientId}-teal)`
+              : variant === 'gold'
               ? `url(#${gradientId}-gold)`
               : variant === 'brass'
               ? `url(#${gradientId}-brass)`
@@ -58,8 +68,10 @@ export const SanveraLogo: React.FC<SanveraLogoProps> = ({
               : '#f6f2eb';
 
           const waveFill =
-            variant === 'gold'
-              ? `url(#${gradientId}-wave)`
+            variant === 'teal'
+              ? `url(#${gradientId}-teal-wave)`
+              : variant === 'gold'
+              ? `url(#${gradientId}-gold)`
               : fillUrl;
 
           return (
@@ -149,7 +161,7 @@ export const SanveraLogo: React.FC<SanveraLogoProps> = ({
       </svg>
 
       {showSubtitle && (
-        <span className="font-display tracking-[0.28em] text-[9px] uppercase text-[#c5a059] mt-1 font-light">
+        <span className="font-display tracking-[0.28em] text-[9px] uppercase text-[#009aa7] mt-1 font-medium group-hover:text-[#00c2d3] transition-colors">
           The Art of Water
         </span>
       )}

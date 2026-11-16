@@ -21,6 +21,12 @@ export default {
         },
         chrome: '#D8DEE4',
         bronze: '#382c22',
+        teal: {
+          DEFAULT: '#00808c',
+          light: '#00c2d3',
+          dark: '#005a63',
+          glow: 'rgba(0, 128, 140, 0.4)',
+        },
         ink: '#fbf8f3',
         mist: '#c2b5a5',
         smoke: '#8a7c6c',

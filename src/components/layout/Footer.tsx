@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-5 flex flex-col justify-between">
             <div>
               <a href="#hero" className="inline-block group" aria-label="Sanvera — Return to top">
-                <SanveraLogo className="h-12 lg:h-16 w-auto drop-shadow-[0_2px_16px_rgba(212,175,55,0.4)] transition-transform duration-300 group-hover:scale-105" variant="gold" showSubtitle />
+                <SanveraLogo className="h-12 lg:h-16 w-auto drop-shadow-[0_2px_16px_rgba(0,128,140,0.45)] transition-transform duration-300 group-hover:scale-105" variant="teal" showSubtitle />
               </a>
               <p className="mt-8 text-base lg:text-lg text-[#d8cfc4] font-light leading-relaxed max-w-[22rem]">
                 Sanitaryware for architecture that takes water seriously.

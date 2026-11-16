@@ -285,8 +285,8 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
             aria-label="Sanvera — Return to top"
           >
             <SanveraLogo
-              className="h-10 sm:h-12 lg:h-[52px] w-auto drop-shadow-[0_4px_18px_rgba(212,175,55,0.45)]"
-              variant="gold"
+              className="h-10 sm:h-12 lg:h-[52px] w-auto drop-shadow-[0_4px_18px_rgba(0,128,140,0.55)]"
+              variant="teal"
               showSubtitle
             />
           </a>
@@ -295,11 +295,11 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
 
           <div className="flex flex-col">
             <div className="flex items-center gap-2.5">
-              <span className="inline-flex items-center gap-1.5 label-mono text-[#d4af37] text-[10px] sm:text-xs tracking-widest uppercase font-medium">
-                <Compass size={13} className="text-[#d4af37]" />
+              <span className="inline-flex items-center gap-1.5 label-mono text-[#00c2d3] text-[10px] sm:text-xs tracking-widest uppercase font-medium">
+                <Compass size={13} className="text-[#00c2d3]" />
                 SHOWROOM · GOLDEN MARBLE SANCTUARY
               </span>
-              <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
+              <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-[#00c2d3]" />
               <span className="hidden md:inline-block text-[11px] text-[#c7bcab] font-light">
                 Interactive Architectural Fixture Exploration
               </span>
@@ -308,7 +308,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
             <h1 className="editorial-title text-xl sm:text-2xl lg:text-3xl text-[#fdfbf7] font-light mt-0.5 flex items-center gap-3">
               {activeFixture ? activeFixture.name : 'The Private Spa Sanctuary'}
               {activeFixture && (
-                <span className="text-[10px] label-mono text-[#d4af37] border border-[#c5a059]/50 bg-[#d4af37]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block font-normal">
+                <span className="text-[10px] label-mono text-[#00c2d3] border border-[#00808c]/50 bg-[#00808c]/20 px-2.5 py-0.5 rounded-full hidden sm:inline-block font-normal">
                   Focused Spec View
                 </span>
               )}
@@ -407,22 +407,22 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
                       }
                     }}
                   >
-                    {/* Pulsing Aura Rings */}
+                    {/* Pulsing Aura Rings with Signature Teal Water Glow */}
                     <div className="relative flex items-center justify-center">
-                      <span className="absolute w-10 h-10 rounded-full bg-[#d4af37]/35 animate-ping opacity-75" />
-                      <span className="absolute w-14 h-14 rounded-full border border-[#d4af37]/40 scale-75 animate-pulse" />
+                      <span className="absolute w-10 h-10 rounded-full bg-[#00808c]/40 animate-ping opacity-75" />
+                      <span className="absolute w-14 h-14 rounded-full border border-[#00c2d3]/50 scale-75 animate-pulse" />
 
-                      {/* Center Golden Pin */}
+                      {/* Center Pin in Signature Teal */}
                       <div
                         className={`relative z-10 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border shadow-2xl transition-all duration-300 ${
                           isActive
-                            ? 'bg-gradient-to-tr from-[#d4af37] to-[#fae0a5] border-white text-[#19130c] scale-125 shadow-[0_0_25px_rgba(212,175,55,0.9)]'
+                            ? 'bg-gradient-to-tr from-[#00808c] to-[#00e1f5] border-white text-white scale-125 shadow-[0_0_25px_rgba(0,194,211,0.9)]'
                             : isHovered
-                            ? 'bg-gradient-to-tr from-[#c5a059] to-[#fae0a5] border-[#fbf8f3] text-[#19130c] scale-115 shadow-[0_0_20px_rgba(212,175,55,0.7)]'
-                            : 'bg-[#221b14]/90 backdrop-blur-md border-[#d4af37] text-[#d4af37] hover:scale-110 shadow-lg shadow-black/80'
+                            ? 'bg-gradient-to-tr from-[#00808c] to-[#2ae0ef] border-[#fbf8f3] text-white scale-115 shadow-[0_0_20px_rgba(0,194,211,0.7)]'
+                            : 'bg-[#18140f]/95 backdrop-blur-md border-[#00c2d3] text-[#00c2d3] hover:scale-110 shadow-lg shadow-black/80'
                         }`}
                       >
-                        <Droplets size={14} className={isActive ? 'animate-bounce' : ''} />
+                        <Droplets size={14} className={isActive ? 'animate-bounce text-white' : 'text-[#00c2d3]'} />
                       </div>
                     </div>
 
@@ -460,7 +460,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
             <div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 z-30 max-w-sm sm:max-w-md w-full bg-[#1e1711]/95 backdrop-blur-2xl border border-[#c5a059]/40 rounded-2xl p-5 sm:p-6 shadow-[0_30px_70px_rgba(0,0,0,0.85)] text-[#fbf8f3] transition-all duration-500 ease-editorial animate-fadeIn">
               {/* Category Header */}
               <div className="flex items-center justify-between pb-3 border-b border-[#c5a059]/20">
-                <span className="label-mono text-[#d4af37] text-[10px] uppercase tracking-widest2 font-medium">
+                <span className="label-mono text-[#00c2d3] text-[10px] uppercase tracking-widest2 font-semibold">
                   {activeFixture.categoryName} · {activeFixture.sku}
                 </span>
                 <span className="label-mono text-[10px] text-[#b0a495]">
@@ -565,13 +565,13 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
                   onClick={() => handleSelectFixture(f)}
                   className={`px-4 py-2.5 rounded-xl border text-xs whitespace-nowrap transition-all duration-300 flex items-center gap-2 ${
                     isSelected
-                      ? 'bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#19130c] font-semibold shadow-lg shadow-[#d4af37]/35 border-transparent'
-                      : 'bg-[#221b14]/85 border-[#c5a059]/30 text-[#ded4c5] hover:border-[#d4af37] hover:text-[#fff]'
+                      ? 'bg-gradient-to-r from-[#00808c] via-[#009da9] to-[#006e78] text-white font-semibold shadow-lg shadow-[#00808c]/45 border-transparent'
+                      : 'bg-[#221b14]/85 border-[#c5a059]/30 text-[#ded4c5] hover:border-[#00c2d3] hover:text-[#fff]'
                   }`}
                 >
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${
-                      isSelected ? 'bg-[#19130c]' : 'bg-[#d4af37]'
+                      isSelected ? 'bg-white' : 'bg-[#00c2d3]'
                     }`}
                   />
                   <span>{f.name.split('&')[0].trim()}</span>
