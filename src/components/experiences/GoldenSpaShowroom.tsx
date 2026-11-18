@@ -8,6 +8,7 @@ import {
   Eye,
   Sparkles,
   X,
+  ChevronDown,
 } from 'lucide-react';
 import { SpaShowroom3DScene } from './SpaShowroom3DScene';
 import { SANVERA_CATALOG } from '../../data/sanveraCatalog';
@@ -199,7 +200,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
       <div className="absolute top-24 sm:top-28 left-6 sm:left-10 lg:left-16 z-30 flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#16120e]/85 backdrop-blur-xl border border-[#c5a059]/30 shadow-xl pointer-events-auto">
         <span className="w-2 h-2 rounded-full bg-[#00c2d3] animate-pulse" />
         <span className="label-mono text-[10px] sm:text-[11px] text-[#00c2d3] tracking-widest uppercase font-semibold">
-          SHOWROOM // 02
+          SHOWROOM SANCTUARY
         </span>
         <span className="text-[#c5a059]/40">·</span>
         <span className="editorial-title text-xs sm:text-sm text-[#fdfbf7] font-light">
@@ -394,8 +395,8 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
         </div>
       )}
 
-      {/* Bottom Luxury Fixture Quick-Select Dock (Cleanly floats ABOVE the fixed ExperienceSwitcher dock) */}
-      <div className="absolute bottom-20 sm:bottom-22 left-1/2 -translate-x-1/2 z-40 max-w-[94vw] sm:max-w-fit w-auto pointer-events-auto">
+      {/* Bottom Luxury Fixture Quick-Select Dock */}
+      <div className="absolute bottom-11 sm:bottom-14 left-1/2 -translate-x-1/2 z-40 max-w-[94vw] sm:max-w-fit w-auto pointer-events-auto">
         <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#16120e]/92 backdrop-blur-xl border border-[#c5a059]/35 shadow-2xl overflow-x-auto scrollbar-none">
           {/* Full View Reset Button */}
           <button
@@ -436,6 +437,21 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
           })}
         </div>
       </div>
+
+      {/* Subtle Scroll Invitation to explore catalogue below */}
+      <a
+        href="#collection"
+        onClick={(e) => {
+          e.preventDefault();
+          document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+        className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 text-[10px] label-mono text-[#c5a059] hover:text-[#00c2d3] transition-colors cursor-pointer group whitespace-nowrap pointer-events-auto"
+        title="Scroll down to explore collection"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-[#00c2d3] animate-ping" />
+        <span>Scroll to explore 34-product catalogue & engineering blueprints</span>
+        <ChevronDown size={13} className="group-hover:translate-y-0.5 transition-transform text-[#00c2d3]" />
+      </a>
     </div>
   );
 };

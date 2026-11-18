@@ -2,7 +2,7 @@ import React from 'react';
 
 export const ShowroomBlueprints: React.FC = () => {
   return (
-    <section className="relative bg-char py-24 sm:py-32 text-ink border-t border-hair">
+    <section id="blueprints" className="relative bg-char py-24 sm:py-32 text-ink border-t border-hair">
       <div className="mx-auto max-w-[1800px] px-6 sm:px-10 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-6 border-b border-hair pb-6">
