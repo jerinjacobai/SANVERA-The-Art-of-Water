@@ -82,11 +82,11 @@ export const CollectionSection: React.FC<CollectionSectionProps> = ({ onSelectPr
           </div>
 
           {/* View Mode Toggle (Grid vs List) */}
-          <div className="flex items-center gap-2 bg-char/50 border border-hair p-1 rounded-full self-start lg:self-end">
+          <div className="flex items-center gap-2 bg-[#062429]/80 border border-[#00808c]/40 p-1 rounded-full self-start lg:self-end">
             <button
               onClick={() => setViewMode('grid')}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-light transition-colors ${
-                viewMode === 'grid' ? 'bg-ink text-void font-medium' : 'text-smoke hover:text-ink'
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-light transition-colors cursor-pointer ${
+                viewMode === 'grid' ? 'bg-[#00808c] text-white font-medium shadow-sm' : 'text-[#789fa2] hover:text-white'
               }`}
               title="Large Photographic Grid View"
             >
@@ -95,8 +95,8 @@ export const CollectionSection: React.FC<CollectionSectionProps> = ({ onSelectPr
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-light transition-colors ${
-                viewMode === 'list' ? 'bg-ink text-void font-medium' : 'text-smoke hover:text-ink'
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-light transition-colors cursor-pointer ${
+                viewMode === 'list' ? 'bg-[#00808c] text-white font-medium shadow-sm' : 'text-[#789fa2] hover:text-white'
               }`}
               title="Architectural Monograph List View"
             >
@@ -111,10 +111,10 @@ export const CollectionSection: React.FC<CollectionSectionProps> = ({ onSelectPr
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
             <button
               onClick={() => setActiveCategory('all')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-light tracking-wider transition-all whitespace-nowrap ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-light tracking-wider transition-all whitespace-nowrap cursor-pointer ${
                 activeCategory === 'all'
-                  ? 'bg-ink text-void font-medium'
-                  : 'text-mist hover:text-ink bg-void/40 border border-hair/60'
+                  ? 'bg-[#00808c] text-white font-medium shadow-md shadow-[#00808c]/40 border-transparent'
+                  : 'text-[#c0dcdd] hover:text-white bg-[#062429]/60 border border-[#00808c]/30 hover:border-[#00c2d3]/50'
               }`}
             >
               All ({SANVERA_CATALOG.length})
@@ -128,10 +128,10 @@ export const CollectionSection: React.FC<CollectionSectionProps> = ({ onSelectPr
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-light tracking-wider transition-all whitespace-nowrap ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-light tracking-wider transition-all whitespace-nowrap cursor-pointer ${
                     isActive
-                      ? 'bg-ink text-void font-medium'
-                      : 'text-mist hover:text-ink bg-void/40 border border-hair/60'
+                      ? 'bg-[#00808c] text-white font-medium shadow-md shadow-[#00808c]/40 border-transparent'
+                      : 'text-[#c0dcdd] hover:text-white bg-[#062429]/60 border border-[#00808c]/30 hover:border-[#00c2d3]/50'
                   }`}
                 >
                   {cat.name} ({count})
@@ -167,20 +167,20 @@ export const CollectionSection: React.FC<CollectionSectionProps> = ({ onSelectPr
                 <div
                   key={product.id}
                   onClick={() => onSelectProduct(sanveraProductToCollectionItem(product))}
-                  className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-char/30 hover:bg-char/70 border border-hair/80 hover:border-brass/70 cursor-pointer transition-all duration-500 hover:-translate-y-1.5 shadow-xl hover:shadow-2xl"
+                  className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#062429]/60 hover:bg-[#062429]/95 border border-[#00808c]/30 hover:border-[#00c2d3]/70 cursor-pointer transition-all duration-500 hover:-translate-y-1.5 shadow-xl hover:shadow-[0_20px_50px_rgba(0,128,140,0.25)]"
                 >
                   {/* Top Badge: Number & SKU */}
                   <div className="flex items-center justify-between mb-4">
                     <span className="label-mono text-brass text-xs font-medium">
                       {product.number}
                     </span>
-                    <span className="label-mono text-smoke text-[10px] bg-void/60 px-2 py-0.5 rounded border border-hair/50">
+                    <span className="label-mono text-[#00c2d3] text-[10px] bg-[#031a1e]/80 px-2.5 py-0.5 rounded border border-[#00808c]/40">
                       {product.sku}
                     </span>
                   </div>
 
                   {/* LARGE HERO PRODUCT PHOTOGRAPH CONTAINER (Height ~280px) */}
-                  <div className="w-full h-64 sm:h-72 my-4 rounded-xl overflow-hidden bg-void/40 p-4 flex items-center justify-center relative border border-hair/40 group-hover:border-brass/40 transition-colors">
+                  <div className="w-full h-64 sm:h-72 my-4 rounded-xl overflow-hidden bg-[#031a1e]/60 p-4 flex items-center justify-center relative border border-[#00808c]/30 group-hover:border-[#00c2d3]/40 transition-colors">
                     <img
                       src={product.image || '/catalog/mixer-664.jpg'}
                       alt={product.name}
@@ -189,8 +189,8 @@ export const CollectionSection: React.FC<CollectionSectionProps> = ({ onSelectPr
                         e.currentTarget.src = '/catalog/mixer-664.jpg';
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-void/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-void/90 backdrop-blur-md px-2.5 py-1 rounded text-[9px] label-mono text-brass border border-hair flex items-center gap-1.5 shadow-lg">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#031a1e]/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-[#031a1e]/90 backdrop-blur-md px-2.5 py-1 rounded text-[9px] label-mono text-[#00c2d3] border border-[#00808c]/50 flex items-center gap-1.5 shadow-lg">
                       <span>Inspect 3D</span>
                       <ArrowRight size={10} />
                     </div>

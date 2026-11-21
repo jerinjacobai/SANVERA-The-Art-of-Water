@@ -212,7 +212,7 @@ export const ProjectEnquirySection: React.FC<ProjectEnquirySectionProps> = ({ pr
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group inline-flex items-center gap-4 px-10 py-5 border border-ink bg-ink text-void hover:bg-transparent hover:text-ink transition-all duration-500 ease-editorial text-xs uppercase tracking-widest2 font-medium"
+                    className="group inline-flex items-center gap-4 px-10 py-5 rounded-full bg-gradient-to-r from-[#00808c] to-[#00a8b5] hover:from-[#00a8b5] hover:to-[#00c2d3] text-white shadow-xl shadow-[#00808c]/35 transition-all duration-500 ease-editorial text-xs uppercase tracking-widest2 font-semibold cursor-pointer"
                   >
                     <span>{isSubmitting ? 'Transmitting...' : 'Start A Project'}</span>
                     <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform duration-500" />

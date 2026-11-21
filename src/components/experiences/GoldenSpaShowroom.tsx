@@ -9,6 +9,8 @@ import {
   Sparkles,
   X,
   ChevronDown,
+  Droplets,
+  Compass,
 } from 'lucide-react';
 import { SpaShowroom3DScene } from './SpaShowroom3DScene';
 import { SANVERA_CATALOG } from '../../data/sanveraCatalog';
@@ -46,7 +48,7 @@ export const SPA_FIXTURES_INFO: SpaFixtureInfo[] = [
     materials: 'Solid Marine-Grade Brass · Ultra-Laminar Fluid Micro-Jets',
     flowRate: '14.5 L/min @ 3.0 Bar Rain Mode',
     description:
-      'Engineered flush into the warm marble ceiling with air-injected micro-droplets mimicking warm tropical rainfall, paired with precision thermostatic dual-diverter controls.',
+      'Engineered flush into the marble ceiling with air-injected micro-droplets mimicking warm tropical rainfall, paired with precision thermostatic dual-diverter controls.',
   },
   {
     id: 'freestanding-bath',
@@ -131,7 +133,9 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
 }) => {
   const [activeFixtureId, setActiveFixtureId] = useState<string | null>(null);
   const [activeFinish, setActiveFinish] = useState<ProductFinish>('brushed_brass');
+  const [waterActive, setWaterActive] = useState<boolean>(true);
   const [showHotspots, setShowHotspots] = useState<boolean>(true);
+  const [isOrbitMode, setIsOrbitMode] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [inspectedProduct, setInspectedProduct] = useState<CollectionItem | null>(null);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
@@ -144,6 +148,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
   const handleSelectFixture = (id: string) => {
     setActiveFixtureId(id);
     setHasInteracted(true);
+    setIsOrbitMode(false);
   };
 
   // Reset to full sanctuary overview
@@ -187,7 +192,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
     <div
       ref={containerRef}
       id="showroom"
-      className="relative w-full h-[100svh] min-h-[700px] max-h-[1440px] bg-[#14100c] text-[#fbf8f3] select-none overflow-hidden"
+      className="relative w-full h-[100svh] min-h-[700px] max-h-[1440px] bg-[#031a1e] text-[#f8fafc] select-none overflow-hidden"
     >
       {/* 3D Product Inspector Modal */}
       <ProductViewerModal
@@ -196,19 +201,19 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
         onOpenEnquiry={onOpenEnquiry}
       />
 
-      {/* Floating Sanctuary Breadcrumb (Cleanly sits below the fixed global header) */}
-      <div className="absolute top-24 sm:top-28 left-6 sm:left-10 lg:left-16 z-30 flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#16120e]/85 backdrop-blur-xl border border-[#c5a059]/30 shadow-xl pointer-events-auto">
-        <span className="w-2 h-2 rounded-full bg-[#00c2d3] animate-pulse" />
+      {/* Floating Sanctuary Breadcrumb (Sits below the fixed global header) */}
+      <div className="absolute top-24 sm:top-28 left-6 sm:left-10 lg:left-16 z-30 flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#062429]/90 backdrop-blur-xl border border-[#00808c]/40 shadow-xl pointer-events-auto">
+        <span className="w-2 h-2 rounded-full bg-[#00c2d3] animate-pulse shadow-[0_0_8px_#00c2d3]" />
         <span className="label-mono text-[10px] sm:text-[11px] text-[#00c2d3] tracking-widest uppercase font-semibold">
-          SHOWROOM SANCTUARY
+          3D SANCTUARY
         </span>
-        <span className="text-[#c5a059]/40">·</span>
-        <span className="editorial-title text-xs sm:text-sm text-[#fdfbf7] font-light">
-          The Golden Spa Sanctuary
+        <span className="text-[#00808c]/60">·</span>
+        <span className="editorial-title text-xs sm:text-sm text-white font-light">
+          The Golden Spa Showroom
         </span>
         {activeFixtureInfo && (
           <>
-            <span className="text-[#c5a059]/40 hidden sm:inline">·</span>
+            <span className="text-[#00808c]/60 hidden sm:inline">·</span>
             <span className="label-mono text-[10px] text-[#d4af37] font-medium hidden sm:inline truncate max-w-[180px]">
               {activeFixtureInfo.shortName} Focused
             </span>
@@ -221,20 +226,36 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
         {activeFixtureId && (
           <button
             onClick={handleResetZoom}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#1a140c] font-semibold text-xs transition-all shadow-lg shadow-[#d4af37]/25 hover:scale-105"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#041c20] font-semibold text-xs transition-all shadow-lg shadow-[#d4af37]/25 hover:scale-105 cursor-pointer"
             title="Return to full bathroom overview (Escape)"
           >
-            <RotateCcw size={13} className="text-[#1a140c]" />
+            <RotateCcw size={13} className="text-[#041c20]" />
             <span className="label-mono text-[10px]">Overview (Esc)</span>
           </button>
         )}
 
+        {/* Orbit / Parallax Mode Toggle */}
+        <button
+          onClick={() => setIsOrbitMode(!isOrbitMode)}
+          className={`px-3 py-1.5 rounded-full border text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
+            isOrbitMode
+              ? 'bg-[#00808c] border-[#00c2d3] text-white shadow-[#00808c]/40'
+              : 'bg-[#062429]/90 border-[#00808c]/40 text-[#c0dcdd] hover:text-white'
+          }`}
+          title={isOrbitMode ? 'Switch to Parallax Mode' : 'Switch to 3D Orbit Drag Mode'}
+        >
+          <Compass size={14} className={isOrbitMode ? 'animate-spin' : ''} />
+          <span className="label-mono text-[10px] hidden sm:inline">
+            {isOrbitMode ? 'Orbit Active' : 'Drag to Look'}
+          </span>
+        </button>
+
         <button
           onClick={() => setShowHotspots(!showHotspots)}
-          className={`p-2 rounded-full border transition-all text-xs flex items-center justify-center ${
+          className={`p-2 rounded-full border transition-all text-xs flex items-center justify-center cursor-pointer ${
             showHotspots
-              ? 'bg-[#221b14]/90 border-[#00c2d3]/60 text-[#00c2d3] shadow-md shadow-black/40'
-              : 'bg-[#18130e]/60 border-[#c5a059]/20 text-[#8a7c6c] hover:text-[#00c2d3]'
+              ? 'bg-[#062429]/90 border-[#00c2d3]/60 text-[#00c2d3] shadow-md shadow-black/40'
+              : 'bg-[#062429]/60 border-[#00808c]/30 text-[#789fa2] hover:text-[#00c2d3]'
           }`}
           title={showHotspots ? 'Hide 3D Beacons' : 'Show 3D Beacons'}
         >
@@ -243,7 +264,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
 
         <button
           onClick={toggleFullscreen}
-          className="p-2 rounded-full bg-[#221b14]/90 border border-[#c5a059]/35 text-[#d8cfc4] hover:text-white transition-all shadow-md shadow-black/40"
+          className="p-2 rounded-full bg-[#062429]/90 border border-[#00808c]/40 text-[#f8fafc] hover:text-white hover:border-[#00c2d3] transition-all shadow-md shadow-black/40 cursor-pointer"
           title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
         >
           {isFullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
@@ -257,16 +278,19 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
           onSelectFixture={handleSelectFixture}
           onResetZoom={handleResetZoom}
           showHotspots={showHotspots}
+          activeFinish={activeFinish}
+          waterActive={waterActive}
+          isOrbitMode={isOrbitMode}
         />
       </div>
 
       {/* First-time prompt banner */}
       {!hasInteracted && !activeFixtureId && (
         <div className="absolute top-36 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-          <div className="px-5 py-2 rounded-full bg-[#1e1711]/92 backdrop-blur-xl border border-[#00c2d3]/40 text-center shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
-            <span className="label-mono text-[10px] sm:text-[11px] text-[#f4dfa7] tracking-wider flex items-center gap-2">
+          <div className="px-5 py-2 rounded-full bg-[#062429]/92 backdrop-blur-xl border border-[#00c2d3]/40 text-center shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
+            <span className="label-mono text-[10px] sm:text-[11px] text-[#f5df9a] tracking-wider flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00c2d3] animate-ping" />
-              Explore 3D room parallax · Click any beacon or fixture below to zoom in
+              Explore 3D room parallax & drag to look · Click any beacon or fixture below to inspect
             </span>
           </div>
         </div>
@@ -274,16 +298,16 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
 
       {/* Floating Architectural Fixture Card (Appears on right side when fixture is selected) */}
       {activeFixtureInfo && (
-        <div className="absolute top-36 sm:top-28 right-6 sm:right-10 z-40 max-w-[350px] sm:max-w-[390px] w-full bg-[#18130e]/95 backdrop-blur-2xl border border-[#c5a059]/40 rounded-2xl p-5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] text-[#fbf8f3] transition-all duration-500 pointer-events-auto animate-fadeIn">
+        <div className="absolute top-36 sm:top-28 right-6 sm:right-10 z-40 max-w-[350px] sm:max-w-[390px] w-full bg-[#062429]/95 backdrop-blur-2xl border border-[#00808c]/50 rounded-2xl p-5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] text-[#f8fafc] transition-all duration-500 pointer-events-auto animate-fadeIn">
           {/* Category Header with Close Button */}
-          <div className="flex items-center justify-between pb-3 border-b border-[#c5a059]/20">
+          <div className="flex items-center justify-between pb-3 border-b border-[#00808c]/30">
             <span className="label-mono text-[#00c2d3] text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00c2d3] animate-ping" />
               {activeFixtureInfo.categoryName} · {activeFixtureInfo.sku}
             </span>
             <button
               onClick={handleResetZoom}
-              className="p-1 rounded-full text-[#b0a495] hover:text-white hover:bg-white/10 transition-colors"
+              className="p-1 rounded-full text-[#789fa2] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               title="Close and return to overview (Escape)"
             >
               <X size={15} />
@@ -291,7 +315,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
           </div>
 
           {/* 4K Studio Photography Showcase */}
-          <div className="mt-3 relative rounded-xl overflow-hidden border border-[#c5a059]/30 bg-gradient-to-b from-[#2a2016]/90 to-[#17120d]/90 p-3 group">
+          <div className="mt-3 relative rounded-xl overflow-hidden border border-[#00808c]/30 bg-gradient-to-b from-[#093138]/90 to-[#031a1e]/90 p-3 group">
             <div className="h-32 sm:h-36 w-full flex items-center justify-center overflow-hidden">
               <img
                 src={activeFixtureInfo.studioImage}
@@ -299,26 +323,26 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
                 className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-[#16110c]/85 backdrop-blur-md border border-[#c5a059]/30 text-[9px] label-mono text-[#e5c572] flex items-center gap-1">
+            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-[#041c20]/85 backdrop-blur-md border border-[#00808c]/30 text-[9px] label-mono text-[#d4af37] flex items-center gap-1">
               <Sparkles size={9} className="text-[#d4af37]" />
-              <span>4K Architectural Masterwork</span>
+              <span>4K Architectural Twin</span>
             </div>
           </div>
 
           {/* Fixture Title & Description */}
           <div className="mt-3">
-            <h2 className="editorial-title text-base sm:text-lg text-[#fdfbf7] font-light leading-snug">
+            <h2 className="editorial-title text-base sm:text-lg text-white font-light leading-snug">
               {activeFixtureInfo.name}
             </h2>
-            <p className="text-[11px] text-[#b0a495] font-light mt-1 line-clamp-2 leading-relaxed">
+            <p className="text-[11px] text-[#c0dcdd] font-light mt-1 line-clamp-2 leading-relaxed">
               {activeFixtureInfo.description}
             </p>
           </div>
 
           {/* Interactive Material Finish Swatches */}
-          <div className="mt-3 pt-2.5 border-t border-[#c5a059]/20">
+          <div className="mt-3 pt-2.5 border-t border-[#00808c]/30">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="label-mono text-[9px] text-[#a49887] uppercase tracking-wider">
+              <span className="label-mono text-[9px] text-[#789fa2] uppercase tracking-wider">
                 Material Finish:
               </span>
               <span className="label-mono text-[10px] text-[#d4af37] font-medium">
@@ -333,10 +357,10 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
                   <button
                     key={opt.id}
                     onClick={() => setActiveFinish(opt.id)}
-                    className={`py-1 px-1.5 rounded-lg border text-center transition-all duration-200 flex flex-col items-center gap-1 ${
+                    className={`py-1 px-1.5 rounded-lg border text-center transition-all duration-200 flex flex-col items-center gap-1 cursor-pointer ${
                       isSelected
-                        ? 'border-[#00c2d3] bg-[#00808c]/20 scale-105 shadow-sm shadow-[#00808c]/30'
-                        : 'border-[#c5a059]/20 bg-[#221b14]/60 hover:border-[#c5a059]/60'
+                        ? 'border-[#00c2d3] bg-[#00808c]/30 scale-105 shadow-sm shadow-[#00808c]/40'
+                        : 'border-[#00808c]/30 bg-[#092f35]/60 hover:border-[#00c2d3]/50'
                     }`}
                     title={opt.name}
                   >
@@ -344,7 +368,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
                       className="w-3.5 h-3.5 rounded-full border border-black/40 shadow-inner"
                       style={{ backgroundColor: opt.hex }}
                     />
-                    <span className="text-[8px] label-mono text-[#c7bcab] truncate w-full">
+                    <span className="text-[8px] label-mono text-[#d2dfdf] truncate w-full">
                       {opt.name.split(' ')[0]}
                     </span>
                   </button>
@@ -353,15 +377,38 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
             </div>
           </div>
 
+          {/* Water Stream Toggle */}
+          <div className="mt-2.5 flex items-center justify-between py-1.5 px-3 rounded-lg bg-[#082a30] border border-[#00808c]/30">
+            <div className="flex items-center gap-2">
+              <Droplets
+                size={13}
+                className={waterActive ? 'text-[#00c2d3] animate-pulse' : 'text-[#789fa2]'}
+              />
+              <span className="text-[10px] label-mono text-[#d2dfdf]">
+                3D Water Flow: {waterActive ? 'Active' : 'Off'}
+              </span>
+            </div>
+            <button
+              onClick={() => setWaterActive(!waterActive)}
+              className={`px-2 py-0.5 rounded text-[9px] label-mono uppercase font-semibold transition-colors cursor-pointer ${
+                waterActive
+                  ? 'bg-[#00808c] text-white hover:bg-[#00a3b0]'
+                  : 'bg-[#0c363d] text-[#789fa2] hover:text-white'
+              }`}
+            >
+              {waterActive ? 'Flowing' : 'Enable'}
+            </button>
+          </div>
+
           {/* Specifications */}
-          <div className="mt-2.5 pt-2 border-t border-[#c5a059]/20 space-y-1 text-xs font-light">
+          <div className="mt-2.5 pt-2 border-t border-[#00808c]/30 space-y-1 text-xs font-light">
             <div className="flex items-start justify-between text-[10px]">
-              <span className="text-[#a49887]">Dimensions:</span>
-              <span className="text-[#e2dacd] text-right font-normal">{activeFixtureInfo.dimensions}</span>
+              <span className="text-[#789fa2]">Dimensions:</span>
+              <span className="text-[#e2ecec] text-right font-normal">{activeFixtureInfo.dimensions}</span>
             </div>
             {activeFixtureInfo.flowRate && (
               <div className="flex items-start justify-between text-[10px]">
-                <span className="text-[#a49887]">Flow Capacity:</span>
+                <span className="text-[#789fa2]">Flow Capacity:</span>
                 <span className="text-[#d4af37] text-right font-medium">{activeFixtureInfo.flowRate}</span>
               </div>
             )}
@@ -371,7 +418,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
           <div className="mt-3.5 grid grid-cols-2 gap-2">
             <button
               onClick={() => handleInspect3D(activeFixtureInfo.catalogId)}
-              className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#19130c] font-semibold transition-all shadow-md shadow-[#d4af37]/25 hover:scale-102 text-xs"
+              className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#041c20] font-semibold transition-all shadow-md shadow-[#d4af37]/25 hover:scale-102 text-xs cursor-pointer"
             >
               <Box size={13} />
               <span>Full 3D Studio</span>
@@ -379,7 +426,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
 
             <button
               onClick={() => onOpenEnquiry(activeFixtureInfo.name)}
-              className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-[#271e16] border border-[#c5a059]/40 hover:border-[#00c2d3] text-[#fdfbf7] transition-all text-xs font-light shadow-md"
+              className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-[#082d33] border border-[#00808c]/50 hover:border-[#00c2d3] text-white transition-all text-xs font-light shadow-md cursor-pointer"
             >
               <span>Enquire Spec</span>
               <ArrowRight size={12} className="text-[#00c2d3]" />
@@ -388,30 +435,30 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
 
           <button
             onClick={handleResetZoom}
-            className="mt-2.5 w-full py-1 text-center label-mono text-[9px] text-[#b0a495] hover:text-[#00c2d3] transition-colors"
+            className="mt-2.5 w-full py-1 text-center label-mono text-[9px] text-[#789fa2] hover:text-[#00c2d3] transition-colors cursor-pointer"
           >
             ← Return to Full Sanctuary Overview (Escape)
           </button>
         </div>
       )}
 
-      {/* Bottom Luxury Fixture Quick-Select Dock */}
+      {/* Bottom Luxury Fixture Quick-Select Dock in Rich Architectural Teal Glass */}
       <div className="absolute bottom-11 sm:bottom-14 left-1/2 -translate-x-1/2 z-40 max-w-[94vw] sm:max-w-fit w-auto pointer-events-auto">
-        <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#16120e]/92 backdrop-blur-xl border border-[#c5a059]/35 shadow-2xl overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#062429]/95 backdrop-blur-xl border border-[#00808c]/50 shadow-2xl overflow-x-auto scrollbar-none">
           {/* Full View Reset Button */}
           <button
             onClick={handleResetZoom}
-            className={`px-3.5 py-1.5 rounded-xl border text-[11px] whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-xl border text-[11px] whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
               !activeFixtureId
-                ? 'bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#19130c] font-semibold border-transparent shadow-md shadow-[#d4af37]/30'
-                : 'bg-transparent border-transparent text-[#b0a495] hover:text-white hover:bg-white/5'
+                ? 'bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#041c20] font-semibold border-transparent shadow-md shadow-[#d4af37]/30'
+                : 'bg-transparent border-transparent text-[#c0dcdd] hover:text-white hover:bg-white/5'
             }`}
           >
-            <RotateCcw size={12} className={!activeFixtureId ? 'text-[#19130c]' : 'text-[#00c2d3]'} />
+            <RotateCcw size={12} className={!activeFixtureId ? 'text-[#041c20]' : 'text-[#00c2d3]'} />
             <span>Full Sanctuary</span>
           </button>
 
-          <div className="w-px h-4 bg-[#c5a059]/30 mx-0.5" />
+          <div className="w-px h-4 bg-[#00808c]/40 mx-0.5" />
 
           {/* Fixture Selector Buttons */}
           {SPA_FIXTURES_INFO.map((f) => {
@@ -420,10 +467,10 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
               <button
                 key={f.id}
                 onClick={() => handleSelectFixture(f.id)}
-                className={`px-3 py-1.5 rounded-xl border text-[11px] whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-xl border text-[11px] whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-r from-[#00808c] to-[#00a3b2] text-white font-medium border-transparent shadow-md shadow-[#00808c]/40'
-                    : 'bg-transparent border-transparent text-[#c7bcab] hover:text-white hover:bg-white/5'
+                    ? 'bg-gradient-to-r from-[#00808c] to-[#00a8b5] text-white font-medium border-transparent shadow-md shadow-[#00808c]/50'
+                    : 'bg-transparent border-transparent text-[#c0dcdd] hover:text-white hover:bg-white/5'
                 }`}
               >
                 <span
@@ -445,7 +492,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
           e.preventDefault();
           document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
         }}
-        className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 text-[10px] label-mono text-[#c5a059] hover:text-[#00c2d3] transition-colors cursor-pointer group whitespace-nowrap pointer-events-auto"
+        className="absolute bottom-2.5 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 text-[10px] label-mono text-[#00c2d3] hover:text-white transition-colors cursor-pointer group whitespace-nowrap pointer-events-auto"
         title="Scroll down to explore collection"
       >
         <span className="w-1.5 h-1.5 rounded-full bg-[#00c2d3] animate-ping" />

@@ -72,8 +72,8 @@ export const ProductViewerModal: React.FC<ProductViewerModalProps> = ({
           className="w-full h-full cursor-grab active:cursor-grabbing"
           shadows
         >
-          <color attach="background" args={['#070809']} />
-          <fog attach="fog" args={['#070809', 5, 18]} />
+          <color attach="background" args={['#031a1e']} />
+          <fog attach="fog" args={['#031a1e', 5, 18]} />
           <StudioLighting intensityMultiplier={1.1} />
 
           <group position={[0, -0.2, 0]}>

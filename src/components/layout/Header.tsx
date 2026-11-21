@@ -59,12 +59,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
     <header
       className={`fixed inset-x-0 top-0 z-50 h-[80px] lg:h-[92px] transition-all duration-500 border-b ${
         isScrolled
-          ? 'bg-[#14100c]/98 backdrop-blur-2xl border-[#c5a059]/35 shadow-2xl shadow-black/80'
-          : 'bg-[#14100c]/90 backdrop-blur-xl border-[#c5a059]/30 shadow-xl shadow-black/60'
+          ? 'bg-[#031a1e]/98 backdrop-blur-2xl border-[#00808c]/40 shadow-2xl shadow-[#021214]/90'
+          : 'bg-[#031a1e]/90 backdrop-blur-xl border-[#00808c]/25 shadow-xl shadow-[#021214]/60'
       }`}
     >
       <div className="mx-auto flex h-full max-w-[1800px] items-center justify-between px-6 sm:px-10 lg:px-16">
-        {/* Brand Logo & Flagship Pill */}
+        {/* White Brand Logo & Architectural Teal Badge */}
         <div className="flex items-center gap-4">
           <a
             href="#showroom"
@@ -72,15 +72,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
             className="group flex items-center transition-all duration-300 hover:scale-105"
             aria-label="Sanvera — The Art of Water"
           >
+            {/* White Brand Logo as specified by client */}
             <SanveraLogo
-              className="h-10 sm:h-12 lg:h-[48px] w-auto drop-shadow-[0_2px_14px_rgba(0,128,140,0.55)]"
-              variant="teal"
+              className="h-10 sm:h-12 lg:h-[48px] w-auto drop-shadow-[0_2px_14px_rgba(255,255,255,0.45)]"
+              variant="white"
             />
           </a>
 
-          <span className="hidden xl:inline-flex items-center gap-1.5 label-mono text-[9px] text-[#00c2d3] border border-[#00808c]/40 bg-[#00808c]/15 px-2.5 py-0.5 rounded-full font-medium">
+          <span className="hidden xl:inline-flex items-center gap-1.5 label-mono text-[9px] text-[#00c2d3] border border-[#00808c]/40 bg-[#004d54]/30 px-3 py-1 rounded-full font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00c2d3] animate-pulse" />
-            SHOWROOM SANCTUARY
+            3D SHOWROOM SANCTUARY
           </span>
         </div>
 
@@ -95,16 +96,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
                 onClick={(e) => handleScrollTo(e, link.targetId)}
                 className={`relative py-1 label-mono text-xs uppercase tracking-widest transition-all duration-300 flex items-center gap-1.5 ${
                   isActive
-                    ? 'text-[#fdfbf7] font-semibold'
-                    : 'text-[#c7bcab] hover:text-[#fdfbf7]'
+                    ? 'text-white font-semibold'
+                    : 'text-[#c0dcdd] hover:text-white'
                 }`}
               >
                 {isActive && (
-                  <span className="w-1 h-1 rounded-full bg-[#00c2d3] shadow-[0_0_6px_#00c2d3]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00c2d3] shadow-[0_0_8px_#00c2d3]" />
                 )}
                 <span>{link.label}</span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4af37] to-transparent" />
+                  <span className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00c2d3] to-transparent" />
                 )}
               </a>
             );
@@ -116,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
           {/* Search Button */}
           <button
             onClick={onOpenSearch}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1e1711]/90 border border-[#c5a059]/40 text-[#ded4c5] hover:text-[#00c2d3] hover:border-[#00c2d3] transition-all duration-300 shadow-md shadow-black/40"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-[#062429] border border-[#00808c]/50 text-[#f8fafc] hover:text-[#00c2d3] hover:border-[#00c2d3] hover:bg-[#09353c] transition-all duration-300 shadow-md shadow-black/40 cursor-pointer"
             aria-label="Search Collection and Journal"
             title="Search Catalogue & Journal"
           >
@@ -126,16 +127,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenSearch }) => {
           {/* Prominent High-Visibility Menu Pill */}
           <button
             onClick={onOpenMenu}
-            className="group flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#241c15] to-[#1c1611] border border-[#c5a059]/50 hover:border-[#00c2d3] text-[#fdfbf7] hover:text-[#00c2d3] transition-all duration-300 shadow-lg shadow-black/50 hover:shadow-[#00808c]/25 cursor-pointer"
+            className="group flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#06292f] to-[#041f23] border border-[#00808c]/60 hover:border-[#00c2d3] text-white hover:text-[#00c2d3] transition-all duration-300 shadow-lg shadow-black/60 hover:shadow-[#00808c]/30 cursor-pointer"
             aria-label="Open Fullsite Menu"
           >
-            <span className="label-mono text-xs font-semibold tracking-widest text-[#fdfbf7] group-hover:text-[#00c2d3] transition-colors">
+            <span className="label-mono text-xs font-semibold tracking-widest text-white group-hover:text-[#00c2d3] transition-colors">
               MENU
             </span>
             <div className="flex flex-col justify-between w-4 h-3">
-              <span className="block w-full h-0.5 bg-[#d4af37] group-hover:bg-[#00c2d3] rounded-full transition-colors" />
+              <span className="block w-full h-0.5 bg-[#00c2d3] group-hover:bg-white rounded-full transition-colors" />
               <span className="block w-3/4 h-0.5 bg-[#d4af37] group-hover:bg-[#00c2d3] rounded-full transition-colors ml-auto" />
-              <span className="block w-full h-0.5 bg-[#d4af37] group-hover:bg-[#00c2d3] rounded-full transition-colors" />
+              <span className="block w-full h-0.5 bg-[#00c2d3] group-hover:bg-white rounded-full transition-colors" />
             </div>
           </button>
         </div>

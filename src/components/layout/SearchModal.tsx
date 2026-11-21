@@ -53,22 +53,22 @@ export const SearchModal: React.FC<SearchModalProps> = ({
       <div className="max-w-[1000px] w-full mx-auto">
         <div className="flex items-center justify-between border-b border-hair pb-6">
           <div className="flex items-center gap-4 flex-1">
-            <Search size={22} className="text-brass shrink-0" />
+            <Search size={22} className="text-[#00c2d3] shrink-0" />
             <input
               type="text"
               placeholder="SEARCH BY SERIES, NAME, MATERIAL, OR SKU..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoFocus
-              className="w-full bg-transparent border-none outline-none font-display text-xl sm:text-2xl lg:text-3xl text-ink placeholder:text-smoke/40 tracking-tight"
+              className="w-full bg-transparent border-none outline-none font-display text-xl sm:text-2xl lg:text-3xl text-white placeholder:text-[#789fa2]/50 tracking-tight"
             />
           </div>
           <button
             onClick={onClose}
-            className="label-mono text-mist hover:text-ink flex items-center gap-2"
+            className="label-mono text-[#c0dcdd] hover:text-white px-3 py-1.5 rounded-full border border-[#00808c]/40 hover:border-[#00c2d3] flex items-center gap-2 transition-colors cursor-pointer"
           >
             <span>ESC</span>
-            <X size={16} />
+            <X size={15} />
           </button>
         </div>
 

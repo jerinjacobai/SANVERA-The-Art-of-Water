@@ -3,18 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --bg-void: #14100c;
-  --bg-char: #1a1510;
-  --bg-graphite: #241c15;
+  --bg-void: #031a1e;
+  --bg-char: #062429;
+  --bg-graphite: #092f35;
   --color-brass: #d4af37;
   --color-teal: #00808c;
+  --color-teal-deep: #004d54;
   --color-teal-light: #00c2d3;
-  --color-stone: #d4c8b8;
-  --color-ink: #fbf8f3;
-  --color-mist: #c2b5a5;
-  --color-smoke: #8a7c6c;
-  --hair: rgba(212, 175, 55, 0.18);
-  --hair-light: rgba(212, 175, 55, 0.32);
+  --color-teal-glow: #2ee6f4;
+  --color-stone: #d2dfdf;
+  --color-ink: #f8fafc;
+  --color-mist: #c0dcdd;
+  --color-smoke: #789fa2;
+  --hair: rgba(0, 194, 211, 0.22);
+  --hair-light: rgba(0, 194, 211, 0.42);
+  --hair-gold: rgba(212, 175, 55, 0.28);
   --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -37,15 +40,15 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-ink);
-  color: var(--bg-void);
+  background-color: var(--color-teal);
+  color: #ffffff;
 }
 
-/* Faint architectural grid overlay */
+/* Faint architectural grid overlay with subtle teal luminescence */
 .tech-grid {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 194, 211, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 194, 211, 0.05) 1px, transparent 1px);
   background-size: 96px 96px;
   background-position: center center;
   mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 10%, transparent 80%);
@@ -58,14 +61,14 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.03;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Vignette gradient */
+/* Vignette gradient with deep teal undertones */
 .vignette-radial {
-  background: radial-gradient(ellipse 110% 90% at 50% 50%, rgba(5,5,5,0) 30%, rgba(5,5,5,0.85) 100%);
+  background: radial-gradient(ellipse 110% 90% at 50% 50%, rgba(3,26,30,0) 30%, rgba(3,26,30,0.88) 100%);
 }
 
 /* Editorial typography utilities */
@@ -73,8 +76,8 @@ body {
   font-family: 'Inter Tight', 'Inter', -apple-system, sans-serif;
   font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: -0.05em;
-  line-height: 0.92;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
 }
 
 .label-mono {
@@ -84,38 +87,17 @@ body {
   text-transform: uppercase;
 }
 
-/* Custom minimal scrollbar */
+/* Custom minimal scrollbar in architectural teal */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #031a1e;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(242, 240, 234, 0.15);
-  border-radius: 2px;
+  background: rgba(0, 194, 211, 0.25);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(242, 240, 234, 0.35);
-}
-
-/* Luxury Plate styling */
-.plate {
-  position: relative;
-  overflow: hidden;
-  background-color: #0E1012;
-  isolation: isolate;
-}
-
-.plate-sheen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.01) 40%,
-    transparent 100%
-  );
-  pointer-events: none;
+  background: rgba(0, 194, 211, 0.55);
 }

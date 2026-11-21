@@ -2,13 +2,13 @@ import React from 'react';
 
 interface SanveraLogoProps {
   className?: string;
-  variant?: 'teal' | 'gold' | 'light' | 'dark' | 'brass';
+  variant?: 'white' | 'teal' | 'gold' | 'light' | 'dark' | 'brass';
   showSubtitle?: boolean;
 }
 
 export const SanveraLogo: React.FC<SanveraLogoProps> = ({
   className = 'h-10 w-auto',
-  variant = 'teal',
+  variant = 'white',
   showSubtitle = false,
 }) => {
   const gradientId = React.useId();
@@ -19,7 +19,7 @@ export const SanveraLogo: React.FC<SanveraLogoProps> = ({
         xmlns="http://www.w3.org/2000/svg"
         viewBox="358 425 364 229"
         fill="none"
-        className={`${className} transition-all duration-300`}
+        className={`${className} transition-all duration-300 drop-shadow-[0_2px_12px_rgba(0,194,211,0.3)]`}
         aria-label="SANVERA — The Art of Water"
       >
         <defs>
@@ -64,8 +64,8 @@ export const SanveraLogo: React.FC<SanveraLogoProps> = ({
               : variant === 'brass'
               ? `url(#${gradientId}-brass)`
               : variant === 'dark'
-              ? '#14110d'
-              : '#f6f2eb';
+              ? '#041c20'
+              : '#ffffff'; // 'white' and 'light' default to pure brilliant white
 
           const waveFill =
             variant === 'teal'
@@ -161,7 +161,7 @@ export const SanveraLogo: React.FC<SanveraLogoProps> = ({
       </svg>
 
       {showSubtitle && (
-        <span className="font-display tracking-[0.28em] text-[9px] uppercase text-[#009aa7] mt-1 font-medium group-hover:text-[#00c2d3] transition-colors">
+        <span className="font-display tracking-[0.3em] text-[9px] uppercase text-white/95 mt-1 font-medium group-hover:text-[#00c2d3] transition-colors drop-shadow-[0_1px_6px_rgba(0,194,211,0.4)]">
           The Art of Water
         </span>
       )}

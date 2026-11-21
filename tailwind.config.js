@@ -8,30 +8,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        void: '#14100c',
-        char: '#1a1510',
-        graphite: '#241c15',
-        stone: '#d4c8b8',
-        limestone: '#e4dacf',
+        // Deep Luxury Architectural Teal Noir System
+        void: '#031a1e',        // Primary deepest sanctuary teal-black
+        char: '#062429',        // Secondary architectural teal stone
+        graphite: '#092f35',    // Tertiary dark lagoon teal
+        stone: '#d2dfdf',       // Pale mineral marble
+        limestone: '#e2ecec',   // Soft architectural limestone
         brass: {
-          DEFAULT: '#d4af37',
-          light: '#fae0a5',
+          DEFAULT: '#d4af37',   // Rich brushed gold
+          light: '#f5df9a',
           dark: '#9a7526',
           muted: '#bfa163',
         },
         chrome: '#D8DEE4',
-        bronze: '#382c22',
+        bronze: '#20393d',
         teal: {
-          DEFAULT: '#00808c',
-          light: '#00c2d3',
-          dark: '#005a63',
-          glow: 'rgba(0, 128, 140, 0.4)',
+          DEFAULT: '#00808c',   // Signature PANTONE 321 U
+          deep: '#004d54',      // Deep jewel teal
+          dark: '#003a3f',      // Dark teal shadow
+          light: '#00a3b0',     // Bright Aegean teal
+          cyan: '#00c2d3',      // Luminous cyan-teal accent
+          glow: '#2ee6f4',      // Ultra-bright water shimmer
+          surface: '#082a30',   // Card background
         },
-        ink: '#fbf8f3',
-        mist: '#c2b5a5',
-        smoke: '#8a7c6c',
-        hair: 'rgba(212, 175, 55, 0.18)',
-        hairLight: 'rgba(212, 175, 55, 0.32)',
+        ink: '#f8fafc',         // Crisp pure white typography
+        mist: '#c0dcdd',        // Mineral sage-mist for secondary text
+        smoke: '#789fa2',       // Muted cyan-smoke
+        hair: 'rgba(0, 194, 211, 0.22)',
+        hairLight: 'rgba(0, 194, 211, 0.42)',
+        hairGold: 'rgba(212, 175, 55, 0.28)',
       },
       fontFamily: {
         display: ['"Inter Tight"', 'Inter', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
