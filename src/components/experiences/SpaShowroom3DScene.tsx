@@ -1,14 +1,84 @@
 import React, { useRef, useMemo, Suspense, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useTexture, Sparkles, Html, OrbitControls } from '@react-three/drei';
+import { useTexture, Sparkles, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { Sparkles as SparklesIcon } from 'lucide-react';
 import { ProductFinish } from '../../types';
-import { ProceduralFaucet } from '../three/ProceduralFaucet';
-import { BathtubModel } from '../three/BathtubModel';
-import { ShowerModel } from '../three/ShowerModel';
-import { BasinModel } from '../three/BasinModel';
-import { MirrorModel } from '../three/MirrorModel';
+
+export interface WalkaroundWaypoint {
+  id: string;
+  name: string;
+  shortName: string;
+  area: string;
+  // Normalized target coordinates on the backdrop [-0.5 to 0.5]
+  normX: number;
+  normY: number;
+  zoomZ: number; // Camera Z distance (smaller = closer zoom)
+  fixtureId?: string;
+  description: string;
+}
+
+export const SANCTUARY_WAYPOINTS: WalkaroundWaypoint[] = [
+  {
+    id: 'portal',
+    name: 'Sanctuary Grand Perspective',
+    shortName: 'Grand Portal',
+    area: 'Arrival Threshold',
+    normX: 0.0,
+    normY: 0.0,
+    zoomZ: 10.0,
+    description:
+      'Panoramic grand perspective overlooking the freestanding mineral tub, glass shower suite, and floating vanity.',
+  },
+  {
+    id: 'shower-sanctuary',
+    name: 'Concealed Rain Shower Suite',
+    shortName: 'Shower Suite',
+    area: 'Wellness Enclosure',
+    normX: -0.34,
+    normY: 0.08,
+    zoomZ: 4.6,
+    fixtureId: 'shower-sanctuary',
+    description:
+      'Inside the frameless architectural glass enclosure, inspecting the flush ceiling rain head, shampoo niches, and thermostatic column.',
+  },
+  {
+    id: 'freestanding-bath',
+    name: 'Freestanding Bathtub & Floor Spout',
+    shortName: 'Bathtub & Spout',
+    area: 'Central Sanctuary',
+    normX: -0.09,
+    normY: -0.14,
+    zoomZ: 4.3,
+    fixtureId: 'freestanding-bath',
+    description:
+      'Up close with the sculpted mineral composite bath, observing the 24K brushed gold floor mixer spout and water reservoir.',
+  },
+  {
+    id: 'vanity-mixers',
+    name: 'Double Marble Vanity & Optics',
+    shortName: 'Vanity & Optics',
+    area: 'Grooming Console',
+    normX: 0.32,
+    normY: 0.0,
+    zoomZ: 4.5,
+    fixtureId: 'vanity-mixers',
+    description:
+      'Standing at the cantilevered dark marble console, examining the dual ceramic vessel basins, gold deck mixers, and backlit mirrors.',
+  },
+  {
+    id: 'crystal-chandelier',
+    name: 'Cascading Crystal Chandelier',
+    shortName: 'Chandelier',
+    area: 'Ceiling Centerpiece',
+    normX: 0.0,
+    normY: 0.33,
+    zoomZ: 5.0,
+    fixtureId: 'crystal-chandelier',
+    description:
+      'Looking upward into the concentric tiered brass rings and hand-cut K9 crystal prisms casting warm light across the marble.',
+  },
+];
 
 export interface FixtureHotspotData {
   id: string;
@@ -17,12 +87,9 @@ export interface FixtureHotspotData {
   category: string;
   sku: string;
   catalogId: string;
-  // Normalized 2D coordinates on the 1024x576 photograph (-0.5 to +0.5)
   normX: number;
   normY: number;
-  // 3D camera focal distance and framing
-  camDistance: number;
-  camOffset: [number, number, number];
+  waypointId: string;
 }
 
 export const FIXTURES_HOTSPOTS: FixtureHotspotData[] = [
@@ -35,8 +102,7 @@ export const FIXTURES_HOTSPOTS: FixtureHotspotData[] = [
     catalogId: 'shower-5061',
     normX: -0.34,
     normY: 0.12,
-    camDistance: 7.2,
-    camOffset: [-3.4, 0.9, 0],
+    waypointId: 'shower-sanctuary',
   },
   {
     id: 'freestanding-bath',
@@ -45,10 +111,9 @@ export const FIXTURES_HOTSPOTS: FixtureHotspotData[] = [
     category: 'Bathtubs & Spouts',
     sku: 'SV-BT-01-FL',
     catalogId: 'bathtub-freestanding',
-    normX: 0.0,
-    normY: -0.15,
-    camDistance: 7.5,
-    camOffset: [0, -1.1, 0],
+    normX: 0.02,
+    normY: -0.17,
+    waypointId: 'freestanding-bath',
   },
   {
     id: 'floor-bath-mixer',
@@ -59,8 +124,7 @@ export const FIXTURES_HOTSPOTS: FixtureHotspotData[] = [
     catalogId: 'faucet-bathtub',
     normX: -0.135,
     normY: -0.09,
-    camDistance: 7.0,
-    camOffset: [-1.4, -0.6, 0],
+    waypointId: 'freestanding-bath',
   },
   {
     id: 'vanity-mixers',
@@ -71,8 +135,7 @@ export const FIXTURES_HOTSPOTS: FixtureHotspotData[] = [
     catalogId: 'mixer-664',
     normX: 0.31,
     normY: -0.07,
-    camDistance: 7.2,
-    camOffset: [3.2, -0.5, 0],
+    waypointId: 'vanity-mixers',
   },
   {
     id: 'ambient-mirrors',
@@ -83,8 +146,7 @@ export const FIXTURES_HOTSPOTS: FixtureHotspotData[] = [
     catalogId: 'mirror-smart',
     normX: 0.34,
     normY: 0.22,
-    camDistance: 7.0,
-    camOffset: [3.4, 1.4, 0],
+    waypointId: 'vanity-mixers',
   },
   {
     id: 'crystal-chandelier',
@@ -95,25 +157,9 @@ export const FIXTURES_HOTSPOTS: FixtureHotspotData[] = [
     catalogId: 'acc-73',
     normX: 0.0,
     normY: 0.36,
-    camDistance: 7.4,
-    camOffset: [0, 2.4, 0],
+    waypointId: 'crystal-chandelier',
   },
 ];
-
-// Helper to get PBR materials matching active finish
-export const getPBRFinishColor = (finish: ProductFinish) => {
-  switch (finish) {
-    case 'polished_chrome':
-      return { color: '#D8DEE4', metalness: 0.98, roughness: 0.06 };
-    case 'dark_bronze':
-      return { color: '#1A1816', metalness: 0.85, roughness: 0.32 };
-    case 'matte_stone':
-      return { color: '#C8A282', metalness: 0.88, roughness: 0.28 }; // Rose Gold
-    case 'brushed_brass':
-    default:
-      return { color: '#D4AF37', metalness: 0.92, roughness: 0.18 }; // 24K Brushed Gold
-  }
-};
 
 interface SpaFullBleedBackdropProps {
   planeWidth: number;
@@ -130,19 +176,23 @@ const SpaFullBleedBackdrop: React.FC<SpaFullBleedBackdropProps> = ({
 
   useMemo(() => {
     texture.colorSpace = THREE.SRGBColorSpace;
-    texture.generateMipmaps = true;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.generateMipmaps = false; // Disable mipmaps for ultra-crisp 1:1 pixel rendering
+    texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.anisotropy = 16;
+    texture.wrapS = THREE.ClampToEdgeWrapping;
+    texture.wrapT = THREE.ClampToEdgeWrapping;
+    texture.needsUpdate = true;
   }, [texture]);
 
-  // Curved architectural panoramic wall in 3D
+  // Gentle full-bleed architectural panoramic plane (subtle curvature for immersive depth)
   const geometry = useMemo(() => {
-    const geo = new THREE.PlaneGeometry(planeWidth, planeHeight, 36, 18);
+    const geo = new THREE.PlaneGeometry(planeWidth, planeHeight, 32, 16);
     const pos = geo.attributes.position;
     for (let i = 0; i < pos.count; i++) {
       const x = pos.getX(i);
-      const zOffset = -Math.pow(x / (planeWidth * 0.5), 2) * 0.85;
+      // Very gentle cylindrical curve hugging viewer peripheral vision without exposing edges
+      const zOffset = -Math.pow(x / (planeWidth * 0.5), 2) * 0.35;
       pos.setZ(i, zOffset);
     }
     geo.computeVertexNormals();
@@ -151,7 +201,7 @@ const SpaFullBleedBackdrop: React.FC<SpaFullBleedBackdropProps> = ({
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 1. Full-Bleed Curved Calacatta Marble Panoramic Wall */}
+      {/* 1. Full-Bleed Edge-to-Edge Calacatta Gold Marble Sanctuary Panoramic Wall */}
       <mesh
         geometry={geometry}
         onClick={(e) => {
@@ -160,38 +210,6 @@ const SpaFullBleedBackdrop: React.FC<SpaFullBleedBackdropProps> = ({
         }}
       >
         <meshBasicMaterial map={texture} toneMapped={false} />
-      </mesh>
-
-      {/* 2. 3D Polished Marble Floor with Specular Reflection Catching Chandelier Light */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -planeHeight * 0.49, 1]}>
-        <planeGeometry args={[planeWidth * 1.3, 10]} />
-        <meshStandardMaterial
-          color="#062227"
-          roughness={0.22}
-          metalness={0.35}
-          transparent
-          opacity={0.65}
-        />
-      </mesh>
-
-      {/* 3. Architectural Shower Glass Partition Mesh (Left Enclosure) */}
-      <mesh position={[-planeWidth * 0.22, 0, 0.4]} rotation={[0, 0.08, 0]}>
-        <boxGeometry args={[0.04, planeHeight * 0.82, 3.2]} />
-        <meshPhysicalMaterial
-          color="#b0e0e6"
-          transparent
-          opacity={0.35}
-          transmission={0.88}
-          roughness={0.06}
-          ior={1.52}
-          metalness={0.1}
-        />
-      </mesh>
-
-      {/* 4. Brushed Gold Glass Header Channel */}
-      <mesh position={[-planeWidth * 0.22, planeHeight * 0.41, 0.4]} rotation={[0, 0.08, 0]}>
-        <boxGeometry args={[0.08, 0.06, 3.2]} />
-        <meshStandardMaterial color="#d4af37" metalness={0.92} roughness={0.18} />
       </mesh>
     </group>
   );
@@ -214,7 +232,6 @@ const SpatialMicroBeacon: React.FC<SpatialMicroBeaconProps> = ({
 
   return (
     <group position={position}>
-      {/* 3D Anchored Micro-Beacon */}
       <Html center distanceFactor={10} zIndexRange={[20, 0]}>
         <div
           onClick={(e) => {
@@ -223,7 +240,7 @@ const SpatialMicroBeacon: React.FC<SpatialMicroBeaconProps> = ({
           }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          className="relative cursor-pointer select-none group flex items-center justify-center p-2.5 -m-2.5"
+          className="relative cursor-pointer select-none group flex items-center justify-center p-3 -m-3"
           title={`Click to focus ${fixture.name}`}
         >
           {/* Subtle breathing ripple halo */}
@@ -231,7 +248,7 @@ const SpatialMicroBeacon: React.FC<SpatialMicroBeaconProps> = ({
             className={`absolute w-7 h-7 rounded-full border transition-all duration-700 pointer-events-none ${
               isActive
                 ? 'border-[#00c2d3] scale-125 opacity-90 animate-ping'
-                : 'border-[#00c2d3]/40 scale-100 opacity-40 group-hover:scale-125 group-hover:border-[#00c2d3]/80 group-hover:opacity-80'
+                : 'border-[#00c2d3]/50 scale-100 opacity-40 group-hover:scale-125 group-hover:border-[#00c2d3] group-hover:opacity-80'
             }`}
           />
 
@@ -252,9 +269,9 @@ const SpatialMicroBeacon: React.FC<SpatialMicroBeaconProps> = ({
             />
           </div>
 
-          {/* Sleek Architectural Tooltip (Positioned above beacon) */}
+          {/* Sleek Tooltip */}
           <div
-            className={`absolute left-1/2 -translate-x-1/2 bottom-full mb-3 px-3.5 py-2 rounded-xl bg-[#041c20]/95 backdrop-blur-2xl border border-[#00808c]/50 text-center whitespace-nowrap shadow-[0_15px_40px_rgba(0,0,0,0.85)] pointer-events-none transition-all duration-300 ${
+            className={`absolute left-1/2 -translate-x-1/2 bottom-full mb-3 px-3 py-1.5 rounded-xl bg-[#041c20]/95 backdrop-blur-2xl border border-[#00808c]/50 text-center whitespace-nowrap shadow-[0_15px_40px_rgba(0,0,0,0.85)] pointer-events-none transition-all duration-300 ${
               hovered && !isActive
                 ? 'opacity-100 translate-y-0 scale-100'
                 : 'opacity-0 translate-y-1 scale-95 pointer-events-none'
@@ -266,10 +283,10 @@ const SpatialMicroBeacon: React.FC<SpatialMicroBeaconProps> = ({
                 {fixture.category}
               </p>
             </div>
-            <p className="editorial-title text-xs text-white font-light mt-0.5">{fixture.name}</p>
+            <p className="editorial-title text-xs text-white font-light mt-0.5">{fixture.shortName}</p>
             <p className="label-mono text-[8px] text-[#d4af37] mt-0.5 flex items-center justify-center gap-1">
               <SparklesIcon size={8} className="text-[#d4af37]" />
-              <span>Click to inspect fixture in 3D</span>
+              <span>Click to inspect fixture</span>
             </p>
           </div>
         </div>
@@ -278,125 +295,18 @@ const SpatialMicroBeacon: React.FC<SpatialMicroBeaconProps> = ({
   );
 };
 
-interface FocusedModelDispatcherProps {
-  activeFixtureId: string | null;
-  activeFinish: ProductFinish;
-  waterActive: boolean;
-  planeWidth: number;
-  planeHeight: number;
-}
-
-const FocusedModelDispatcher: React.FC<FocusedModelDispatcherProps> = ({
-  activeFixtureId,
-  activeFinish,
-  waterActive,
-  planeWidth,
-  planeHeight,
-}) => {
-  const modelRot = useRef(0);
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame((_, delta) => {
-    if (groupRef.current && activeFixtureId) {
-      modelRot.current += delta * 0.35;
-      groupRef.current.rotation.y = modelRot.current;
-    }
-  });
-
-  if (!activeFixtureId) return null;
-
-  const fixture = FIXTURES_HOTSPOTS.find((f) => f.id === activeFixtureId);
-  if (!fixture) return null;
-
-  const posX = fixture.normX * planeWidth;
-  const posY = fixture.normY * planeHeight;
-  const posZ = -Math.pow(posX / (planeWidth * 0.5), 2) * 0.85 + 0.35;
-
-  return (
-    <group position={[posX, posY, posZ]}>
-      {/* Dynamic Focus Spotlight */}
-      <pointLight color="#ffe8b3" intensity={3.5} distance={5} />
-
-      <group ref={groupRef}>
-        {fixture.id === 'shower-sanctuary' && (
-          <ShowerModel
-            finish={activeFinish}
-            waterActive={waterActive}
-            showPedestal={false}
-            scale={0.85}
-          />
-        )}
-
-        {fixture.id === 'freestanding-bath' && (
-          <BathtubModel
-            finish={activeFinish}
-            waterActive={waterActive}
-            showPedestal={false}
-            scale={0.8}
-          />
-        )}
-
-        {fixture.id === 'floor-bath-mixer' && (
-          <ProceduralFaucet
-            finish={activeFinish}
-            waterActive={waterActive}
-            showPedestal={false}
-            scale={0.8}
-          />
-        )}
-
-        {fixture.id === 'vanity-mixers' && (
-          <group scale={0.78}>
-            <BasinModel finish={activeFinish} showPedestal={false} />
-            <group position={[0, 0.42, -0.2]}>
-              <ProceduralFaucet
-                finish={activeFinish}
-                waterActive={waterActive}
-                showPedestal={false}
-                scale={0.75}
-              />
-            </group>
-          </group>
-        )}
-
-        {fixture.id === 'ambient-mirrors' && (
-          <MirrorModel finish={activeFinish} showPedestal={false} scale={0.85} />
-        )}
-
-        {fixture.id === 'crystal-chandelier' && (
-          <group scale={0.85}>
-            <mesh position={[0, 0, 0]}>
-              <torusGeometry args={[0.9, 0.05, 16, 48]} />
-              <meshStandardMaterial color="#d4af37" metalness={0.95} roughness={0.15} />
-            </mesh>
-            <mesh position={[0, -0.3, 0]}>
-              <torusGeometry args={[0.65, 0.04, 16, 48]} />
-              <meshStandardMaterial color="#d4af37" metalness={0.95} roughness={0.15} />
-            </mesh>
-            <mesh position={[0, -0.6, 0]}>
-              <torusGeometry args={[0.4, 0.035, 16, 48]} />
-              <meshStandardMaterial color="#d4af37" metalness={0.95} roughness={0.15} />
-            </mesh>
-            <pointLight color="#fff0c2" intensity={4.0} distance={7} />
-          </group>
-        )}
-      </group>
-    </group>
-  );
-};
-
 interface CameraRigProps {
-  activeFixtureId: string | null;
+  activeWaypointId: string;
+  panOffset: { x: number; y: number };
   planeWidth: number;
   planeHeight: number;
-  isOrbitMode: boolean;
 }
 
 const CameraRig: React.FC<CameraRigProps> = ({
-  activeFixtureId,
+  activeWaypointId,
+  panOffset,
   planeWidth,
   planeHeight,
-  isOrbitMode,
 }) => {
   const { camera } = useThree();
   const mouse = useRef({ x: 0, y: 0 });
@@ -411,54 +321,40 @@ const CameraRig: React.FC<CameraRigProps> = ({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  useFrame(() => {
-    // If user is manually orbiting with controls, skip camera position override
-    if (isOrbitMode) return;
+  useFrame((_, delta) => {
+    const activeWaypoint =
+      SANCTUARY_WAYPOINTS.find((w) => w.id === activeWaypointId) || SANCTUARY_WAYPOINTS[0];
 
-    let targetX = 0;
-    let targetY = 0;
-    let targetZ = 10.0;
+    // Compute Target 3D coordinates based on normalized waypoint
+    const targetCenterX = activeWaypoint.normX * planeWidth;
+    const targetCenterY = activeWaypoint.normY * planeHeight;
 
-    let targetLookX = 0;
-    let targetLookY = 0;
+    let targetCamX = targetCenterX;
+    let targetCamY = targetCenterY;
+    let targetCamZ = activeWaypoint.zoomZ;
+
+    // Target Look-At Target + Drag-To-Look Pan + Subtle Parallax
+    let targetLookX = targetCenterX + panOffset.x + mouse.current.x * 0.12;
+    let targetLookY = targetCenterY + panOffset.y - mouse.current.y * 0.08;
     let targetLookZ = 0;
 
-    const activeFixture = FIXTURES_HOTSPOTS.find((f) => f.id === activeFixtureId);
-
-    if (activeFixture) {
-      const markerX = activeFixture.normX * planeWidth;
-      const markerY = activeFixture.normY * planeHeight;
-      const markerZ = -Math.pow(markerX / (planeWidth * 0.5), 2) * 0.85;
-
-      // Architectural 1.25x framing: gentle glide into view without disorienting extreme zoom
-      targetX = markerX * 0.62;
-      targetY = markerY * 0.62;
-      targetZ = activeFixture.camDistance;
-
-      targetLookX = markerX * 0.85;
-      targetLookY = markerY * 0.85;
-      targetLookZ = markerZ;
-    } else {
-      // Natural, living 3D parallax in Sanctuary Overview
-      targetX = mouse.current.x * 0.42;
-      targetY = -mouse.current.y * 0.22;
-      targetZ = 10.0;
-
-      targetLookX = mouse.current.x * 0.12;
-      targetLookY = -mouse.current.y * 0.06;
-      targetLookZ = 0;
+    // In Grand Portal overview, add subtle floating Steadicam sway
+    if (activeWaypoint.id === 'portal') {
+      targetCamX += mouse.current.x * 0.28;
+      targetCamY += -mouse.current.y * 0.15;
     }
 
-    // Buttery smooth lerp for camera position
-    const lerpSpeed = activeFixture ? 0.045 : 0.035;
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetX, lerpSpeed);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, lerpSpeed);
-    camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, lerpSpeed);
+    // Critically Damped Exponential Spring (Zero frame-rate dependency, buttery smooth)
+    const decay = 3.8;
+    const alpha = 1 - Math.exp(-decay * delta);
 
-    // Buttery smooth lerp for lookAt target
-    lookAtTarget.current.x = THREE.MathUtils.lerp(lookAtTarget.current.x, targetLookX, lerpSpeed);
-    lookAtTarget.current.y = THREE.MathUtils.lerp(lookAtTarget.current.y, targetLookY, lerpSpeed);
-    lookAtTarget.current.z = THREE.MathUtils.lerp(lookAtTarget.current.z, targetLookZ, lerpSpeed);
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetCamX, alpha);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetCamY, alpha);
+    camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetCamZ, alpha);
+
+    lookAtTarget.current.x = THREE.MathUtils.lerp(lookAtTarget.current.x, targetLookX, alpha);
+    lookAtTarget.current.y = THREE.MathUtils.lerp(lookAtTarget.current.y, targetLookY, alpha);
+    lookAtTarget.current.z = THREE.MathUtils.lerp(lookAtTarget.current.z, targetLookZ, alpha);
 
     camera.lookAt(lookAtTarget.current);
   });
@@ -467,38 +363,36 @@ const CameraRig: React.FC<CameraRigProps> = ({
 };
 
 interface SceneContentProps {
-  activeFixtureId: string | null;
-  onSelectFixture: (id: string) => void;
+  activeWaypointId: string;
+  onSelectWaypoint: (id: string) => void;
   onResetZoom: () => void;
   showHotspots: boolean;
-  activeFinish: ProductFinish;
-  waterActive: boolean;
-  isOrbitMode: boolean;
+  panOffset: { x: number; y: number };
 }
 
 const SceneContent: React.FC<SceneContentProps> = ({
-  activeFixtureId,
-  onSelectFixture,
+  activeWaypointId,
+  onSelectWaypoint,
   onResetZoom,
   showHotspots,
-  activeFinish,
-  waterActive,
-  isOrbitMode,
+  panOffset,
 }) => {
   const { viewport } = useThree();
 
-  // Full-bleed calculation: covers viewport edge-to-edge at camera distance 10
+  // Full-bleed Cover Dimensions calculation
+  // Ensures 100% edge-to-edge coverage with ZERO black gaps on any display aspect ratio
   const { planeWidth, planeHeight } = useMemo(() => {
     const imageAspect = 1024 / 576; // 1.77778
     const vAspect = viewport.width / viewport.height;
     let w: number;
     let h: number;
 
+    // Generous overscan so pan & camera movement never expose edges
     if (vAspect > imageAspect) {
-      w = viewport.width * 1.08;
+      w = viewport.width * 1.35;
       h = w / imageAspect;
     } else {
-      h = viewport.height * 1.08;
+      h = viewport.height * 1.35;
       w = h * imageAspect;
     }
     return { planeWidth: w, planeHeight: h };
@@ -507,44 +401,28 @@ const SceneContent: React.FC<SceneContentProps> = ({
   return (
     <>
       <CameraRig
-        activeFixtureId={activeFixtureId}
+        activeWaypointId={activeWaypointId}
+        panOffset={panOffset}
         planeWidth={planeWidth}
         planeHeight={planeHeight}
-        isOrbitMode={isOrbitMode}
       />
 
-      {/* Orbit Controls (Active when drag-to-explore is enabled) */}
-      {isOrbitMode && (
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          dampingFactor={0.06}
-          rotateSpeed={0.5}
-          maxPolarAngle={Math.PI / 2 + 0.1}
-          minPolarAngle={Math.PI / 2 - 0.25}
-          minAzimuthAngle={-Math.PI / 5}
-          maxAzimuthAngle={Math.PI / 5}
-        />
-      )}
+      {/* Atmospheric Luxury Lighting */}
+      <ambientLight intensity={1.5} color="#eef7f8" />
+      <directionalLight position={[0, 6, 4]} intensity={2.0} color="#fff6e5" />
+      <pointLight position={[0, 3.4, 1.5]} intensity={3.0} color="#ffd88a" distance={12} />
 
-      {/* Atmospheric Luxury Lighting System with Aegean Undertones */}
-      <ambientLight intensity={1.4} color="#e6f4f5" />
-      <directionalLight position={[0, 6, 4]} intensity={2.2} color="#fff6e5" />
-      <pointLight position={[0, 3.4, 1.5]} intensity={3.0} color="#ffd88a" distance={11} />
-      <pointLight position={[-planeWidth * 0.28, 1.2, 0.8]} intensity={1.8} color="#00c2d3" distance={6} />
-      <pointLight position={[planeWidth * 0.28, 1.2, 0.8]} intensity={1.8} color="#00808c" distance={6} />
-
-      {/* Volumetric Floating Golden & Water Sparkles */}
+      {/* Volumetric Floating Golden & Water Mist Sparkles */}
       <Sparkles
         count={50}
-        scale={[planeWidth * 0.95, planeHeight * 0.95, 9]}
+        scale={[planeWidth * 0.9, planeHeight * 0.9, 8]}
         size={3.0}
         speed={0.35}
         opacity={0.65}
         color="#00c2d3"
       />
 
-      {/* Full-Bleed Curved Panoramic Luxury Bathroom Wall */}
+      {/* Full-Bleed Edge-to-Edge Panoramic Luxury Bathroom Sanctuary */}
       <Suspense fallback={null}>
         <SpaFullBleedBackdrop
           planeWidth={planeWidth}
@@ -553,57 +431,74 @@ const SceneContent: React.FC<SceneContentProps> = ({
         />
       </Suspense>
 
-      {/* 3D Spatial Micro-Beacons */}
+      {/* 3D Spatial Micro-Beacons on Key Fixtures */}
       {showHotspots &&
         FIXTURES_HOTSPOTS.map((f) => {
           const markerX = f.normX * planeWidth;
           const markerY = f.normY * planeHeight;
-          const markerZ = -Math.pow(markerX / (planeWidth * 0.5), 2) * 0.85 + 0.12;
+          const markerZ = -Math.pow(markerX / (planeWidth * 0.5), 2) * 0.35 + 0.12;
 
           return (
             <SpatialMicroBeacon
               key={f.id}
               fixture={f}
               position={[markerX, markerY, markerZ]}
-              isActive={activeFixtureId === f.id}
-              onSelect={() => onSelectFixture(f.id)}
+              isActive={activeWaypointId === f.waypointId || activeWaypointId === f.id}
+              onSelect={() => onSelectWaypoint(f.waypointId)}
             />
           );
         })}
-
-      {/* Focused 3D Model with Real PBR Materials & Water Simulation */}
-      <FocusedModelDispatcher
-        activeFixtureId={activeFixtureId}
-        activeFinish={activeFinish}
-        waterActive={waterActive}
-        planeWidth={planeWidth}
-        planeHeight={planeHeight}
-      />
     </>
   );
 };
 
 export interface SpaShowroom3DSceneProps {
-  activeFixtureId: string | null;
-  onSelectFixture: (id: string) => void;
+  activeWaypointId: string;
+  onSelectWaypoint: (id: string) => void;
   onResetZoom: () => void;
   showHotspots: boolean;
   activeFinish: ProductFinish;
-  waterActive: boolean;
-  isOrbitMode: boolean;
 }
 
 export const SpaShowroom3DScene: React.FC<SpaShowroom3DSceneProps> = ({
-  activeFixtureId,
-  onSelectFixture,
+  activeWaypointId,
+  onSelectWaypoint,
   onResetZoom,
   showHotspots,
-  activeFinish,
-  waterActive,
-  isOrbitMode,
 }) => {
+  const [panOffset, setPanOffset] = React.useState({ x: 0, y: 0 });
+  const isPointerDown = useRef(false);
+  const lastPointerPos = useRef({ x: 0, y: 0 });
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isPointerDown.current = true;
+    lastPointerPos.current = { x: e.clientX, y: e.clientY };
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isPointerDown.current) return;
+    const deltaX = e.clientX - lastPointerPos.current.x;
+    const deltaY = e.clientY - lastPointerPos.current.y;
+    lastPointerPos.current = { x: e.clientX, y: e.clientY };
+
+    setPanOffset((prev) => ({
+      x: THREE.MathUtils.clamp(prev.x + deltaX * 0.005, -1.8, 1.8),
+      y: THREE.MathUtils.clamp(prev.y - deltaY * 0.0035, -0.9, 0.9),
+    }));
+  };
+
+  const handlePointerUp = () => {
+    isPointerDown.current = false;
+  };
+
   return (
-    <div className="relative w-full h-full select-none cursor-grab active:cursor-grabbing">
+    <div
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
+      className="relative w-full h-full select-none cursor-grab active:cursor-grabbing"
+    >
       <Canvas
         camera={{ position: [0, 0, 10.0], fov: 46, near: 0.1, far: 80 }}
         dpr={[1, 2]}
@@ -611,18 +506,16 @@ export const SpaShowroom3DScene: React.FC<SpaShowroom3DSceneProps> = ({
           antialias: true,
           alpha: false,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.15,
+          toneMappingExposure: 1.05,
         }}
       >
         <color attach="background" args={['#031a1e']} />
         <SceneContent
-          activeFixtureId={activeFixtureId}
-          onSelectFixture={onSelectFixture}
+          activeWaypointId={activeWaypointId}
+          onSelectWaypoint={onSelectWaypoint}
           onResetZoom={onResetZoom}
           showHotspots={showHotspots}
-          activeFinish={activeFinish}
-          waterActive={waterActive}
-          isOrbitMode={isOrbitMode}
+          panOffset={panOffset}
         />
       </Canvas>
     </div>

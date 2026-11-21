@@ -9,10 +9,8 @@ import {
   Sparkles,
   X,
   ChevronDown,
-  Droplets,
-  Compass,
 } from 'lucide-react';
-import { SpaShowroom3DScene } from './SpaShowroom3DScene';
+import { SpaShowroom3DScene, SANCTUARY_WAYPOINTS } from './SpaShowroom3DScene';
 import { SANVERA_CATALOG } from '../../data/sanveraCatalog';
 import { sanveraProductToCollectionItem } from '../sections/CollectionSection';
 import { ProductViewerModal } from '../three/ProductViewerModal';
@@ -131,29 +129,35 @@ interface GoldenSpaShowroomProps {
 export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
   onOpenEnquiry,
 }) => {
-  const [activeFixtureId, setActiveFixtureId] = useState<string | null>(null);
+  const [activeWaypointId, setActiveWaypointId] = useState<string>('portal');
   const [activeFinish, setActiveFinish] = useState<ProductFinish>('brushed_brass');
-  const [waterActive, setWaterActive] = useState<boolean>(true);
   const [showHotspots, setShowHotspots] = useState<boolean>(true);
-  const [isOrbitMode, setIsOrbitMode] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [inspectedProduct, setInspectedProduct] = useState<CollectionItem | null>(null);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
+  const [isSpecDrawerOpen, setIsSpecDrawerOpen] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const activeFixtureInfo = SPA_FIXTURES_INFO.find((f) => f.id === activeFixtureId) || null;
+  const activeWaypoint =
+    SANCTUARY_WAYPOINTS.find((w) => w.id === activeWaypointId) || SANCTUARY_WAYPOINTS[0];
 
-  // Zoom / Fly to fixture
-  const handleSelectFixture = (id: string) => {
-    setActiveFixtureId(id);
+  // Resolve associated fixture info if at a specific fixture waypoint
+  const activeFixtureInfo =
+    SPA_FIXTURES_INFO.find((f) => f.id === activeWaypoint.fixtureId || f.id === activeWaypoint.id) || null;
+
+  // Walk to waypoint
+  const handleSelectWaypoint = (id: string) => {
+    setActiveWaypointId(id);
     setHasInteracted(true);
-    setIsOrbitMode(false);
+    // Keep drawer closed by default so view is 100% unobstructed (client request: "can u hide for now?")
+    setIsSpecDrawerOpen(false);
   };
 
-  // Reset to full sanctuary overview
+  // Reset to full sanctuary entrance
   const handleResetZoom = () => {
-    setActiveFixtureId(null);
+    setActiveWaypointId('portal');
+    setIsSpecDrawerOpen(false);
   };
 
   // Toggle fullscreen
@@ -171,13 +175,17 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
   // Listen to Escape key to zoom out
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && activeFixtureId) {
-        handleResetZoom();
+      if (e.key === 'Escape') {
+        if (isSpecDrawerOpen) {
+          setIsSpecDrawerOpen(false);
+        } else if (activeWaypointId !== 'portal') {
+          handleResetZoom();
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeFixtureId]);
+  }, [activeWaypointId, isSpecDrawerOpen]);
 
   // Inspect 3D Model Modal handler
   const handleInspect3D = (catalogId: string) => {
@@ -201,54 +209,30 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
         onOpenEnquiry={onOpenEnquiry}
       />
 
-      {/* Floating Sanctuary Breadcrumb (Sits below the fixed global header) */}
+      {/* Floating Sanctuary Breadcrumb (Top Left) */}
       <div className="absolute top-24 sm:top-28 left-6 sm:left-10 lg:left-16 z-30 flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#062429]/90 backdrop-blur-xl border border-[#00808c]/40 shadow-xl pointer-events-auto">
         <span className="w-2 h-2 rounded-full bg-[#00c2d3] animate-pulse shadow-[0_0_8px_#00c2d3]" />
         <span className="label-mono text-[10px] sm:text-[11px] text-[#00c2d3] tracking-widest uppercase font-semibold">
-          3D SANCTUARY
+          3D SHOWROOM
         </span>
         <span className="text-[#00808c]/60">·</span>
         <span className="editorial-title text-xs sm:text-sm text-white font-light">
-          The Golden Spa Showroom
+          {activeWaypoint.name}
         </span>
-        {activeFixtureInfo && (
-          <>
-            <span className="text-[#00808c]/60 hidden sm:inline">·</span>
-            <span className="label-mono text-[10px] text-[#d4af37] font-medium hidden sm:inline truncate max-w-[180px]">
-              {activeFixtureInfo.shortName} Focused
-            </span>
-          </>
-        )}
       </div>
 
       {/* Viewport Control Actions (Top Right) */}
       <div className="absolute top-24 sm:top-28 right-6 sm:right-10 lg:right-16 z-30 flex items-center gap-2 sm:gap-2.5 pointer-events-auto">
-        {activeFixtureId && (
+        {activeWaypointId !== 'portal' && (
           <button
             onClick={handleResetZoom}
             className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#041c20] font-semibold text-xs transition-all shadow-lg shadow-[#d4af37]/25 hover:scale-105 cursor-pointer"
-            title="Return to full bathroom overview (Escape)"
+            title="Return to grand entrance portal (Escape)"
           >
             <RotateCcw size={13} className="text-[#041c20]" />
             <span className="label-mono text-[10px]">Overview (Esc)</span>
           </button>
         )}
-
-        {/* Orbit / Parallax Mode Toggle */}
-        <button
-          onClick={() => setIsOrbitMode(!isOrbitMode)}
-          className={`px-3 py-1.5 rounded-full border text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
-            isOrbitMode
-              ? 'bg-[#00808c] border-[#00c2d3] text-white shadow-[#00808c]/40'
-              : 'bg-[#062429]/90 border-[#00808c]/40 text-[#c0dcdd] hover:text-white'
-          }`}
-          title={isOrbitMode ? 'Switch to Parallax Mode' : 'Switch to 3D Orbit Drag Mode'}
-        >
-          <Compass size={14} className={isOrbitMode ? 'animate-spin' : ''} />
-          <span className="label-mono text-[10px] hidden sm:inline">
-            {isOrbitMode ? 'Orbit Active' : 'Drag to Look'}
-          </span>
-        </button>
 
         <button
           onClick={() => setShowHotspots(!showHotspots)}
@@ -257,7 +241,7 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
               ? 'bg-[#062429]/90 border-[#00c2d3]/60 text-[#00c2d3] shadow-md shadow-black/40'
               : 'bg-[#062429]/60 border-[#00808c]/30 text-[#789fa2] hover:text-[#00c2d3]'
           }`}
-          title={showHotspots ? 'Hide 3D Beacons' : 'Show 3D Beacons'}
+          title={showHotspots ? 'Hide Hotspots' : 'Show Hotspots'}
         >
           <Eye size={15} />
         </button>
@@ -271,34 +255,57 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
         </button>
       </div>
 
-      {/* Main Full-Bleed 3D WebGL Canvas */}
+      {/* Main Full-Bleed Edge-to-Edge 3D WebGL Canvas */}
       <div className="absolute inset-0 w-full h-full">
         <SpaShowroom3DScene
-          activeFixtureId={activeFixtureId}
-          onSelectFixture={handleSelectFixture}
+          activeWaypointId={activeWaypointId}
+          onSelectWaypoint={handleSelectWaypoint}
           onResetZoom={handleResetZoom}
           showHotspots={showHotspots}
           activeFinish={activeFinish}
-          waterActive={waterActive}
-          isOrbitMode={isOrbitMode}
         />
       </div>
 
-      {/* First-time prompt banner */}
-      {!hasInteracted && !activeFixtureId && (
+      {/* First-time exploration guidance */}
+      {!hasInteracted && activeWaypointId === 'portal' && (
         <div className="absolute top-36 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
           <div className="px-5 py-2 rounded-full bg-[#062429]/92 backdrop-blur-xl border border-[#00c2d3]/40 text-center shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
             <span className="label-mono text-[10px] sm:text-[11px] text-[#f5df9a] tracking-wider flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00c2d3] animate-ping" />
-              Explore 3D room parallax & drag to look · Click any beacon or fixture below to inspect
+              Drag anywhere to look around · Click fixtures or dock below to zoom in
             </span>
           </div>
         </div>
       )}
 
-      {/* Floating Architectural Fixture Card (Appears on right side when fixture is selected) */}
+      {/* Minimal Floating Fixture Badge (Unobtrusive - client requested clean view: "can u hide for now?") */}
       {activeFixtureInfo && (
-        <div className="absolute top-36 sm:top-28 right-6 sm:right-10 z-40 max-w-[350px] sm:max-w-[390px] w-full bg-[#062429]/95 backdrop-blur-2xl border border-[#00808c]/50 rounded-2xl p-5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] text-[#f8fafc] transition-all duration-500 pointer-events-auto animate-fadeIn">
+        <div className="absolute top-36 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#062429]/92 backdrop-blur-xl border border-[#00808c]/50 shadow-2xl pointer-events-auto animate-fadeIn max-w-[92vw]">
+          <span className="w-2 h-2 rounded-full bg-[#00c2d3] animate-pulse" />
+          <span className="editorial-title text-xs sm:text-sm text-white font-light truncate max-w-[200px] sm:max-w-[340px]">
+            {activeFixtureInfo.name}
+          </span>
+          <div className="flex items-center gap-1.5 pl-2 border-l border-[#00808c]/40">
+            <button
+              onClick={() => setIsSpecDrawerOpen(!isSpecDrawerOpen)}
+              className="px-3 py-1 rounded-full bg-[#00808c]/30 hover:bg-[#00808c]/60 border border-[#00c2d3]/50 text-[10px] label-mono text-[#00c2d3] hover:text-white transition-all cursor-pointer font-medium"
+            >
+              {isSpecDrawerOpen ? 'Hide Spec' : 'View Spec'}
+            </button>
+            <button
+              onClick={handleResetZoom}
+              className="p-1 rounded-full text-[#789fa2] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              title="Return to Grand Portal (Escape)"
+            >
+              <X size={14} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Architectural Fixture Spec Card (Slides in ONLY when user clicks 'View Spec') */}
+      {activeFixtureInfo && isSpecDrawerOpen && (
+        <div className="absolute top-28 sm:top-28 right-6 sm:right-10 z-40 max-w-[350px] sm:max-w-[390px] w-full bg-[#062429]/95 backdrop-blur-2xl border border-[#00808c]/50 rounded-2xl p-5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] text-[#f8fafc] transition-all duration-300 pointer-events-auto animate-fadeIn">
           {/* Category Header with Close Button */}
           <div className="flex items-center justify-between pb-3 border-b border-[#00808c]/30">
             <span className="label-mono text-[#00c2d3] text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1.5">
@@ -306,9 +313,9 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
               {activeFixtureInfo.categoryName} · {activeFixtureInfo.sku}
             </span>
             <button
-              onClick={handleResetZoom}
+              onClick={() => setIsSpecDrawerOpen(false)}
               className="p-1 rounded-full text-[#789fa2] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-              title="Close and return to overview (Escape)"
+              title="Close Spec"
             >
               <X size={15} />
             </button>
@@ -377,29 +384,6 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
             </div>
           </div>
 
-          {/* Water Stream Toggle */}
-          <div className="mt-2.5 flex items-center justify-between py-1.5 px-3 rounded-lg bg-[#082a30] border border-[#00808c]/30">
-            <div className="flex items-center gap-2">
-              <Droplets
-                size={13}
-                className={waterActive ? 'text-[#00c2d3] animate-pulse' : 'text-[#789fa2]'}
-              />
-              <span className="text-[10px] label-mono text-[#d2dfdf]">
-                3D Water Flow: {waterActive ? 'Active' : 'Off'}
-              </span>
-            </div>
-            <button
-              onClick={() => setWaterActive(!waterActive)}
-              className={`px-2 py-0.5 rounded text-[9px] label-mono uppercase font-semibold transition-colors cursor-pointer ${
-                waterActive
-                  ? 'bg-[#00808c] text-white hover:bg-[#00a3b0]'
-                  : 'bg-[#0c363d] text-[#789fa2] hover:text-white'
-              }`}
-            >
-              {waterActive ? 'Flowing' : 'Enable'}
-            </button>
-          </div>
-
           {/* Specifications */}
           <div className="mt-2.5 pt-2 border-t border-[#00808c]/30 space-y-1 text-xs font-light">
             <div className="flex items-start justify-between text-[10px]">
@@ -432,53 +416,30 @@ export const GoldenSpaShowroom: React.FC<GoldenSpaShowroomProps> = ({
               <ArrowRight size={12} className="text-[#00c2d3]" />
             </button>
           </div>
-
-          <button
-            onClick={handleResetZoom}
-            className="mt-2.5 w-full py-1 text-center label-mono text-[9px] text-[#789fa2] hover:text-[#00c2d3] transition-colors cursor-pointer"
-          >
-            ← Return to Full Sanctuary Overview (Escape)
-          </button>
         </div>
       )}
 
-      {/* Bottom Luxury Fixture Quick-Select Dock in Rich Architectural Teal Glass */}
+      {/* Bottom Luxury Architectural Walkaround Vantage Dock */}
       <div className="absolute bottom-11 sm:bottom-14 left-1/2 -translate-x-1/2 z-40 max-w-[94vw] sm:max-w-fit w-auto pointer-events-auto">
         <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#062429]/95 backdrop-blur-xl border border-[#00808c]/50 shadow-2xl overflow-x-auto scrollbar-none">
-          {/* Full View Reset Button */}
-          <button
-            onClick={handleResetZoom}
-            className={`px-3.5 py-1.5 rounded-xl border text-[11px] whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
-              !activeFixtureId
-                ? 'bg-gradient-to-r from-[#d4af37] via-[#e5c572] to-[#b88c2b] text-[#041c20] font-semibold border-transparent shadow-md shadow-[#d4af37]/30'
-                : 'bg-transparent border-transparent text-[#c0dcdd] hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <RotateCcw size={12} className={!activeFixtureId ? 'text-[#041c20]' : 'text-[#00c2d3]'} />
-            <span>Full Sanctuary</span>
-          </button>
-
-          <div className="w-px h-4 bg-[#00808c]/40 mx-0.5" />
-
-          {/* Fixture Selector Buttons */}
-          {SPA_FIXTURES_INFO.map((f) => {
-            const isSelected = activeFixtureId === f.id;
+          {SANCTUARY_WAYPOINTS.map((w) => {
+            const isSelected = activeWaypointId === w.id;
             return (
               <button
-                key={f.id}
-                onClick={() => handleSelectFixture(f.id)}
-                className={`px-3 py-1.5 rounded-xl border text-[11px] whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+                key={w.id}
+                onClick={() => handleSelectWaypoint(w.id)}
+                className={`px-3.5 py-1.5 rounded-xl border text-[11px] whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
                   isSelected
                     ? 'bg-gradient-to-r from-[#00808c] to-[#00a8b5] text-white font-medium border-transparent shadow-md shadow-[#00808c]/50'
                     : 'bg-transparent border-transparent text-[#c0dcdd] hover:text-white hover:bg-white/5'
                 }`}
               >
-                <span
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    isSelected ? 'bg-white' : 'bg-[#00c2d3]'
-                  }`}
-                />
-                <span>{f.shortName}</span>
+                {w.id === 'portal' ? (
+                  <RotateCcw size={12} className={isSelected ? 'text-white' : 'text-[#00c2d3]'} />
+                ) : (
+                  <Sparkles size={12} className={isSelected ? 'text-white' : 'text-[#00c2d3]'} />
+                )}
+                <span>{w.shortName}</span>
               </button>
             );
           })}
